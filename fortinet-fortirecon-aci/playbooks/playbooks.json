@@ -1,0 +1,719 @@
+{
+  "type": "workflow_collections",
+  "data": [
+    {
+      "uuid": "7a145247-0a97-4b39-9902-8bd8e0be0e43",
+      "@type": "WorkflowCollection",
+      "name": "Sample - Fortinet FortiRecon ACI - 1.0.1",
+      "description": "FortiRecon is a Digital Risk Protection Service (DRPS) product that provides an outside-the-network view to the risks posed to your enterprise.The Adversary Centric Intelligence (ACI) module leverages FortiGuard Threat Analysts to provide comprehensive coverage of dark web, open source, and technical threat intelligence, including threat actor insights. This information enables administrators to proactively assess risks, respond faster to incidents, better understand their attackers, and protect assets. This connector facilitates the automated operations related to ACI",
+      "visible": true,
+      "image": null,
+      "recordTags": [
+        "Fortinet",
+        "fortinet-fortirecon-aci"
+      ],
+      "workflows": [
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Get Reports With IOCs",
+          "aliasName": null,
+          "tag": "#Fortinet FortiRecon ACI",
+          "description": "Retrieves details, including IOCs, for a specific report for the given organization ID and the report ID you have specified from Fortinet FortiRecon ACI.\nThe data returned by this operation contains a list of all the filtered reports with title, summary, report URL, IOCs, and the metadata related to the reports.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1679902010,
+          "collection": "/api/3/workflow_collections/7a145247-0a97-4b39-9902-8bd8e0be0e43",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/e8b2aa71-8467-4ee1-ac4d-dbcf88eba0d9",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Reports With IOCs",
+              "description": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "''",
+                "params": [],
+                "version": "1.0.1",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_reports_with_iocs",
+                "operationTitle": "Get Reports With IOCs",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "51090f8f-afd2-48dd-92eb-0201f2eb9b7f"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "9adbeaa2-a2f7-487a-90fe-358d80b98626",
+                "title": "Fortinet FortiRecon ACI: Get Reports With IOCs",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
+              "uuid": "e8b2aa71-8467-4ee1-ac4d-dbcf88eba0d9"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start-> Get Reports With IOCs",
+              "targetStep": "/api/3/workflow_steps/51090f8f-afd2-48dd-92eb-0201f2eb9b7f",
+              "sourceStep": "/api/3/workflow_steps/e8b2aa71-8467-4ee1-ac4d-dbcf88eba0d9",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "f0ad604e-5e1f-4459-9b96-f067382a1a33"
+            }
+          ],
+          "groups": [],
+          "priority": null,
+          "uuid": "1e8f9fad-9f20-4bcc-a9d9-5655abcecbde",
+          "id": 6674,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "Fortinet",
+            "fortinet-fortirecon-aci"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Get Widgets",
+          "aliasName": null,
+          "tag": "#Fortinet FortiRecon ACI",
+          "description": "Retrieves a list of all widgets or specific widgets for the given organization ID and other input parameters you have specified from Fortinet FortiRecon ACI.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1679902101,
+          "collection": "/api/3/workflow_collections/7a145247-0a97-4b39-9902-8bd8e0be0e43",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/c49b4d94-445d-4c89-9534-79fa73099ac3",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Widgets",
+              "description": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "''",
+                "params": {
+                  "page": "",
+                  "size": 10
+                },
+                "version": "1.0.1",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_widgets",
+                "operationTitle": "Get Widgets",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "b3ab0982-649e-4304-b70f-8ff1f3aea561"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "ca0ce105-a33e-483c-bdb8-3be728551947",
+                "title": "Fortinet FortiRecon ACI: Get Widgets",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
+              "uuid": "c49b4d94-445d-4c89-9534-79fa73099ac3"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start-> Get Widgets",
+              "targetStep": "/api/3/workflow_steps/b3ab0982-649e-4304-b70f-8ff1f3aea561",
+              "sourceStep": "/api/3/workflow_steps/c49b4d94-445d-4c89-9534-79fa73099ac3",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "04c8fefc-004b-4875-9cda-120f6bc1383f"
+            }
+          ],
+          "groups": [],
+          "priority": null,
+          "uuid": "4468fb11-9f8d-48b9-814c-6e23625157ff",
+          "id": 6671,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "Fortinet",
+            "fortinet-fortirecon-aci"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Get Leaked Cards",
+          "aliasName": null,
+          "tag": "#Fortinet FortiRecon ACI",
+          "description": "Retrieves a list of all leaked cards or specific leaked cards found for the given organization ID and other input parameters you have specified from Fortinet FortiRecon ACI.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1679902122,
+          "collection": "/api/3/workflow_collections/7a145247-0a97-4b39-9902-8bd8e0be0e43",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/57f7a13c-721b-42cf-843a-5ac8da87c5a6",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Leaked Cards",
+              "description": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "''",
+                "params": {
+                  "bin": "",
+                  "page": "",
+                  "size": 10,
+                  "type": "",
+                  "end_date": "",
+                  "start_date": ""
+                },
+                "version": "1.0.1",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_leaked_cards",
+                "operationTitle": "Get Leaked Cards",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "3a8fe80d-7876-40c2-88dc-e4d82a20a85a"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "31eb3bad-9507-40bf-9c0a-bb7376660d2d",
+                "title": "Fortinet FortiRecon ACI: Get Leaked Cards",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
+              "uuid": "57f7a13c-721b-42cf-843a-5ac8da87c5a6"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start-> Get Leaked Cards",
+              "targetStep": "/api/3/workflow_steps/3a8fe80d-7876-40c2-88dc-e4d82a20a85a",
+              "sourceStep": "/api/3/workflow_steps/57f7a13c-721b-42cf-843a-5ac8da87c5a6",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "5a19060e-28f2-4e4a-a27a-f12f46ceb805"
+            }
+          ],
+          "groups": [],
+          "priority": null,
+          "uuid": "aa70c0e9-3734-4e41-9426-285a912d4ed9",
+          "id": 6670,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "Fortinet",
+            "fortinet-fortirecon-aci"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Get Stealers Log",
+          "aliasName": null,
+          "tag": "#Fortinet FortiRecon ACI",
+          "description": "Retrieves a list of all stealer log infections or specific stealer log infections for the given organization ID and other input parameters you have specified from Fortinet FortiRecon ACI.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1679901969,
+          "collection": "/api/3/workflow_collections/7a145247-0a97-4b39-9902-8bd8e0be0e43",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/b0f27be6-85a1-40be-9ee7-255e840943ed",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Stealers Log",
+              "description": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "''",
+                "params": {
+                  "isp": "",
+                  "page": "",
+                  "size": 10,
+                  "state": "",
+                  "domain": "",
+                  "country": "",
+                  "keyword": "",
+                  "end_date": "",
+                  "start_date": "",
+                  "marketplace": "",
+                  "stealer_name": ""
+                },
+                "version": "1.0.1",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_stealers_log",
+                "operationTitle": "Get Stealers Log",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "4330888e-73a6-4f02-9fc4-c0ecc765dc48"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "c2cf0c4f-7605-4f5a-b3ca-8229830161be",
+                "title": "Fortinet FortiRecon ACI: Get Stealers Log",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
+              "uuid": "b0f27be6-85a1-40be-9ee7-255e840943ed"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start-> Get Stealers Log",
+              "targetStep": "/api/3/workflow_steps/4330888e-73a6-4f02-9fc4-c0ecc765dc48",
+              "sourceStep": "/api/3/workflow_steps/b0f27be6-85a1-40be-9ee7-255e840943ed",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "ba0eff5d-4449-451a-8a3e-a3e3034b0e98"
+            }
+          ],
+          "groups": [],
+          "priority": null,
+          "uuid": "c490cb6e-138c-4afd-bc14-0703892f4319",
+          "id": 6675,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "Fortinet",
+            "fortinet-fortirecon-aci"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Get IOCs",
+          "aliasName": null,
+          "tag": "#Fortinet FortiRecon ACI",
+          "description": "Retrieves a list of all IOCs or specific IOCs published in ACI reporting for the given organization ID and other input parameters you have specified.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1679901895,
+          "collection": "/api/3/workflow_collections/7a145247-0a97-4b39-9902-8bd8e0be0e43",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/1f0cd4e4-38e7-416d-a719-741ad7fce001",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "851135e7-99f4-4427-b298-936fb58936e4",
+                "title": "Fortinet FortiRecon ACI: Get IOCs",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
+              "uuid": "1f0cd4e4-38e7-416d-a719-741ad7fce001"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get IOCs",
+              "description": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "''",
+                "params": {
+                  "page": "",
+                  "size": 10,
+                  "end_date": "",
+                  "ioc_type": "",
+                  "report_id": "",
+                  "start_date": ""
+                },
+                "version": "1.0.1",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_iocs",
+                "operationTitle": "Get IOCs",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "d0c439de-9c5e-4829-a7cb-c22699ae0bde"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start-> Get IOCs",
+              "targetStep": "/api/3/workflow_steps/d0c439de-9c5e-4829-a7cb-c22699ae0bde",
+              "sourceStep": "/api/3/workflow_steps/1f0cd4e4-38e7-416d-a719-741ad7fce001",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "2ebae522-dcdd-4dcf-ada1-4687afdb8a7a"
+            }
+          ],
+          "groups": [],
+          "priority": null,
+          "uuid": "eac1c9b2-2a2e-4f9e-b3c8-debd1b39d0a1",
+          "id": 6669,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "Fortinet",
+            "fortinet-fortirecon-aci"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Get Reports",
+          "aliasName": null,
+          "tag": "#Fortinet FortiRecon ACI",
+          "description": "Retrieves a list of all reports or specific reports for the given organization ID and other input parameters you have specified from Fortinet FortiRecon ACI.\nThe data returned by this operation contains a list of all the filtered reports with title, summary, report URL, and the metadata related to the reports. Note that IOCs are not included in the returned data.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1679902055,
+          "collection": "/api/3/workflow_collections/7a145247-0a97-4b39-9902-8bd8e0be0e43",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/7dd5d338-63ac-4273-aab7-3c48a6856c75",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Reports",
+              "description": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "''",
+                "params": {
+                  "page": "",
+                  "size": 10,
+                  "tags": "",
+                  "keyword": "",
+                  "end_date": "",
+                  "industry": "",
+                  "adversary": "",
+                  "geography": "",
+                  "start_date": "",
+                  "report_type": "",
+                  "source_category": "",
+                  "relevance_rating": "",
+                  "source_reliability": "",
+                  "information_reliability": ""
+                },
+                "version": "1.0.1",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_reports",
+                "operationTitle": "Get Reports",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "13d35eee-956c-4465-b40c-dbdfe2fecb02"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "0fd01554-7fbe-4910-9c6c-b9775b2ed789",
+                "title": "Fortinet FortiRecon ACI: Get Reports",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
+              "uuid": "7dd5d338-63ac-4273-aab7-3c48a6856c75"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start-> Get Reports",
+              "targetStep": "/api/3/workflow_steps/13d35eee-956c-4465-b40c-dbdfe2fecb02",
+              "sourceStep": "/api/3/workflow_steps/7dd5d338-63ac-4273-aab7-3c48a6856c75",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "68cf0184-4a71-453c-aa65-5a85e7a6fea9"
+            }
+          ],
+          "groups": [],
+          "priority": null,
+          "uuid": "edcb8a07-438c-48bb-bbe6-1ea0a5609e62",
+          "id": 6673,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "Fortinet",
+            "fortinet-fortirecon-aci"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Get OSINT Feeds",
+          "aliasName": null,
+          "tag": "#Fortinet FortiRecon ACI",
+          "description": "Retrieves a list of all OSINT feeds or specific OSINT feeds for the given organization ID and other input parameters you have specified from Fortinet FortiRecon ACI.",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1679902075,
+          "collection": "/api/3/workflow_collections/7a145247-0a97-4b39-9902-8bd8e0be0e43",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/27c82c19-804c-4dd5-8ecb-59bc9e249187",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "route": "a71d2a5b-8d7e-470d-a410-6e0ceb3c3b5d",
+                "title": "Fortinet FortiRecon ACI: Get OSINT Feeds",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "executeButtonText": "Execute",
+                "noRecordExecution": true,
+                "singleRecordExecution": false
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a",
+              "group": null,
+              "uuid": "27c82c19-804c-4dd5-8ecb-59bc9e249187"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get OSINT Feeds",
+              "description": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "''",
+                "params": {
+                  "page": "",
+                  "size": 10,
+                  "keyword": "",
+                  "widget_id": ""
+                },
+                "version": "1.0.1",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_osint_feeds",
+                "operationTitle": "Get OSINT Feeds",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "3018c765-2f2f-4ed5-ac66-0103b372235e"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start-> Get OSINT Feeds",
+              "targetStep": "/api/3/workflow_steps/3018c765-2f2f-4ed5-ac66-0103b372235e",
+              "sourceStep": "/api/3/workflow_steps/27c82c19-804c-4dd5-8ecb-59bc9e249187",
+              "label": null,
+              "isExecuted": false,
+              "uuid": "b5244e33-9a2f-4a98-b46b-905a5a9ed4d0"
+            }
+          ],
+          "groups": [],
+          "priority": null,
+          "uuid": "efdbaee9-dca4-461c-ada1-658f27d8fbd2",
+          "id": 6672,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "Fortinet",
+            "fortinet-fortirecon-aci"
+          ]
+        }
+      ]
+    }
+  ]
+}
