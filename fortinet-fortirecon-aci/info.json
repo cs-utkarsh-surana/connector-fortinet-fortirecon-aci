@@ -9,7 +9,16 @@
   "category": "Attack Surface Management",
   "icon_small_name": "small_icon.png",
   "icon_large_name": "large_icon.png",
-  "help_online": "https://docs.fortinet.com/document/fortisoar/1.0.1/fortinet-fortirecon-aci/542/fortinet-fortirecon-aci-v1-0-1",
+  "ingestion_supported": true,
+  "ingestion_modes": [
+    "scheduled"
+  ],
+  "ingestion_preferences": {
+    "modules": [
+      "threat_intel_reports"
+    ]
+  },
+  "help_online": "",
   "configuration": {
     "fields": [
       {
