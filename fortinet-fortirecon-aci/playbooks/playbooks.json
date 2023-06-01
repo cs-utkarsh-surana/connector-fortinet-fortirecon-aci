@@ -1808,7 +1808,7 @@
             "report_details"
           ],
           "synchronous": false,
-          "lastModifyDate": 1685359424,
+          "lastModifyDate": 1685602168,
           "collection": "/api/3/workflow_collections/7a145247-0a97-4b39-9902-8bd8e0be0e43",
           "versions": [],
           "triggerStep": "/api/3/workflow_steps/590eb40a-f17a-40e0-bf61-d715b864f4a9",
@@ -1823,7 +1823,7 @@
                   "__link": {
                     "recordTags": "{{vars.threat_tags}}"
                   },
-                  "source": "FortiReconACI-{{vars.report_details.report_id}}",
+                  "source": "FortiRecon ACI Report",
                   "status": "{{vars.report_details.status}}",
                   "threat": "{{vars.report_details.threat}}",
                   "summary": "<p>{{vars.report_details.summary}}</p>",
