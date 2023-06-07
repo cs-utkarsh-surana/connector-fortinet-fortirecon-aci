@@ -776,7 +776,7 @@
           "remoteExecutableFlag": false,
           "parameters": [],
           "synchronous": false,
-          "lastModifyDate": 1686119431,
+          "lastModifyDate": 1686130996,
           "collection": "/api/3/workflow_collections/7a145247-0a97-4b39-9902-8bd8e0be0e43",
           "versions": [],
           "triggerStep": "/api/3/workflow_steps/6b92edb8-103d-459d-823f-82c441a29878",
@@ -948,44 +948,6 @@
             },
             {
               "@type": "WorkflowStep",
-              "name": "Get Technical Intelligence Report",
-              "description": null,
-              "arguments": {
-                "name": "Fortinet FortiRecon ACI",
-                "config": "0739e555-96c6-46f6-8a39-25066be858c5",
-                "params": {
-                  "page": "",
-                  "size": "{{vars.page_size}}",
-                  "tags": "",
-                  "keyword": "",
-                  "end_date": "{{arrow.get(vars.fetchTime).format('YYYY-MM-DDTHH:mm:ss.SSS')}}Z",
-                  "industry": "",
-                  "adversary": "",
-                  "geography": "",
-                  "start_date": "{{arrow.get(vars.lastPullTime).format('YYYY-MM-DDTHH:mm:ss.SSS')}}Z",
-                  "report_type": "",
-                  "source_category": "{{vars.source_category}}",
-                  "relevance_rating": "",
-                  "source_reliability": "",
-                  "information_reliability": ""
-                },
-                "version": "1.1.0",
-                "connector": "fortinet-fortirecon-aci",
-                "operation": "get_reports",
-                "operationTitle": "Get Reports",
-                "step_variables": {
-                  "page_numbers": "{{((vars.steps.Get_Technical_Intelligence_Report.data.total / vars.steps.Get_Technical_Intelligence_Report.data.size) | round(0, 'ceil'))}}"
-                }
-              },
-              "status": null,
-              "top": "705",
-              "left": "475",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "group": null,
-              "uuid": "fef5ea01-e946-4097-b1f9-2a0edddc63f6"
-            },
-            {
-              "@type": "WorkflowStep",
               "name": "Get Technical Intelligence Reports",
               "description": null,
               "arguments": {
@@ -1011,9 +973,7 @@
                 "connector": "fortinet-fortirecon-aci",
                 "operation": "get_reports",
                 "operationTitle": "Get Reports",
-                "step_variables": {
-                  "page_numbers": "{{((vars.steps.Get_Technical_Intelligence_Reports.data.total / vars.steps.Get_Technical_Intelligence_Reports.data.size) | round(0, 'ceil'))}}"
-                }
+                "step_variables": []
               },
               "status": null,
               "top": "705",
@@ -1065,17 +1025,39 @@
             },
             {
               "@type": "WorkflowStep",
-              "name": "Return Sample Data",
+              "name": "Return Sample Reports",
               "description": null,
               "arguments": {
-                "data": "{{vars.steps.Get_Technical_Intelligence_Report.data.hits[:5]}}"
+                "name": "Fortinet FortiRecon ACI",
+                "config": "0739e555-96c6-46f6-8a39-25066be858c5",
+                "params": {
+                  "page": "",
+                  "size": "5",
+                  "tags": "",
+                  "keyword": "",
+                  "end_date": "{{arrow.get(vars.fetchTime).format('YYYY-MM-DDTHH:mm:ss.SSS')}}Z",
+                  "industry": "",
+                  "adversary": "",
+                  "geography": "",
+                  "start_date": "{{arrow.get(vars.lastPullTime).format('YYYY-MM-DDTHH:mm:ss.SSS')}}Z",
+                  "report_type": "",
+                  "source_category": "{{vars.source_category}}",
+                  "relevance_rating": "",
+                  "source_reliability": "",
+                  "information_reliability": ""
+                },
+                "version": "1.1.0",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_reports",
+                "operationTitle": "Get Reports",
+                "step_variables": []
               },
               "status": null,
-              "top": "840",
+              "top": "705",
               "left": "475",
-              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
               "group": null,
-              "uuid": "f2a76069-18ec-4475-a950-fb493ee46dad"
+              "uuid": "fef5ea01-e946-4097-b1f9-2a0edddc63f6"
             },
             {
               "@type": "WorkflowStep",
@@ -1189,16 +1171,6 @@
               "isExecuted": false,
               "group": null,
               "uuid": "429ad869-7e5d-459f-bfbd-48f68dc8042f"
-            },
-            {
-              "@type": "WorkflowRoute",
-              "name": "Get Technical Intelligence Report -> Return Sample Data",
-              "targetStep": "/api/3/workflow_steps/f2a76069-18ec-4475-a950-fb493ee46dad",
-              "sourceStep": "/api/3/workflow_steps/fef5ea01-e946-4097-b1f9-2a0edddc63f6",
-              "label": null,
-              "isExecuted": false,
-              "group": null,
-              "uuid": "30569cc1-36c0-4ff5-9445-bbbe449526e9"
             },
             {
               "@type": "WorkflowRoute",
@@ -1665,7 +1637,7 @@
           "remoteExecutableFlag": false,
           "parameters": [],
           "synchronous": false,
-          "lastModifyDate": 1683709927,
+          "lastModifyDate": 1686131147,
           "collection": "/api/3/workflow_collections/7a145247-0a97-4b39-9902-8bd8e0be0e43",
           "versions": [],
           "triggerStep": "/api/3/workflow_steps/1f0cd4e4-38e7-416d-a719-741ad7fce001",
