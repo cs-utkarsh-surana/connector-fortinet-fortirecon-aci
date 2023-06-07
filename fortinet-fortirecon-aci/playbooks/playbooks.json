@@ -115,79 +115,144 @@
         {
           "@type": "Workflow",
           "triggerLimit": null,
-          "name": "Map Adversary to MITRE Groups/Techniques/Softwares",
+          "name": "Get FortiRecon ACI Threat Intel Report IOC",
           "aliasName": null,
           "tag": null,
-          "description": "Map threat report adversary to MITRE Groups/Techniques/Softwares",
+          "description": "Fetch the associated ioc for specified FortiRecon ACI threat intel report",
           "isActive": false,
           "debug": false,
           "singleRecordExecution": false,
           "remoteExecutableFlag": false,
-          "parameters": [],
+          "parameters": [
+            "report_details",
+            "page_size"
+          ],
           "synchronous": false,
-          "lastModifyDate": 1685360509,
+          "lastModifyDate": 1686119431,
           "collection": "/api/3/workflow_collections/7a145247-0a97-4b39-9902-8bd8e0be0e43",
           "versions": [],
-          "triggerStep": "/api/3/workflow_steps/e258d345-83d2-4093-8ddb-5c70584c80cf",
+          "triggerStep": "/api/3/workflow_steps/c6f1d435-6b8a-4390-b8e9-1559a3056918",
           "steps": [
             {
               "@type": "WorkflowStep",
               "name": "Configuration",
               "description": null,
               "arguments": {
-                "software": "[]",
-                "groups_iri": "[]",
-                "techniques": "[]"
+                "page_size": "{{vars.input.params['page_size']}}",
+                "technical_intelligence_report_iocs": "[]"
               },
               "status": null,
               "top": "165",
               "left": "125",
               "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
               "group": null,
-              "uuid": "ccd22403-f348-413f-bc6f-1be21f256652"
+              "uuid": "d6ad5a21-92e6-4311-9701-20bbc9df7c4e"
             },
             {
               "@type": "WorkflowStep",
-              "name": "Find Adversary in MITRE Associated Groups",
+              "name": "Fetch IOC",
               "description": null,
               "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "0739e555-96c6-46f6-8a39-25066be858c5",
                 "params": {
-                  "iri": "/api/query/mitre_groups?$limit=300$relationships=true",
-                  "body": "{\n  \"sort\": [],\n  \"limit\": 30,\n  \"logic\": \"AND\",\n  \"filters\": [\n    {\n      \"field\": \"aliases\",\n      \"operator\": \"like\",\n      \"_operator\": \"like\",\n      \"value\": \"{{vars.item}}%\",\n      \"type\": \"primitive\"\n    }\n  ],\n  \"__selectFields\": [\n    \"aliases\",\n    \"@id\",\n    \"software\",\n    \"techniques\"\n  ]\n}",
-                  "method": "POST"
+                  "page": "{{vars.item}}",
+                  "size": "{{vars.page_size}}",
+                  "end_date": "",
+                  "ioc_type": "",
+                  "report_id": "{{vars.input.params['report_details'].report_id}}",
+                  "start_date": ""
                 },
-                "version": "3.2.3",
+                "version": "1.1.0",
                 "for_each": {
-                  "item": "{{vars.input.records[0].adversary}}",
-                  "__bulk": false,
-                  "parallel": true,
+                  "item": "{{range(2,((vars.page_numbers | int)+1)) | list}}",
+                  "parallel": false,
                   "condition": ""
                 },
-                "connector": "cyops_utilities",
-                "operation": "make_cyops_request",
-                "operationTitle": "FSR: Make FortiSOAR API Call",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_iocs",
+                "operationTitle": "Get IOCs",
+                "pickFromTenant": false,
+                "step_variables": []
+              },
+              "status": null,
+              "top": "570",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "71985ecc-dd22-40ed-a674-6032b5501284"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get All Technical Intelligence Report IOCs",
+              "description": null,
+              "arguments": {
+                "_tmp": "{% for item in vars.steps.Get_IOC.data.hits %}{% set _ = vars.technical_intelligence_report_iocs.append(item) %}{% endfor %}\n{% for item in vars.steps.Fetch_IOC %}{% for i in item.data.hits %}{% set _ = vars.technical_intelligence_report_iocs.append(i) %}{% endfor %}{% endfor %}"
+              },
+              "status": null,
+              "top": "705",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "group": null,
+              "uuid": "5960529b-d91f-46f2-92bc-5560933a14d8"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get IOC",
+              "description": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "0739e555-96c6-46f6-8a39-25066be858c5",
+                "params": {
+                  "page": "",
+                  "size": "{{vars.page_size}}",
+                  "end_date": "",
+                  "ioc_type": "",
+                  "report_id": "{{vars.input.params['report_details'].report_id}}",
+                  "start_date": ""
+                },
+                "version": "1.1.0",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_iocs",
+                "operationTitle": "Get IOCs",
+                "pickFromTenant": false,
                 "step_variables": []
               },
               "status": null,
               "top": "300",
               "left": "125",
-              "stepType": "/api/3/workflow_step_types/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
               "group": null,
-              "uuid": "aa2364c0-977f-465b-85cc-ccb9a7ea64b1"
+              "uuid": "b1de0fe1-e1f3-4ac9-996c-1944cede72ea"
             },
             {
               "@type": "WorkflowStep",
-              "name": "Get Unique Groups",
+              "name": "Get Total Number Pages",
               "description": null,
               "arguments": {
-                "__temp": "{% for item in vars.steps.Find_Adversary_in_MITRE_Associated_Groups %}\n{% if item.data[\"hydra:member\"] | length > 0 %}\n{% set _tmp = vars.groups_iri.append(item.data[\"hydra:member\"][0][\"@id\"]) %}\n{% set _tmp = vars.techniques.extend(item.data[\"hydra:member\"][0].techniques | json_query('[].\"@id\"')) %}\n{% set _tmp = vars.software.extend(item.data[\"hydra:member\"][0].software | json_query('[].\"@id\"')) %}\n{% endif %}\n{% endfor %}"
+                "page_numbers": "{{(vars.steps.Get_IOC.data.total / vars.steps.Get_IOC.data.size ) | round(0, 'ceil')}}"
               },
               "status": null,
               "top": "435",
               "left": "125",
               "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
               "group": null,
-              "uuid": "60aed12e-8404-4e7e-9573-df9b5eb09773"
+              "uuid": "702a0b96-364e-4567-95d6-1c9bb45e76a6"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Return Report and Associated IOCs",
+              "description": null,
+              "arguments": {
+                "report_iocs": "{{vars.technical_intelligence_report_iocs}}",
+                "report_details": "{{vars.input.params['report_details']}}"
+              },
+              "status": null,
+              "top": "840",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "group": null,
+              "uuid": "50103215-53fb-451a-924a-cf4699459b90"
             },
             {
               "@type": "WorkflowStep",
@@ -205,83 +270,75 @@
               "left": "125",
               "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62",
               "group": null,
-              "uuid": "e258d345-83d2-4093-8ddb-5c70584c80cf"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Update Correlated Records",
-              "description": null,
-              "arguments": {
-                "resource": {
-                  "__link": {
-                    "relatedMalware": "{{vars.software}}",
-                    "relatedThreatActors": "{{vars.groups_iri}}",
-                    "relatedATTCKTechniques": "{{vars.techniques}}"
-                  }
-                },
-                "operation": "Append",
-                "collection": "{{vars.input.records[0]['@id']}}",
-                "__recommend": [],
-                "collectionType": "/api/3/threat_intel_reports",
-                "fieldOperation": {
-                  "recordTags": "Append"
-                },
-                "step_variables": []
-              },
-              "status": null,
-              "top": "570",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/b593663d-7d13-40ce-a3a3-96dece928722",
-              "group": null,
-              "uuid": "9d34db0c-63ab-4cd0-9ab7-a8711387b828"
+              "uuid": "c6f1d435-6b8a-4390-b8e9-1559a3056918"
             }
           ],
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "name": "Configuration -> Find Adversary in MITRE Associated Groups",
-              "targetStep": "/api/3/workflow_steps/aa2364c0-977f-465b-85cc-ccb9a7ea64b1",
-              "sourceStep": "/api/3/workflow_steps/ccd22403-f348-413f-bc6f-1be21f256652",
+              "name": "Configuration -> Get IOCs",
+              "targetStep": "/api/3/workflow_steps/b1de0fe1-e1f3-4ac9-996c-1944cede72ea",
+              "sourceStep": "/api/3/workflow_steps/d6ad5a21-92e6-4311-9701-20bbc9df7c4e",
               "label": null,
               "isExecuted": false,
               "group": null,
-              "uuid": "653beac1-0937-4410-821f-481025a66612"
+              "uuid": "a0963011-28f7-459d-a45c-6afe1e8932ec"
             },
             {
               "@type": "WorkflowRoute",
-              "name": "Find -> Get Unique Groups",
-              "targetStep": "/api/3/workflow_steps/60aed12e-8404-4e7e-9573-df9b5eb09773",
-              "sourceStep": "/api/3/workflow_steps/aa2364c0-977f-465b-85cc-ccb9a7ea64b1",
+              "name": "Fetch IOCs -> Get All Technical Intelligence Reports",
+              "targetStep": "/api/3/workflow_steps/5960529b-d91f-46f2-92bc-5560933a14d8",
+              "sourceStep": "/api/3/workflow_steps/71985ecc-dd22-40ed-a674-6032b5501284",
               "label": null,
               "isExecuted": false,
               "group": null,
-              "uuid": "ac69e8c0-1aaf-448a-856f-1bb92eb04b24"
+              "uuid": "9d1e835c-078e-42b3-b0a0-a9b706255687"
             },
             {
               "@type": "WorkflowRoute",
-              "name": "Get Unique Groups -> Update Correlated Records",
-              "targetStep": "/api/3/workflow_steps/9d34db0c-63ab-4cd0-9ab7-a8711387b828",
-              "sourceStep": "/api/3/workflow_steps/60aed12e-8404-4e7e-9573-df9b5eb09773",
+              "name": "Get All Technical Intelligence Report IOCs -> Return IOCc",
+              "targetStep": "/api/3/workflow_steps/50103215-53fb-451a-924a-cf4699459b90",
+              "sourceStep": "/api/3/workflow_steps/5960529b-d91f-46f2-92bc-5560933a14d8",
               "label": null,
               "isExecuted": false,
               "group": null,
-              "uuid": "41c82cc5-d085-4f04-b616-63da18b8ecd2"
+              "uuid": "2bad25a5-a11a-4772-a8dd-f603258a7b62"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Get IOCs -> Get Total Number Pages",
+              "targetStep": "/api/3/workflow_steps/702a0b96-364e-4567-95d6-1c9bb45e76a6",
+              "sourceStep": "/api/3/workflow_steps/b1de0fe1-e1f3-4ac9-996c-1944cede72ea",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "4836a645-a729-4ff3-b508-16cd78719782"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Get Total Number Pages -> Copy of Get IOCs",
+              "targetStep": "/api/3/workflow_steps/71985ecc-dd22-40ed-a674-6032b5501284",
+              "sourceStep": "/api/3/workflow_steps/702a0b96-364e-4567-95d6-1c9bb45e76a6",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "bce8a111-0f82-429b-97a3-d766eef5dd0a"
             },
             {
               "@type": "WorkflowRoute",
               "name": "Start -> Configuration",
-              "targetStep": "/api/3/workflow_steps/ccd22403-f348-413f-bc6f-1be21f256652",
-              "sourceStep": "/api/3/workflow_steps/e258d345-83d2-4093-8ddb-5c70584c80cf",
+              "targetStep": "/api/3/workflow_steps/d6ad5a21-92e6-4311-9701-20bbc9df7c4e",
+              "sourceStep": "/api/3/workflow_steps/c6f1d435-6b8a-4390-b8e9-1559a3056918",
               "label": null,
               "isExecuted": false,
               "group": null,
-              "uuid": "004c751b-915b-4fba-8180-20e06a68ca6f"
+              "uuid": "0574cf6e-c4dd-4686-bfd0-98686ceb9358"
             }
           ],
           "groups": [],
           "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "2d0bc99e-378e-4586-8819-88f3667df6bb",
-          "id": 519,
+          "uuid": "306c9cac-f35c-44a5-94c4-b6639f26c979",
+          "id": 855,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null,
@@ -391,112 +448,6 @@
         {
           "@type": "Workflow",
           "triggerLimit": null,
-          "name": "On Update > Map Adversary to MITRE Groups/Techniques/Softwares",
-          "aliasName": null,
-          "tag": null,
-          "description": "Map adversary to MITRE Groups/Techniques/Softwares on update of adversary in threat report",
-          "isActive": false,
-          "debug": false,
-          "singleRecordExecution": false,
-          "remoteExecutableFlag": false,
-          "parameters": [],
-          "synchronous": false,
-          "lastModifyDate": 1685359066,
-          "collection": "/api/3/workflow_collections/7a145247-0a97-4b39-9902-8bd8e0be0e43",
-          "versions": [],
-          "triggerStep": "/api/3/workflow_steps/3a5f93b5-ae85-4024-9109-27599f3bb8b2",
-          "steps": [
-            {
-              "@type": "WorkflowStep",
-              "name": "Map Adversary to MITRE Records",
-              "description": null,
-              "arguments": {
-                "arguments": [],
-                "apply_async": false,
-                "step_variables": [],
-                "pass_parent_env": false,
-                "pass_input_record": true,
-                "workflowReference": "/api/3/workflows/2d0bc99e-378e-4586-8819-88f3667df6bb"
-              },
-              "status": null,
-              "top": "165",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
-              "group": null,
-              "uuid": "48ad81a1-c869-446b-8e69-826dc7337de2"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "arguments": {
-                "resource": "threat_intel_reports",
-                "resources": [
-                  "threat_intel_reports"
-                ],
-                "step_variables": {
-                  "input": {
-                    "params": [],
-                    "records": [
-                      "{{vars.input.records[0]}}"
-                    ]
-                  }
-                },
-                "fieldbasedtrigger": {
-                  "sort": [],
-                  "limit": 30,
-                  "logic": "AND",
-                  "filters": [
-                    {
-                      "type": "object",
-                      "field": "adversary",
-                      "value": "",
-                      "_value": {
-                        "@id": "",
-                        "display": "",
-                        "itemValue": ""
-                      },
-                      "operator": "changed"
-                    }
-                  ]
-                }
-              },
-              "status": null,
-              "top": "30",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/9300bf69-5063-486d-b3a6-47eb9da24872",
-              "group": null,
-              "uuid": "3a5f93b5-ae85-4024-9109-27599f3bb8b2"
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "name": "Start -> Map Adversary to MITRE Records",
-              "targetStep": "/api/3/workflow_steps/48ad81a1-c869-446b-8e69-826dc7337de2",
-              "sourceStep": "/api/3/workflow_steps/3a5f93b5-ae85-4024-9109-27599f3bb8b2",
-              "label": null,
-              "isExecuted": false,
-              "group": null,
-              "uuid": "917cda7c-ef53-4b76-8c04-884c02e0de3b"
-            }
-          ],
-          "groups": [],
-          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "4f761427-5f38-4889-8a0d-9c2b1853692e",
-          "id": 521,
-          "owners": [],
-          "isPrivate": false,
-          "deletedAt": null,
-          "importedBy": [],
-          "recordTags": [
-            "dataingestion",
-            "fortinet-fortirecon-aci"
-          ]
-        },
-        {
-          "@type": "Workflow",
-          "triggerLimit": null,
           "name": "On Create > Map Adversary to MITRE Groups/Techniques/Softwares",
           "aliasName": null,
           "tag": null,
@@ -507,10 +458,10 @@
           "remoteExecutableFlag": false,
           "parameters": [],
           "synchronous": false,
-          "lastModifyDate": 1685359048,
+          "lastModifyDate": 1686119431,
           "collection": "/api/3/workflow_collections/7a145247-0a97-4b39-9902-8bd8e0be0e43",
           "versions": [],
-          "triggerStep": "/api/3/workflow_steps/eb2e56f3-fe0a-419b-bf28-0477fc8b9912",
+          "triggerStep": "/api/3/workflow_steps/39a3385c-07dd-4c39-a223-28b45016d4a5",
           "steps": [
             {
               "@type": "WorkflowStep",
@@ -522,14 +473,14 @@
                 "step_variables": [],
                 "pass_parent_env": false,
                 "pass_input_record": true,
-                "workflowReference": "/api/3/workflows/2d0bc99e-378e-4586-8819-88f3667df6bb"
+                "workflowReference": "/api/3/workflows/a89c4164-2099-4bac-a0f7-be58a435ae26"
               },
               "status": null,
               "top": "165",
               "left": "125",
               "stepType": "/api/3/workflow_step_types/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
               "group": null,
-              "uuid": "215a9319-d585-4be9-8293-001118c37674"
+              "uuid": "73ff4282-7e37-43a1-8a6c-b226c13271e6"
             },
             {
               "@type": "WorkflowStep",
@@ -560,25 +511,25 @@
               "left": "125",
               "stepType": "/api/3/workflow_step_types/ea155646-3821-4542-9702-b246da430a8d",
               "group": null,
-              "uuid": "eb2e56f3-fe0a-419b-bf28-0477fc8b9912"
+              "uuid": "39a3385c-07dd-4c39-a223-28b45016d4a5"
             }
           ],
           "routes": [
             {
               "@type": "WorkflowRoute",
               "name": "Start -> Map Adversary to MITRE Records",
-              "targetStep": "/api/3/workflow_steps/215a9319-d585-4be9-8293-001118c37674",
-              "sourceStep": "/api/3/workflow_steps/eb2e56f3-fe0a-419b-bf28-0477fc8b9912",
+              "targetStep": "/api/3/workflow_steps/73ff4282-7e37-43a1-8a6c-b226c13271e6",
+              "sourceStep": "/api/3/workflow_steps/39a3385c-07dd-4c39-a223-28b45016d4a5",
               "label": null,
               "isExecuted": false,
               "group": null,
-              "uuid": "738ac5fc-0fa9-472c-a0fe-dce0b7ea0e90"
+              "uuid": "7f37fbd1-6aa5-42c1-8e0d-b8d794760a5c"
             }
           ],
           "groups": [],
           "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "5fd92ae5-8ee2-4c8c-a653-2fe5e54dcd1a",
-          "id": 520,
+          "uuid": "61c28e6a-f509-4501-9743-d8a774284a9c",
+          "id": 858,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null,
@@ -591,144 +542,151 @@
         {
           "@type": "Workflow",
           "triggerLimit": null,
-          "name": "Get FortiRecon ACI Threat Intel Report IOC",
+          "name": "FortiSOAR Threat Intel Feeds Using Threat Intel Report > Create",
           "aliasName": null,
           "tag": null,
-          "description": "Fetch the associated ioc for specified FortoRecon ACI threat intel report",
+          "description": "Create threat intel reports and it's associated ioc as FortiSOAR threat intel feeds",
           "isActive": false,
           "debug": false,
           "singleRecordExecution": false,
           "remoteExecutableFlag": false,
           "parameters": [
-            "report_details",
-            "page_size"
+            "report_iocs",
+            "report_details"
           ],
           "synchronous": false,
-          "lastModifyDate": 1684920120,
+          "lastModifyDate": 1686119431,
           "collection": "/api/3/workflow_collections/7a145247-0a97-4b39-9902-8bd8e0be0e43",
           "versions": [],
-          "triggerStep": "/api/3/workflow_steps/a5adbc40-e444-427c-905b-2fd48dee45ef",
+          "triggerStep": "/api/3/workflow_steps/b7ddf75b-fee9-4225-9ee6-1e513da4106a",
           "steps": [
             {
               "@type": "WorkflowStep",
-              "name": "Configuration",
+              "name": "Create Record",
               "description": null,
               "arguments": {
-                "page_size": "{{vars.input.params['page_size']}}",
-                "technical_intelligence_report_iocs": "[]"
+                "resource": {
+                  "tLP": "{{vars.report_details.tlp | resolveRange(vars.tlp_type_map)}}",
+                  "__link": {
+                    "recordTags": "{{vars.threat_tags}}"
+                  },
+                  "source": "FortiRecon ACI Report",
+                  "status": "{{vars.report_details.status}}",
+                  "threat": "{{vars.report_details.threat}}",
+                  "summary": "<p>{{vars.report_details.summary}}</p>",
+                  "reportID": "{{vars.report_details.report_id}}",
+                  "__replace": "false",
+                  "adversary": "{{vars.report_details.adversary}}",
+                  "geography": "{{vars.report_details.geography}}",
+                  "motivation": "{{vars.report_details.motivation}}",
+                  "reportLink": "https://fortirecon.forticloud.com/adversary-centric-intelligence/reports?reportId={{vars.report_details.report_id}}",
+                  "reportType": "{{vars.report_details.report_type | resolveRange(vars.report_type_map)}}",
+                  "sourceData": "{{vars.report_details}}",
+                  "sourceName": "{{vars.report_details.source_name}}",
+                  "publishDate": "{{ arrow.get(vars.report_details.publish_date, 'YYYY-MM-DDTHH:mm:ssZ').int_timestamp }}",
+                  "reportTitle": "{{vars.report_details.report_title}}",
+                  "industryTags": "{{vars.report_details.industry_tags}}",
+                  "sourceCategory": "{{vars.report_details.source_category | resolveRange(vars.source_category_type_map)}}",
+                  "informationDate": "{{ arrow.get(vars.report_details.information_date, 'YYYY-MM-DDTHH:mm:ssZ').int_timestamp }}",
+                  "relevanceRating": "{{vars.report_details.relevance_rating | resolveRange(vars.relevance_rating_type_map)}}",
+                  "sourceReliability": "{{vars.report_details.source_reliability | resolveRange(vars.source_reliability_type_map)}}",
+                  "informationReliability": "{{vars.report_details.information_reliability | resolveRange(vars.information_reliability_type_map)}}"
+                },
+                "operation": "Overwrite",
+                "collection": "/api/3/upsert/threat_intel_reports",
+                "__recommend": [],
+                "fieldOperation": {
+                  "recordTags": "Append"
+                },
+                "step_variables": []
+              },
+              "status": null,
+              "top": "435",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/2597053c-e718-44b4-8394-4d40fe26d357",
+              "group": null,
+              "uuid": "36157b27-1cc8-4742-bb5d-7398d4fdc130"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Create Threat Intel Feed",
+              "description": null,
+              "arguments": {
+                "for_each": {
+                  "item": "{{vars.input.params['report_iocs']}}",
+                  "__bulk": true,
+                  "parallel": false,
+                  "condition": "{{vars.item.ioc_type not in [\"adversary\", \"cve\"]}}",
+                  "batch_size": 100
+                },
+                "resource": {
+                  "tLP": "{{vars.report_details.tlp | resolveRange(vars.tlp_type_map)}}",
+                  "value": "{{vars.item.ioc}}",
+                  "__link": {
+                    "recordTags": "{{vars.threat_tags}}",
+                    "threatIntelReports": "[\"{{vars.steps.Create_Record['@id']}}\"]"
+                  },
+                  "source": "FortiRecon ACI Report",
+                  "sourceId": "{{vars.report_details.report_id}}",
+                  "__replace": "true",
+                  "confidence": 100,
+                  "reputation": "/api/3/picklists/7074e547-7785-4979-be32-c6d0c863e4bd",
+                  "sourceData": "{{vars.item}}",
+                  "typeOfFeed": "{{vars.item.ioc_type | resolveRange(vars.threat_intel_feed_type_map)}}",
+                  "description": "<p>{{vars.report_details.report_title}}</p>"
+                },
+                "_showJson": false,
+                "operation": "Append",
+                "collection": "/api/3/upsert/threat_intel_feeds",
+                "__recommend": [],
+                "fieldOperation": {
+                  "recordTags": "Append",
+                  "threatTypes": "Overwrite",
+                  "killChainPhases": "Overwrite"
+                },
+                "step_variables": []
+              },
+              "status": null,
+              "top": "570",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/2597053c-e718-44b4-8394-4d40fe26d357",
+              "group": null,
+              "uuid": "1ee20da7-71ba-40ae-9f9d-d2f9f93f26aa"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Field Mapping",
+              "description": null,
+              "arguments": {
+                "threat_tags": "[]",
+                "tlp_type_map": "{\n  \t\"White\": \"{{\"TrafficLightProtocol\" | picklist(\"White\")}}\",\n  \t\"Green\": \"{{\"TrafficLightProtocol\" | picklist(\"Green\")}}\",\n  \t\"Amber\": \"{{\"TrafficLightProtocol\" | picklist(\"Amber\")}}\",\n  \t\"Red\": \"{{\"TrafficLightProtocol\" | picklist(\"Red\")}}\"\n}",
+                "report_type_map": "{\n\"Flash Report\": \"{{\"Report Type\" | picklist(\"Flash Report\")}}\",\n\"Flash Alert\": \"{{\"Report Type\" | picklist(\"Flash Alert\")}}\",\n\"Threat Report\": \"{{\"Report Type\" | picklist(\"Threat Report\")}}\",\n\"Threat Alert\": \"{{\"Report Type\" | picklist(\"Threat Alert\")}}\"\n}",
+                "source_category_type_map": "{\n\t\"Media Trends\": \"{{\"Source Category\" | picklist(\"Media Trends\")}}\",\n\t\"Darknet\": \"{{\"Source Category\" | picklist(\"Darknet\")}}\",\n\t\"Humint\": \"{{\"Source Category\" | picklist(\"Humint\")}}\",\n\t\"OSINT\": \"{{\"Source Category\" | picklist(\"OSINT\")}}\",\n\t\"Fraudulent Domains\": \"{{\"Source Category\" | picklist(\"Fraudulent Domains\")}}\",\n\t\"Technical Intelligence\": \"{{\"Source Category\" | picklist(\"Technical Intelligence\")}}\",\n\t\"Executive Summary\": \"{{\"Source Category\" | picklist(\"Executive Summary\")}}\"\n}",
+                "relevance_rating_type_map": "{\n\t\"High\": \"{{\"Relevance Rating\" | picklist(\"High\")}}\",\n\t\"Medium\": \"{{\"Relevance Rating\" | picklist(\"Medium\")}}\",\n\t\"Low\": \"{{\"Relevance Rating\" | picklist(\"Low\")}}\"\n}",
+                "threat_intel_feed_type_map": "{\n\"hash\": \"{{\"ThreatIntelFeedType\" | picklist(\"FileHash\")}}\",\n\"url\": \"{{\"ThreatIntelFeedType\" | picklist(\"URL\")}}\",\n\"ip\": \"{{\"ThreatIntelFeedType\" | picklist(\"IP Address\")}}\",\n\"file_name, file_path\": \"{{\"ThreatIntelFeedType\" | picklist(\"Filename\")}}\",\n\"DOMAIN, domain\": \"{{\"ThreatIntelFeedType\" | picklist(\"Domain\")}}\",\n\"email\": \"{{\"ThreatIntelFeedType\" | picklist(\"Email Address\")}}\",\n\"registry_key\": \"{{\"ThreatIntelFeedType\" | picklist(\"Registry\")}}\"\n}",
+                "source_reliability_type_map": "{\n  \t\"A-Reliable\": \"{{\"Source Reliability\" | picklist(\"Reliable\")}}\",\n  \t\"B-Usually reliable\": \"{{\"Source Reliability\" | picklist(\"Usually Reliable\")}}\",\n  \t\"C-Fairly reliable\": \"{{\"Source Reliability\" | picklist(\"Fairly Reliable\")}}\",\n  \t\"D-Not usually reliable\": \"{{\"Source Reliability\" | picklist(\"Not Usually Reliable\")}}\",\n  \t\"E-Unreliable\": \"{{\"Source Reliability\" | picklist(\"Unreliable\")}}\",\n  \t\"F-Cannot be judged\": \"{{\"Source Reliability\" | picklist(\"Cannot Judged\")}}\"\n}",
+                "information_reliability_type_map": "{\n\t\"1-Confirmed\": \"{{\"Information Reliability\" | picklist(\"Confirmed\")}}\",\n\t\"2-Probably true\": \"{{\"Information Reliability\" | picklist(\"Probably True\")}}\",\n\t\"3-Possibly true\": \"{{\"Information Reliability\" | picklist(\"Possibly True\")}}\",\n\t\"4-Doubtfully true\": \"{{\"Information Reliability\" | picklist(\"Doubtfully True\")}}\",\n\t\"5-Improbable\": \"{{\"Information Reliability\" | picklist(\"Improbable\")}}\",\n\t\"6-Cannot be judged\": \"{{\"Information Reliability\" | picklist(\"Cannot Judged\")}}\"\n}"
               },
               "status": null,
               "top": "165",
               "left": "125",
               "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
               "group": null,
-              "uuid": "977c0e3f-1e7e-487f-a538-7e72096b0e89"
+              "uuid": "0b4ce355-f751-4804-89e0-7a350ed9f3b6"
             },
             {
               "@type": "WorkflowStep",
-              "name": "Fetch IOC",
+              "name": "Get Threat Tags",
               "description": null,
               "arguments": {
-                "name": "Fortinet FortiRecon ACI",
-                "config": "1bb114d2-8376-4b77-b1c0-c9fc93a229c1",
-                "params": {
-                  "page": "{{vars.item}}",
-                  "size": "{{vars.page_size}}",
-                  "end_date": "",
-                  "ioc_type": "",
-                  "report_id": "{{vars.input.params['report_details'].report_id}}",
-                  "start_date": ""
-                },
-                "version": "1.1.0",
-                "for_each": {
-                  "item": "{{range(2,((vars.page_numbers | int)+1)) | list}}",
-                  "parallel": false,
-                  "condition": ""
-                },
-                "connector": "fortinet-fortirecon-aci",
-                "operation": "get_iocs",
-                "operationTitle": "Get IOCs",
-                "pickFromTenant": false,
-                "step_variables": []
-              },
-              "status": null,
-              "top": "570",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "group": null,
-              "uuid": "d8aedc4d-b615-4226-9e64-cf4481da4b22"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Get All Technical Intelligence Report IOCs",
-              "description": null,
-              "arguments": {
-                "_tmp": "{% for item in vars.steps.Get_IOC.data.hits %}{% set _ = vars.technical_intelligence_report_iocs.append(item) %}{% endfor %}\n{% for item in vars.steps.Fetch_IOC %}{% for i in item.data.hits %}{% set _ = vars.technical_intelligence_report_iocs.append(i) %}{% endfor %}{% endfor %}"
-              },
-              "status": null,
-              "top": "705",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-              "group": null,
-              "uuid": "b8f85e9e-069b-41f7-8a25-b8ecf66ac360"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Get IOC",
-              "description": null,
-              "arguments": {
-                "name": "Fortinet FortiRecon ACI",
-                "config": "1bb114d2-8376-4b77-b1c0-c9fc93a229c1",
-                "params": {
-                  "page": "",
-                  "size": "{{vars.page_size}}",
-                  "end_date": "",
-                  "ioc_type": "",
-                  "report_id": "{{vars.input.params['report_details'].report_id}}",
-                  "start_date": ""
-                },
-                "version": "1.1.0",
-                "connector": "fortinet-fortirecon-aci",
-                "operation": "get_iocs",
-                "operationTitle": "Get IOCs",
-                "pickFromTenant": false,
-                "step_variables": []
+                "__tmp": "{% set excludeList = [\"(not known)\", \"n/a\", \"unknown\", \"others\", \"N/A\" ] %}\n{% for tag in vars.report_details.threat %}\n{% if tag not in excludeList %}\n{% set _temp=vars.threat_tags.append((tag.replace(\"/\",\"-\")).replace(\"#\",\"\")) %}\n{% endif %}\n{% endfor %}\n{% for tag in vars.report_details.industry_tags %}\n{% if tag not in excludeList %}\n{% set _temp=vars.threat_tags.append(tag.replace(\"/\",\"-\")) %}\n{% endif %}\n{% endfor %}\n{% for tag in vars.report_details.adversary %}\n{% if tag not in excludeList %}\n{% set _temp=vars.threat_tags.append(tag.replace(\"/\",\"-\")) %}\n{% endif %}\n{% endfor %}\n{% for tag in vars.report_details.geography %}\n{% if tag not in excludeList %}\n{% set _temp=vars.threat_tags.append(tag.replace(\"/\",\"-\")) %}\n{% endif %}\n{% endfor %}"
               },
               "status": null,
               "top": "300",
               "left": "125",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "group": null,
-              "uuid": "4919e347-c8c5-4cbb-b9d8-86a17d204024"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Get Total Number Pages",
-              "description": null,
-              "arguments": {
-                "page_numbers": "{{(vars.steps.Get_IOC.data.total / vars.steps.Get_IOC.data.size ) | round(0, 'ceil')}}"
-              },
-              "status": null,
-              "top": "435",
-              "left": "125",
               "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
               "group": null,
-              "uuid": "f45942c0-2197-433d-925d-34740544834b"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Return Report and Associated IOCs",
-              "description": null,
-              "arguments": {
-                "report_iocs": "{{vars.technical_intelligence_report_iocs}}",
-                "report_details": "{{vars.input.params['report_details']}}"
-              },
-              "status": null,
-              "top": "840",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-              "group": null,
-              "uuid": "36a8773e-e109-4af0-b19d-1c761036008e"
+              "uuid": "852d3341-7a91-4c4a-9462-a10195cfbe81"
             },
             {
               "@type": "WorkflowStep",
@@ -746,75 +704,738 @@
               "left": "125",
               "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62",
               "group": null,
-              "uuid": "a5adbc40-e444-427c-905b-2fd48dee45ef"
+              "uuid": "b7ddf75b-fee9-4225-9ee6-1e513da4106a"
             }
           ],
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "name": "Configuration -> Get IOCs",
-              "targetStep": "/api/3/workflow_steps/4919e347-c8c5-4cbb-b9d8-86a17d204024",
-              "sourceStep": "/api/3/workflow_steps/977c0e3f-1e7e-487f-a538-7e72096b0e89",
+              "name": "Create ACI Report -> Create Threat Intel Feeds",
+              "targetStep": "/api/3/workflow_steps/1ee20da7-71ba-40ae-9f9d-d2f9f93f26aa",
+              "sourceStep": "/api/3/workflow_steps/36157b27-1cc8-4742-bb5d-7398d4fdc130",
               "label": null,
               "isExecuted": false,
               "group": null,
-              "uuid": "4929137d-7674-41de-bf19-c5a36b7ae048"
+              "uuid": "0308b03a-78db-4bec-a8c8-ca828c64a280"
             },
             {
               "@type": "WorkflowRoute",
-              "name": "Fetch IOCs -> Get All Technical Intelligence Reports",
-              "targetStep": "/api/3/workflow_steps/b8f85e9e-069b-41f7-8a25-b8ecf66ac360",
-              "sourceStep": "/api/3/workflow_steps/d8aedc4d-b615-4226-9e64-cf4481da4b22",
+              "name": "Field Mapping -> Get Miter Group and Threat Tags",
+              "targetStep": "/api/3/workflow_steps/852d3341-7a91-4c4a-9462-a10195cfbe81",
+              "sourceStep": "/api/3/workflow_steps/0b4ce355-f751-4804-89e0-7a350ed9f3b6",
               "label": null,
               "isExecuted": false,
               "group": null,
-              "uuid": "7f10ddb8-5c51-41c0-99a4-055406677e17"
+              "uuid": "f34e2d99-c769-4afd-9e94-486b27c95905"
             },
             {
               "@type": "WorkflowRoute",
-              "name": "Get All Technical Intelligence Report IOCs -> Return IOCc",
-              "targetStep": "/api/3/workflow_steps/36a8773e-e109-4af0-b19d-1c761036008e",
-              "sourceStep": "/api/3/workflow_steps/b8f85e9e-069b-41f7-8a25-b8ecf66ac360",
+              "name": "Get Miter Group and Threat Tags -> Create Record",
+              "targetStep": "/api/3/workflow_steps/36157b27-1cc8-4742-bb5d-7398d4fdc130",
+              "sourceStep": "/api/3/workflow_steps/852d3341-7a91-4c4a-9462-a10195cfbe81",
               "label": null,
               "isExecuted": false,
               "group": null,
-              "uuid": "bcb1f2dd-dfc8-4a16-ad9f-db5d188e7347"
+              "uuid": "93e1e7a7-5e01-470d-839b-db0b1732f10d"
             },
             {
               "@type": "WorkflowRoute",
-              "name": "Get IOCs -> Get Total Number Pages",
-              "targetStep": "/api/3/workflow_steps/f45942c0-2197-433d-925d-34740544834b",
-              "sourceStep": "/api/3/workflow_steps/4919e347-c8c5-4cbb-b9d8-86a17d204024",
+              "name": "Start -> Field Mapping",
+              "targetStep": "/api/3/workflow_steps/0b4ce355-f751-4804-89e0-7a350ed9f3b6",
+              "sourceStep": "/api/3/workflow_steps/b7ddf75b-fee9-4225-9ee6-1e513da4106a",
               "label": null,
               "isExecuted": false,
               "group": null,
-              "uuid": "60d846ac-52e1-42fe-a851-fe86b4c789a2"
-            },
-            {
-              "@type": "WorkflowRoute",
-              "name": "Get Total Number Pages -> Copy of Get IOCs",
-              "targetStep": "/api/3/workflow_steps/d8aedc4d-b615-4226-9e64-cf4481da4b22",
-              "sourceStep": "/api/3/workflow_steps/f45942c0-2197-433d-925d-34740544834b",
-              "label": null,
-              "isExecuted": false,
-              "group": null,
-              "uuid": "6494fd3d-37a8-41aa-bfad-4b48342d6f78"
-            },
-            {
-              "@type": "WorkflowRoute",
-              "name": "Start -> Configuration",
-              "targetStep": "/api/3/workflow_steps/977c0e3f-1e7e-487f-a538-7e72096b0e89",
-              "sourceStep": "/api/3/workflow_steps/a5adbc40-e444-427c-905b-2fd48dee45ef",
-              "label": null,
-              "isExecuted": false,
-              "group": null,
-              "uuid": "0c3b0063-291b-476c-905d-68c7d1e38542"
+              "uuid": "1a595a8b-9965-4a4a-b4ae-f0fba27c44e0"
             }
           ],
           "groups": [],
           "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "9cb4f8d1-2ffc-4b21-8c13-1709ba7e6b11",
-          "id": 484,
+          "uuid": "6b0b6ffd-cd3d-4f14-bc00-8ed74f83c86b",
+          "id": 853,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "dataingestion",
+            "create",
+            "fortinet-fortirecon-aci"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "FortiRecon ACI Threat Intel Report > Fetch",
+          "aliasName": null,
+          "tag": null,
+          "description": "Fetch FortiRecon ACI Threat Intel Report and associated iocs",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1686119431,
+          "collection": "/api/3/workflow_collections/7a145247-0a97-4b39-9902-8bd8e0be0e43",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/6b92edb8-103d-459d-823f-82c441a29878",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Configuration",
+              "description": null,
+              "arguments": {
+                "fetchTime": "{{arrow.utcnow().int_timestamp}}",
+                "page_size": 500,
+                "pullTimeMacro": "FortiReconACILastPullTime__{{vars['audit_info']['cyops_playbook_iri'].split('/')[-1].replace('-','_')}}",
+                "source_category": "Technical Intelligence",
+                "last_sample_pull_time": "124",
+                "technical_intelligence_reports": "[]"
+              },
+              "status": null,
+              "top": "165",
+              "left": "300",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "group": null,
+              "uuid": "1df01a2e-c886-4cb7-b054-c1a14d5b6fb0"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Create Threat Intel Record",
+              "description": null,
+              "arguments": {
+                "for_each": {
+                  "item": "{{vars.steps.Get_Report_IOCs}}",
+                  "parallel": false,
+                  "condition": ""
+                },
+                "arguments": {
+                  "report_iocs": "{{vars.item.report_iocs}}",
+                  "report_details": "{{vars.item.report_details}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "pass_parent_env": false,
+                "pass_input_record": true,
+                "workflowReference": "/api/3/workflows/6b0b6ffd-cd3d-4f14-bc00-8ed74f83c86b"
+              },
+              "status": null,
+              "top": "1380",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+              "group": null,
+              "uuid": "e9719ee4-ec03-47a2-9494-5a2c5fcb8f21"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Extract Response Value",
+              "description": null,
+              "arguments": {
+                "lastPullTime": "{% if (vars.steps.Get_Macro_Value.data[\"hydra:member\"] | length) > 0%}{{vars.steps.Get_Macro_Value.data[\"hydra:member\"][0].value }}{% else %}{{arrow.utcnow().shift(hours= -vars.last_sample_pull_time).int_timestamp}}{% endif %}"
+              },
+              "status": null,
+              "top": "435",
+              "left": "300",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "group": null,
+              "uuid": "cca48f6b-83ba-480b-83a9-80e1c8e5620e"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Fetch Technical Intelligence Reports",
+              "description": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "0739e555-96c6-46f6-8a39-25066be858c5",
+                "params": {
+                  "page": "{{vars.item}}",
+                  "size": "{{vars.page_size}}",
+                  "tags": "",
+                  "keyword": "",
+                  "end_date": "{{arrow.get(vars.fetchTime).format('YYYY-MM-DDTHH:mm:ss.SSS')}}Z",
+                  "industry": "",
+                  "adversary": "",
+                  "geography": "",
+                  "start_date": "{{arrow.get(vars.lastPullTime).format('YYYY-MM-DDTHH:mm:ss.SSS')}}Z",
+                  "report_type": "",
+                  "source_category": "{{vars.source_category}}",
+                  "relevance_rating": "",
+                  "source_reliability": "",
+                  "information_reliability": ""
+                },
+                "version": "1.1.0",
+                "for_each": {
+                  "item": "{{range(2,((vars.page_numbers | int)+1)) | list}}",
+                  "parallel": false,
+                  "condition": ""
+                },
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_reports",
+                "operationTitle": "Get Reports",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "975",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "ee2df618-db89-43f8-97fa-268c3e2105eb"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get All Technical Intelligence Reports",
+              "description": null,
+              "arguments": {
+                "_tmp": "{% for item in  vars.steps.Get_Technical_Intelligence_Reports.data.hits %}{% set _ = vars.technical_intelligence_reports.append(item) %}{% endfor %}\n{% for item in vars.steps.Fetch_Technical_Intelligence_Reports %}{% for i in item.data.hits %}{% set _ = vars.technical_intelligence_reports.append(i) %}{% endfor %}{% endfor %}"
+              },
+              "status": null,
+              "top": "1110",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "group": null,
+              "uuid": "fad9b59a-4fac-4459-9b51-da4e5cec0439"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Macro Value",
+              "description": null,
+              "arguments": {
+                "params": {
+                  "iri": "/api/wf/api/dynamic-variable/?name={{vars.pullTimeMacro}}",
+                  "body": "",
+                  "method": "GET"
+                },
+                "version": "3.2.3",
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "FSR: Make FortiSOAR API Call",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "300",
+              "left": "300",
+              "stepType": "/api/3/workflow_step_types/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+              "group": null,
+              "uuid": "1f2dc0e7-6413-426c-b00a-7ff3e3b449ed"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Report IOCs",
+              "description": null,
+              "arguments": {
+                "for_each": {
+                  "item": "{{vars.technical_intelligence_reports}}",
+                  "parallel": false,
+                  "condition": ""
+                },
+                "arguments": {
+                  "page_size": "{{vars.page_size}}",
+                  "report_details": "{{vars.item}}"
+                },
+                "apply_async": false,
+                "step_variables": [],
+                "pass_parent_env": false,
+                "pass_input_record": true,
+                "workflowReference": "/api/3/workflows/306c9cac-f35c-44a5-94c4-b6639f26c979"
+              },
+              "status": null,
+              "top": "1245",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
+              "group": null,
+              "uuid": "525998b7-bf3d-45ba-a090-361d8760c3e3"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Technical Intelligence Report",
+              "description": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "0739e555-96c6-46f6-8a39-25066be858c5",
+                "params": {
+                  "page": "",
+                  "size": "{{vars.page_size}}",
+                  "tags": "",
+                  "keyword": "",
+                  "end_date": "{{arrow.get(vars.fetchTime).format('YYYY-MM-DDTHH:mm:ss.SSS')}}Z",
+                  "industry": "",
+                  "adversary": "",
+                  "geography": "",
+                  "start_date": "{{arrow.get(vars.lastPullTime).format('YYYY-MM-DDTHH:mm:ss.SSS')}}Z",
+                  "report_type": "",
+                  "source_category": "{{vars.source_category}}",
+                  "relevance_rating": "",
+                  "source_reliability": "",
+                  "information_reliability": ""
+                },
+                "version": "1.1.0",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_reports",
+                "operationTitle": "Get Reports",
+                "step_variables": {
+                  "page_numbers": "{{((vars.steps.Get_Technical_Intelligence_Report.data.total / vars.steps.Get_Technical_Intelligence_Report.data.size) | round(0, 'ceil'))}}"
+                }
+              },
+              "status": null,
+              "top": "705",
+              "left": "475",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "fef5ea01-e946-4097-b1f9-2a0edddc63f6"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Technical Intelligence Reports",
+              "description": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "0739e555-96c6-46f6-8a39-25066be858c5",
+                "params": {
+                  "page": "",
+                  "size": "{{vars.page_size}}",
+                  "tags": "",
+                  "keyword": "",
+                  "end_date": "{{arrow.get(vars.fetchTime).format('YYYY-MM-DDTHH:mm:ss.SSS')}}Z",
+                  "industry": "",
+                  "adversary": "",
+                  "geography": "",
+                  "start_date": "{{arrow.get(vars.lastPullTime).format('YYYY-MM-DDTHH:mm:ss.SSS')}}Z",
+                  "report_type": "",
+                  "source_category": "{{vars.source_category}}",
+                  "relevance_rating": "",
+                  "source_reliability": "",
+                  "information_reliability": ""
+                },
+                "version": "1.1.0",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_reports",
+                "operationTitle": "Get Reports",
+                "step_variables": {
+                  "page_numbers": "{{((vars.steps.Get_Technical_Intelligence_Reports.data.total / vars.steps.Get_Technical_Intelligence_Reports.data.size) | round(0, 'ceil'))}}"
+                }
+              },
+              "status": null,
+              "top": "705",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
+              "group": null,
+              "uuid": "02b10879-c0a6-48ef-864c-6e9513e84b73"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Total Number Pages",
+              "description": null,
+              "arguments": {
+                "page_numbers": "{{(vars.steps.Get_Technical_Intelligence_Reports.data.total / vars.steps.Get_Technical_Intelligence_Reports.data.size ) | round(0, 'ceil')}}"
+              },
+              "status": null,
+              "top": "840",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "group": null,
+              "uuid": "8b03c823-d65c-4a3b-bcc9-e6e634482ec7"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Is Data Mapping",
+              "description": null,
+              "arguments": {
+                "conditions": [
+                  {
+                    "option": "Yes, For Mapping",
+                    "step_iri": "/api/3/workflow_steps/fef5ea01-e946-4097-b1f9-2a0edddc63f6",
+                    "condition": "{{ vars.request.env_setup == true }}",
+                    "step_name": "Copy of Get Technical Intelligence Reports"
+                  },
+                  {
+                    "option": "No, For Ingestion",
+                    "default": true,
+                    "step_iri": "/api/3/workflow_steps/02b10879-c0a6-48ef-864c-6e9513e84b73",
+                    "step_name": "Get Technical Intelligence Reports"
+                  }
+                ]
+              },
+              "status": null,
+              "top": "570",
+              "left": "300",
+              "stepType": "/api/3/workflow_step_types/12254cf5-5db7-4b1a-8cb1-3af081924b28",
+              "group": null,
+              "uuid": "1676d62a-8627-402e-8731-76807d3d4510"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Return Sample Data",
+              "description": null,
+              "arguments": {
+                "data": "{{vars.steps.Get_Technical_Intelligence_Report.data.hits[:5]}}"
+              },
+              "status": null,
+              "top": "840",
+              "left": "475",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "group": null,
+              "uuid": "f2a76069-18ec-4475-a950-fb493ee46dad"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "step_variables": {
+                  "input": {
+                    "params": []
+                  },
+                  "_configuration_schema": "[\n  {\n    \"title\": \"Pull Reports from Last X Hours\",\n    \"name\": \"last_sample_pull_time\",\n    \"type\": \"text\",\n    \"tooltip\": \"Fetch reports from last X hours. e.g 24\",\n    \"required\": true,\n    \"editable\": true,\n    \"visible\": true,\n    \"value\": 24\n  },\n  {\n    \"name\": \"source_category\",\n    \"title\": \"Source Category\",\n    \"type\": \"text\",\n    \"editable\": true,\n    \"visible\": true,\n    \"required\": false,\n    \"value\": \"Technical Intelligence\",\n    \"tooltip\": \"Specify a comma-separated string or single string of the source category associated with the reports\"\n  },\n  {\n    \"name\": \"page_size\",\n    \"title\": \"Page Size\",\n    \"type\": \"integer\",\n    \"editable\": true,\n    \"visible\": true,\n    \"value\": 500,\n    \"required\": false,\n    \"placeholder\": \"Must be greater 0 and less than or equal to 500.\",\n    \"tooltip\": \"Specify the maximum number of records that this operation should return for the specified page. By default, it retrieves 10 records.\"\n  }\n]"
+                }
+              },
+              "status": null,
+              "top": "30",
+              "left": "300",
+              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+              "group": null,
+              "uuid": "6b92edb8-103d-459d-823f-82c441a29878"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Update Pull Time",
+              "description": null,
+              "arguments": {
+                "params": {
+                  "macro": "{{vars.pullTimeMacro}}",
+                  "value": "{{vars.fetchTime}}"
+                },
+                "version": "3.2.3",
+                "connector": "cyops_utilities",
+                "operation": "updatemacro",
+                "operationTitle": "CyOPs: Update Macro",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "1515",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+              "group": null,
+              "uuid": "3ffdaa23-a7e4-4a08-b1f0-ba53d8f1d4b7"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Configuration -> Get Macro Value",
+              "targetStep": "/api/3/workflow_steps/1f2dc0e7-6413-426c-b00a-7ff3e3b449ed",
+              "sourceStep": "/api/3/workflow_steps/1df01a2e-c886-4cb7-b054-c1a14d5b6fb0",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "7d959c5a-542b-4c47-a64e-034e408ef429"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Create Threat Intel Record -> Update Pull Time",
+              "targetStep": "/api/3/workflow_steps/3ffdaa23-a7e4-4a08-b1f0-ba53d8f1d4b7",
+              "sourceStep": "/api/3/workflow_steps/e9719ee4-ec03-47a2-9494-5a2c5fcb8f21",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "7a36cf5a-08a1-48f7-9a87-0100a122c9a6"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Extract Value from Response -> Is Data Mapping",
+              "targetStep": "/api/3/workflow_steps/1676d62a-8627-402e-8731-76807d3d4510",
+              "sourceStep": "/api/3/workflow_steps/cca48f6b-83ba-480b-83a9-80e1c8e5620e",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "11c6e0af-a974-4d5d-ac6d-7d24c84dcd9d"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Fetch Technical Intelligence Reports -> Get All Technical Intelligence Reports",
+              "targetStep": "/api/3/workflow_steps/fad9b59a-4fac-4459-9b51-da4e5cec0439",
+              "sourceStep": "/api/3/workflow_steps/ee2df618-db89-43f8-97fa-268c3e2105eb",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "ed3d6c4f-342e-45c8-a54e-9f943bca4342"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Get All Technical Intelligence Reports -> Get Report IOCs",
+              "targetStep": "/api/3/workflow_steps/525998b7-bf3d-45ba-a090-361d8760c3e3",
+              "sourceStep": "/api/3/workflow_steps/fad9b59a-4fac-4459-9b51-da4e5cec0439",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "3155d44f-8658-444e-b834-5e7da1a26d63"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Get Macro Value -> Extract Value from Response",
+              "targetStep": "/api/3/workflow_steps/cca48f6b-83ba-480b-83a9-80e1c8e5620e",
+              "sourceStep": "/api/3/workflow_steps/1f2dc0e7-6413-426c-b00a-7ff3e3b449ed",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "ce559ef9-49e1-443e-8c0f-b201ecb62049"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Get Report IOCs -> Create Threat Intel Record",
+              "targetStep": "/api/3/workflow_steps/e9719ee4-ec03-47a2-9494-5a2c5fcb8f21",
+              "sourceStep": "/api/3/workflow_steps/525998b7-bf3d-45ba-a090-361d8760c3e3",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "429ad869-7e5d-459f-bfbd-48f68dc8042f"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Get Technical Intelligence Report -> Return Sample Data",
+              "targetStep": "/api/3/workflow_steps/f2a76069-18ec-4475-a950-fb493ee46dad",
+              "sourceStep": "/api/3/workflow_steps/fef5ea01-e946-4097-b1f9-2a0edddc63f6",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "30569cc1-36c0-4ff5-9445-bbbe449526e9"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Get Technical Intelligence Reports -> Get Total Number Pages",
+              "targetStep": "/api/3/workflow_steps/8b03c823-d65c-4a3b-bcc9-e6e634482ec7",
+              "sourceStep": "/api/3/workflow_steps/02b10879-c0a6-48ef-864c-6e9513e84b73",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "887ca113-3aab-4e67-9c25-09daa5ed096f"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Get Total Number Pages -> Fetch Technical Intelligence Reports",
+              "targetStep": "/api/3/workflow_steps/ee2df618-db89-43f8-97fa-268c3e2105eb",
+              "sourceStep": "/api/3/workflow_steps/8b03c823-d65c-4a3b-bcc9-e6e634482ec7",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "b50235ee-a9cf-4855-8602-51d8f7ba92f1"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Is Data Mapping -> Copy of Get Technical Intelligence Reports",
+              "targetStep": "/api/3/workflow_steps/fef5ea01-e946-4097-b1f9-2a0edddc63f6",
+              "sourceStep": "/api/3/workflow_steps/1676d62a-8627-402e-8731-76807d3d4510",
+              "label": "Yes, For Mapping",
+              "isExecuted": false,
+              "group": null,
+              "uuid": "5d603407-f66d-4b0d-a496-f2187f25ecaa"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Is Data Mapping -> Get Technical Intelligence Reports",
+              "targetStep": "/api/3/workflow_steps/02b10879-c0a6-48ef-864c-6e9513e84b73",
+              "sourceStep": "/api/3/workflow_steps/1676d62a-8627-402e-8731-76807d3d4510",
+              "label": "No, For Ingestion",
+              "isExecuted": false,
+              "group": null,
+              "uuid": "893b0477-b7f5-4b06-b6be-712ae426245e"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Configuration",
+              "targetStep": "/api/3/workflow_steps/1df01a2e-c886-4cb7-b054-c1a14d5b6fb0",
+              "sourceStep": "/api/3/workflow_steps/6b92edb8-103d-459d-823f-82c441a29878",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "a94e5821-0bb7-43f9-b84c-e6c49a66cd70"
+            }
+          ],
+          "groups": [],
+          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+          "uuid": "7000c723-654b-4d71-9e95-4cdda2ecf5fd",
+          "id": 854,
+          "owners": [],
+          "isPrivate": false,
+          "deletedAt": null,
+          "importedBy": [],
+          "recordTags": [
+            "dataingestion",
+            "ingest",
+            "fetch",
+            "fortinet-fortirecon-aci"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "triggerLimit": null,
+          "name": "Map Adversary to MITRE Groups/Techniques/Softwares",
+          "aliasName": null,
+          "tag": null,
+          "description": "Map threat report adversary to MITRE Groups/Techniques/Softwares",
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "remoteExecutableFlag": false,
+          "parameters": [],
+          "synchronous": false,
+          "lastModifyDate": 1686119431,
+          "collection": "/api/3/workflow_collections/7a145247-0a97-4b39-9902-8bd8e0be0e43",
+          "versions": [],
+          "triggerStep": "/api/3/workflow_steps/380396ce-14b0-4c44-82bb-ca2b83db30ae",
+          "steps": [
+            {
+              "@type": "WorkflowStep",
+              "name": "Configuration",
+              "description": null,
+              "arguments": {
+                "software": "[]",
+                "groups_iri": "[]",
+                "techniques": "[]"
+              },
+              "status": null,
+              "top": "165",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "group": null,
+              "uuid": "7bed58c0-d5e3-460c-9587-c646d5d05f20"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Find Adversary in MITRE Associated Groups",
+              "description": null,
+              "arguments": {
+                "params": {
+                  "iri": "/api/query/mitre_groups?$limit=300$relationships=true",
+                  "body": "{\n  \"sort\": [],\n  \"limit\": 30,\n  \"logic\": \"AND\",\n  \"filters\": [\n    {\n      \"field\": \"aliases\",\n      \"operator\": \"like\",\n      \"_operator\": \"like\",\n      \"value\": \"{{vars.item}}%\",\n      \"type\": \"primitive\"\n    }\n  ],\n  \"__selectFields\": [\n    \"aliases\",\n    \"@id\",\n    \"software\",\n    \"techniques\"\n  ]\n}",
+                  "method": "POST"
+                },
+                "version": "3.2.3",
+                "for_each": {
+                  "item": "{{vars.input.records[0].adversary}}",
+                  "__bulk": false,
+                  "parallel": true,
+                  "condition": ""
+                },
+                "connector": "cyops_utilities",
+                "operation": "make_cyops_request",
+                "operationTitle": "FSR: Make FortiSOAR API Call",
+                "step_variables": []
+              },
+              "status": null,
+              "top": "300",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/0109f35d-090b-4a2b-bd8a-94cbc3508562",
+              "group": null,
+              "uuid": "3f81a3c6-ed90-4e91-a93e-b1238c78f89e"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Get Unique Groups",
+              "description": null,
+              "arguments": {
+                "__temp": "{% for item in vars.steps.Find_Adversary_in_MITRE_Associated_Groups %}\n{% if item.data[\"hydra:member\"] | length > 0 %}\n{% set _tmp = vars.groups_iri.append(item.data[\"hydra:member\"][0][\"@id\"]) %}\n{% set _tmp = vars.techniques.extend(item.data[\"hydra:member\"][0].techniques | json_query('[].\"@id\"')) %}\n{% set _tmp = vars.software.extend(item.data[\"hydra:member\"][0].software | json_query('[].\"@id\"')) %}\n{% endif %}\n{% endfor %}"
+              },
+              "status": null,
+              "top": "435",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "group": null,
+              "uuid": "63d36564-fd33-4904-a4f9-96d2ab46d980"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "arguments": {
+                "step_variables": {
+                  "input": {
+                    "params": []
+                  }
+                }
+              },
+              "status": null,
+              "top": "30",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+              "group": null,
+              "uuid": "380396ce-14b0-4c44-82bb-ca2b83db30ae"
+            },
+            {
+              "@type": "WorkflowStep",
+              "name": "Update Correlated Records",
+              "description": null,
+              "arguments": {
+                "resource": {
+                  "__link": {
+                    "relatedMalware": "{{vars.software}}",
+                    "relatedThreatActors": "{{vars.groups_iri}}",
+                    "relatedATTCKTechniques": "{{vars.techniques}}"
+                  }
+                },
+                "operation": "Append",
+                "collection": "{{vars.input.records[0]['@id']}}",
+                "__recommend": [],
+                "collectionType": "/api/3/threat_intel_reports",
+                "fieldOperation": {
+                  "recordTags": "Append"
+                },
+                "step_variables": []
+              },
+              "status": null,
+              "top": "570",
+              "left": "125",
+              "stepType": "/api/3/workflow_step_types/b593663d-7d13-40ce-a3a3-96dece928722",
+              "group": null,
+              "uuid": "9bd6c4cb-6b43-46d3-b4e2-136230520ca9"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "name": "Configuration -> Find Adversary in MITRE Associated Groups",
+              "targetStep": "/api/3/workflow_steps/3f81a3c6-ed90-4e91-a93e-b1238c78f89e",
+              "sourceStep": "/api/3/workflow_steps/7bed58c0-d5e3-460c-9587-c646d5d05f20",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "42974d6a-0d0d-4245-9d0b-82e07db20c9a"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Find -> Get Unique Groups",
+              "targetStep": "/api/3/workflow_steps/63d36564-fd33-4904-a4f9-96d2ab46d980",
+              "sourceStep": "/api/3/workflow_steps/3f81a3c6-ed90-4e91-a93e-b1238c78f89e",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "ec92a30c-1418-429c-87dd-ad5324bb4a5d"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Get Unique Groups -> Update Correlated Records",
+              "targetStep": "/api/3/workflow_steps/9bd6c4cb-6b43-46d3-b4e2-136230520ca9",
+              "sourceStep": "/api/3/workflow_steps/63d36564-fd33-4904-a4f9-96d2ab46d980",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "12015e87-df29-4635-86c9-c2517d0ed95a"
+            },
+            {
+              "@type": "WorkflowRoute",
+              "name": "Start -> Configuration",
+              "targetStep": "/api/3/workflow_steps/7bed58c0-d5e3-460c-9587-c646d5d05f20",
+              "sourceStep": "/api/3/workflow_steps/380396ce-14b0-4c44-82bb-ca2b83db30ae",
+              "label": null,
+              "isExecuted": false,
+              "group": null,
+              "uuid": "bf0f13eb-9731-4d7d-957e-359ce0a46091"
+            }
+          ],
+          "groups": [],
+          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
+          "uuid": "a89c4164-2099-4bac-a0f7-be58a435ae26",
+          "id": 856,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null,
@@ -922,458 +1543,6 @@
           "importedBy": [],
           "recordTags": [
             "Fortinet",
-            "fortinet-fortirecon-aci"
-          ]
-        },
-        {
-          "@type": "Workflow",
-          "triggerLimit": null,
-          "name": "FortiRecon ACI Threat Intel Report > Fetch",
-          "aliasName": null,
-          "tag": null,
-          "description": "Fetch FortiRecon ACI Threat Intel Report and associated iocs",
-          "isActive": false,
-          "debug": false,
-          "singleRecordExecution": false,
-          "remoteExecutableFlag": false,
-          "parameters": [],
-          "synchronous": false,
-          "lastModifyDate": 1685359317,
-          "collection": "/api/3/workflow_collections/7a145247-0a97-4b39-9902-8bd8e0be0e43",
-          "versions": [],
-          "triggerStep": "/api/3/workflow_steps/d78ccfa3-6f53-4dce-9c7d-9ee355f6e607",
-          "steps": [
-            {
-              "@type": "WorkflowStep",
-              "name": "Configuration",
-              "description": null,
-              "arguments": {
-                "fetchTime": "{{arrow.utcnow().int_timestamp}}",
-                "pullTimeMacro": "FortiReconACILastPullTime__{{vars['audit_info']['cyops_playbook_iri'].split('/')[-1].replace('-','_')}}",
-                "technical_intelligence_reports": "[]"
-              },
-              "status": null,
-              "top": "165",
-              "left": "300",
-              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-              "group": null,
-              "uuid": "257ad642-ea6f-4e04-a334-7f54b7087481"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Create Threat Intel Record",
-              "description": null,
-              "arguments": {
-                "for_each": {
-                  "item": "{{vars.steps.Get_Report_IOCs}}",
-                  "parallel": false,
-                  "condition": ""
-                },
-                "arguments": {
-                  "report_iocs": "{{vars.item.report_iocs}}",
-                  "report_details": "{{vars.item.report_details}}"
-                },
-                "apply_async": false,
-                "step_variables": [],
-                "pass_parent_env": false,
-                "pass_input_record": true,
-                "workflowReference": "/api/3/workflows/fb12cc48-a32a-4d2f-841a-b4d8e226a70f"
-              },
-              "status": null,
-              "top": "1380",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
-              "group": null,
-              "uuid": "d3c0a5b2-f4ff-4fe8-a946-aa2e838e5884"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Extract Response Value",
-              "description": null,
-              "arguments": {
-                "lastPullTime": "{% if (vars.steps.Get_Macro_Value.data[\"hydra:member\"] | length) > 0%}{{vars.steps.Get_Macro_Value.data[\"hydra:member\"][0].value }}{% else %}{{arrow.utcnow().shift(hours= -vars.last_sample_pull_time).int_timestamp}}{% endif %}"
-              },
-              "status": null,
-              "top": "435",
-              "left": "300",
-              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-              "group": null,
-              "uuid": "05e5bbe7-19d8-4545-9c2e-78cc8a974d4c"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Fetch Technical Intelligence Reports",
-              "description": null,
-              "arguments": {
-                "name": "Fortinet FortiRecon ACI",
-                "config": "1bb114d2-8376-4b77-b1c0-c9fc93a229c1",
-                "params": {
-                  "page": "{{vars.item}}",
-                  "size": "{{vars.page_size}}",
-                  "tags": "",
-                  "keyword": "",
-                  "end_date": "{{arrow.get(vars.fetchTime).format('YYYY-MM-DDTHH:mm:ss.SSS')}}Z",
-                  "industry": "",
-                  "adversary": "",
-                  "geography": "",
-                  "start_date": "{{arrow.get(vars.lastPullTime).format('YYYY-MM-DDTHH:mm:ss.SSS')}}Z",
-                  "report_type": "",
-                  "source_category": "{{vars.source_category}}",
-                  "relevance_rating": "",
-                  "source_reliability": "",
-                  "information_reliability": ""
-                },
-                "version": "1.1.0",
-                "for_each": {
-                  "item": "{{range(2,((vars.page_numbers | int)+1)) | list}}",
-                  "parallel": false,
-                  "condition": ""
-                },
-                "connector": "fortinet-fortirecon-aci",
-                "operation": "get_reports",
-                "operationTitle": "Get Reports",
-                "step_variables": []
-              },
-              "status": null,
-              "top": "975",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "group": null,
-              "uuid": "fa13d3ec-8a30-4b1e-b88b-e20ec7c60a73"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Get All Technical Intelligence Reports",
-              "description": null,
-              "arguments": {
-                "_tmp": "{% for item in vars.steps.Get_Technical_Intelligence_Reports.data.hits %}{% set _ = vars.technical_intelligence_reports.append(item) %}{% endfor %}\n{% for item in vars.steps.Fetch_Technical_Intelligence_Reports %}{% for i in item.data.hits %}{% set _ = vars.technical_intelligence_reports.append(i) %}{% endfor %}{% endfor %}"
-              },
-              "status": null,
-              "top": "1110",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-              "group": null,
-              "uuid": "150d521a-1ba8-41f1-834d-7349bf4460d8"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Get Macro Value",
-              "description": null,
-              "arguments": {
-                "params": {
-                  "iri": "/api/wf/api/dynamic-variable/?name={{vars.pullTimeMacro}}",
-                  "body": "",
-                  "method": "GET"
-                },
-                "version": "3.2.3",
-                "connector": "cyops_utilities",
-                "operation": "make_cyops_request",
-                "operationTitle": "FSR: Make FortiSOAR API Call",
-                "step_variables": []
-              },
-              "status": null,
-              "top": "300",
-              "left": "300",
-              "stepType": "/api/3/workflow_step_types/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-              "group": null,
-              "uuid": "c5fb392b-f9c4-4921-abfa-245f3e4f20e1"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Get Report IOCs",
-              "description": null,
-              "arguments": {
-                "for_each": {
-                  "item": "{{vars.technical_intelligence_reports}}",
-                  "parallel": false,
-                  "condition": ""
-                },
-                "arguments": {
-                  "page_size": "{{vars.page_size}}",
-                  "report_details": "{{vars.item}}"
-                },
-                "apply_async": false,
-                "step_variables": [],
-                "pass_parent_env": false,
-                "pass_input_record": true,
-                "workflowReference": "/api/3/workflows/9cb4f8d1-2ffc-4b21-8c13-1709ba7e6b11"
-              },
-              "status": null,
-              "top": "1245",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
-              "group": null,
-              "uuid": "5be40ffd-4d7b-49bd-b120-00790a3a9fc1"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Get Technical Intelligence Reports",
-              "description": null,
-              "arguments": {
-                "name": "Fortinet FortiRecon ACI",
-                "config": "1bb114d2-8376-4b77-b1c0-c9fc93a229c1",
-                "params": {
-                  "page": "",
-                  "size": "{{vars.page_size}}",
-                  "tags": "",
-                  "keyword": "",
-                  "end_date": "{{arrow.get(vars.fetchTime).format('YYYY-MM-DDTHH:mm:ss.SSS')}}Z",
-                  "industry": "",
-                  "adversary": "",
-                  "geography": "",
-                  "start_date": "{{arrow.get(vars.lastPullTime).format('YYYY-MM-DDTHH:mm:ss.SSS')}}Z",
-                  "report_type": "",
-                  "source_category": "{{vars.source_category}}",
-                  "relevance_rating": "",
-                  "source_reliability": "",
-                  "information_reliability": ""
-                },
-                "version": "1.1.0",
-                "connector": "fortinet-fortirecon-aci",
-                "operation": "get_reports",
-                "operationTitle": "Get Reports",
-                "step_variables": {
-                  "output_data": "{{vars.result}}"
-                }
-              },
-              "status": null,
-              "top": "705",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671",
-              "group": null,
-              "uuid": "a39a3f0d-3bd5-401c-9ae1-5efc74f38c5a"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Get Total Number Pages",
-              "description": null,
-              "arguments": {
-                "page_numbers": "{{(vars.steps.Get_Technical_Intelligence_Reports.data.total / vars.steps.Get_Technical_Intelligence_Reports.data.size ) | round(0, 'ceil')}}"
-              },
-              "status": null,
-              "top": "840",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-              "group": null,
-              "uuid": "0a5a5918-90ca-4699-8eb1-6726ce94c6d8"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Is Data Mapping",
-              "description": null,
-              "arguments": {
-                "conditions": [
-                  {
-                    "option": "Yes, For Mapping",
-                    "step_iri": "/api/3/workflow_steps/883571d6-876c-466a-8ca2-d5dace378057",
-                    "condition": "{{ vars.request.env_setup == true }}",
-                    "step_name": "Return Sample Data"
-                  },
-                  {
-                    "option": "No, For Ingestion",
-                    "default": true,
-                    "step_iri": "/api/3/workflow_steps/a39a3f0d-3bd5-401c-9ae1-5efc74f38c5a",
-                    "step_name": "Get Technical Intelligence Reports"
-                  }
-                ]
-              },
-              "status": null,
-              "top": "570",
-              "left": "300",
-              "stepType": "/api/3/workflow_step_types/12254cf5-5db7-4b1a-8cb1-3af081924b28",
-              "group": null,
-              "uuid": "5d7fb133-9002-43a8-8934-7bdefd4a6d08"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Return Sample Data",
-              "description": null,
-              "arguments": {
-                "data": "[\n      {\n        \"tlp\": \"Green\",\n        \"status\": \"Published\",\n        \"threat\": [\n          \"malware\",\n          \"ransomware\"\n        ],\n        \"summary\": \"FortiGuard Threat Research discovered a blog post in which researchers confirmed the distribution of the LokiLocker ransomware in Korea. This ransomware is almost identical to the BlackBit ransomware. Below is the analysis provided by the researchers along with the similarities observed.\",\n        \"adversary\": [\n          \"lokilocker ransomware group\"\n        ],\n        \"geography\": [\n          \"east asia\"\n        ],\n        \"report_id\": \"2023051597856\",\n        \"motivation\": \"Cyber Crime\",\n        \"report_type\": \"Threat Alert\",\n        \"source_name\": \"Blog Post\",\n        \"publish_date\": \"2023-05-16T00:00:00Z\",\n        \"report_title\": \"Indicators associated with LokiLocker ransomware, sharing similarities with BlackBit Ransomware and its distribution in South Korea\",\n        \"industry_tags\": [\n          \"unknown\"\n        ],\n        \"source_category\": \"Technical Intelligence\",\n        \"information_date\": \"2023-03-15T00:00:00Z\",\n        \"relevance_rating\": \"Low\",\n        \"source_reliability\": \"A-Reliable\",\n        \"information_reliability\": \"1-Confirmed\"\n      }\n    ]"
-              },
-              "status": null,
-              "top": "705",
-              "left": "475",
-              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-              "group": null,
-              "uuid": "883571d6-876c-466a-8ca2-d5dace378057"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Start",
-              "description": null,
-              "arguments": {
-                "step_variables": {
-                  "input": {
-                    "params": []
-                  },
-                  "_configuration_schema": "[\n  {\n    \"title\": \"Pull Reports from Last X Hours\",\n    \"name\": \"last_sample_pull_time\",\n    \"type\": \"text\",\n    \"tooltip\": \"Fetch reports from last X hours. e.g 24\",\n    \"required\": true,\n    \"editable\": true,\n    \"visible\": true,\n    \"value\": 24\n  },\n  {\n    \"name\": \"source_category\",\n    \"title\": \"Source Category\",\n    \"type\": \"text\",\n    \"editable\": true,\n    \"visible\": true,\n    \"required\": false,\n    \"value\": \"Technical Intelligence\",\n    \"tooltip\": \"Specify a comma-separated string or single string of the source category associated with the reports\"\n  },\n  {\n    \"name\": \"page_size\",\n    \"title\": \"Page Size\",\n    \"type\": \"integer\",\n    \"editable\": true,\n    \"visible\": true,\n    \"value\": 500,\n    \"required\": false,\n    \"placeholder\": \"Must be greater 0 and less than or equal to 500.\",\n    \"tooltip\": \"Specify the maximum number of records that this operation should return for the specified page. By default, it retrieves 10 records.\"\n  }\n]"
-                }
-              },
-              "status": null,
-              "top": "30",
-              "left": "300",
-              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62",
-              "group": null,
-              "uuid": "d78ccfa3-6f53-4dce-9c7d-9ee355f6e607"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Update Pull Time",
-              "description": null,
-              "arguments": {
-                "params": {
-                  "macro": "{{vars.pullTimeMacro}}",
-                  "value": "{{vars.fetchTime}}"
-                },
-                "version": "3.2.3",
-                "connector": "cyops_utilities",
-                "operation": "updatemacro",
-                "operationTitle": "CyOPs: Update Macro",
-                "step_variables": []
-              },
-              "status": null,
-              "top": "1515",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/0109f35d-090b-4a2b-bd8a-94cbc3508562",
-              "group": null,
-              "uuid": "59848644-df7d-4f9b-aa27-3d4a6ccdd167"
-            }
-          ],
-          "routes": [
-            {
-              "@type": "WorkflowRoute",
-              "name": "Configuration -> Get Macro Value",
-              "targetStep": "/api/3/workflow_steps/c5fb392b-f9c4-4921-abfa-245f3e4f20e1",
-              "sourceStep": "/api/3/workflow_steps/257ad642-ea6f-4e04-a334-7f54b7087481",
-              "label": null,
-              "isExecuted": false,
-              "group": null,
-              "uuid": "dfaeb045-9019-4cdb-8db9-313864852151"
-            },
-            {
-              "@type": "WorkflowRoute",
-              "name": "Create Threat Intel Record -> Update Pull Time",
-              "targetStep": "/api/3/workflow_steps/59848644-df7d-4f9b-aa27-3d4a6ccdd167",
-              "sourceStep": "/api/3/workflow_steps/d3c0a5b2-f4ff-4fe8-a946-aa2e838e5884",
-              "label": null,
-              "isExecuted": false,
-              "group": null,
-              "uuid": "a9e058df-f07a-4cae-9487-0cdbec4d6083"
-            },
-            {
-              "@type": "WorkflowRoute",
-              "name": "Extract Value from Response -> Is Data Mapping",
-              "targetStep": "/api/3/workflow_steps/5d7fb133-9002-43a8-8934-7bdefd4a6d08",
-              "sourceStep": "/api/3/workflow_steps/05e5bbe7-19d8-4545-9c2e-78cc8a974d4c",
-              "label": null,
-              "isExecuted": false,
-              "group": null,
-              "uuid": "c2a5c4b9-8689-4e4b-8e9c-f6f5a361c16f"
-            },
-            {
-              "@type": "WorkflowRoute",
-              "name": "Fetch Technical Intelligence Reports -> Get All Technical Intelligence Reports",
-              "targetStep": "/api/3/workflow_steps/150d521a-1ba8-41f1-834d-7349bf4460d8",
-              "sourceStep": "/api/3/workflow_steps/fa13d3ec-8a30-4b1e-b88b-e20ec7c60a73",
-              "label": null,
-              "isExecuted": false,
-              "group": null,
-              "uuid": "c3e108e4-7d96-4656-b15e-c8cbfafac5e0"
-            },
-            {
-              "@type": "WorkflowRoute",
-              "name": "Get All Technical Intelligence Reports -> Get Report IOCs",
-              "targetStep": "/api/3/workflow_steps/5be40ffd-4d7b-49bd-b120-00790a3a9fc1",
-              "sourceStep": "/api/3/workflow_steps/150d521a-1ba8-41f1-834d-7349bf4460d8",
-              "label": null,
-              "isExecuted": false,
-              "group": null,
-              "uuid": "dee2124f-f095-43e3-9f82-c7fc1e865610"
-            },
-            {
-              "@type": "WorkflowRoute",
-              "name": "Get Macro Value -> Extract Value from Response",
-              "targetStep": "/api/3/workflow_steps/05e5bbe7-19d8-4545-9c2e-78cc8a974d4c",
-              "sourceStep": "/api/3/workflow_steps/c5fb392b-f9c4-4921-abfa-245f3e4f20e1",
-              "label": null,
-              "isExecuted": false,
-              "group": null,
-              "uuid": "c43d6575-1501-4bc0-93ef-1a3cfd8c5a82"
-            },
-            {
-              "@type": "WorkflowRoute",
-              "name": "Get Report IOCs -> Create Threat Intel Record",
-              "targetStep": "/api/3/workflow_steps/d3c0a5b2-f4ff-4fe8-a946-aa2e838e5884",
-              "sourceStep": "/api/3/workflow_steps/5be40ffd-4d7b-49bd-b120-00790a3a9fc1",
-              "label": null,
-              "isExecuted": false,
-              "group": null,
-              "uuid": "d62d4d0c-d3db-4f50-a0dd-068cdbf292b2"
-            },
-            {
-              "@type": "WorkflowRoute",
-              "name": "Get Technical Intelligence Reports -> Get Total Number Pages",
-              "targetStep": "/api/3/workflow_steps/0a5a5918-90ca-4699-8eb1-6726ce94c6d8",
-              "sourceStep": "/api/3/workflow_steps/a39a3f0d-3bd5-401c-9ae1-5efc74f38c5a",
-              "label": null,
-              "isExecuted": false,
-              "group": null,
-              "uuid": "7295171f-cc47-4179-8276-74079a207e33"
-            },
-            {
-              "@type": "WorkflowRoute",
-              "name": "Get Total Number Pages -> Fetch Technical Intelligence Reports",
-              "targetStep": "/api/3/workflow_steps/fa13d3ec-8a30-4b1e-b88b-e20ec7c60a73",
-              "sourceStep": "/api/3/workflow_steps/0a5a5918-90ca-4699-8eb1-6726ce94c6d8",
-              "label": null,
-              "isExecuted": false,
-              "group": null,
-              "uuid": "c979a547-0bc7-4800-9386-8b0e33149b17"
-            },
-            {
-              "@type": "WorkflowRoute",
-              "name": "Is Data Mapping -> Get Technical Intelligence Reports",
-              "targetStep": "/api/3/workflow_steps/a39a3f0d-3bd5-401c-9ae1-5efc74f38c5a",
-              "sourceStep": "/api/3/workflow_steps/5d7fb133-9002-43a8-8934-7bdefd4a6d08",
-              "label": "No, For Ingestion",
-              "isExecuted": false,
-              "group": null,
-              "uuid": "cb48505e-66f0-47f2-9c09-0242f16a08c9"
-            },
-            {
-              "@type": "WorkflowRoute",
-              "name": "Is Data Mapping -> Return Sample Data",
-              "targetStep": "/api/3/workflow_steps/883571d6-876c-466a-8ca2-d5dace378057",
-              "sourceStep": "/api/3/workflow_steps/5d7fb133-9002-43a8-8934-7bdefd4a6d08",
-              "label": "Yes, For Mapping",
-              "isExecuted": false,
-              "group": null,
-              "uuid": "4cef0468-ac8b-4590-894b-aedb3a2c6356"
-            },
-            {
-              "@type": "WorkflowRoute",
-              "name": "Start -> Configuration",
-              "targetStep": "/api/3/workflow_steps/257ad642-ea6f-4e04-a334-7f54b7087481",
-              "sourceStep": "/api/3/workflow_steps/d78ccfa3-6f53-4dce-9c7d-9ee355f6e607",
-              "label": null,
-              "isExecuted": false,
-              "group": null,
-              "uuid": "4fa57f4b-73c7-48bb-9551-c87a8b58a887"
-            }
-          ],
-          "groups": [],
-          "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "b2980d3c-8ef0-40b6-8c74-65025897a4c9",
-          "id": 486,
-          "owners": [],
-          "isPrivate": false,
-          "deletedAt": null,
-          "importedBy": [],
-          "recordTags": [
-            "dataingestion",
-            "ingest",
-            "fetch",
             "fortinet-fortirecon-aci"
           ]
         },
@@ -1795,224 +1964,106 @@
         {
           "@type": "Workflow",
           "triggerLimit": null,
-          "name": "FortiSOAR Threat Intel Feeds Using Threat Intel Report > Create",
+          "name": "On Update > Map Adversary to MITRE Groups/Techniques/Softwares",
           "aliasName": null,
           "tag": null,
-          "description": "Create threat intel reports and it's associated ioc as FortiSOAR threat intel feeds",
+          "description": "Map adversary to MITRE Groups/Techniques/Softwares on update of adversary in threat report",
           "isActive": false,
           "debug": false,
           "singleRecordExecution": false,
           "remoteExecutableFlag": false,
-          "parameters": [
-            "report_iocs",
-            "report_details"
-          ],
+          "parameters": [],
           "synchronous": false,
-          "lastModifyDate": 1685602168,
+          "lastModifyDate": 1686119431,
           "collection": "/api/3/workflow_collections/7a145247-0a97-4b39-9902-8bd8e0be0e43",
           "versions": [],
-          "triggerStep": "/api/3/workflow_steps/590eb40a-f17a-40e0-bf61-d715b864f4a9",
+          "triggerStep": "/api/3/workflow_steps/ea4e9934-fea1-4e97-8d62-2bc45836dd7f",
           "steps": [
             {
               "@type": "WorkflowStep",
-              "name": "Create Record",
+              "name": "Map Adversary to MITRE Records",
               "description": null,
               "arguments": {
-                "resource": {
-                  "tLP": "{{vars.report_details.tlp | resolveRange(vars.tlp_type_map)}}",
-                  "__link": {
-                    "recordTags": "{{vars.threat_tags}}"
-                  },
-                  "source": "FortiRecon ACI Report",
-                  "status": "{{vars.report_details.status}}",
-                  "threat": "{{vars.report_details.threat}}",
-                  "summary": "<p>{{vars.report_details.summary}}</p>",
-                  "reportID": "{{vars.report_details.report_id}}",
-                  "__replace": "false",
-                  "adversary": "{{vars.report_details.adversary}}",
-                  "geography": "{{vars.report_details.geography}}",
-                  "motivation": "{{vars.report_details.motivation}}",
-                  "reportLink": "https://fortirecon.forticloud.com/adversary-centric-intelligence/reports?reportId={{vars.report_details.report_id}}",
-                  "reportType": "{{vars.report_details.report_type | resolveRange(vars.report_type_map)}}",
-                  "sourceData": "{{vars.report_details}}",
-                  "sourceName": "{{vars.report_details.source_name}}",
-                  "publishDate": "{{ arrow.get(vars.report_details.publish_date, 'YYYY-MM-DDTHH:mm:ssZ').int_timestamp }}",
-                  "reportTitle": "{{vars.report_details.report_title}}",
-                  "industryTags": "{{vars.report_details.industry_tags}}",
-                  "sourceCategory": "{{vars.report_details.source_category | resolveRange(vars.source_category_type_map)}}",
-                  "informationDate": "{{ arrow.get(vars.report_details.information_date, 'YYYY-MM-DDTHH:mm:ssZ').int_timestamp }}",
-                  "relevanceRating": "{{vars.report_details.relevance_rating | resolveRange(vars.relevance_rating_type_map)}}",
-                  "sourceReliability": "{{vars.report_details.source_reliability | resolveRange(vars.source_reliability_type_map)}}",
-                  "informationReliability": "{{vars.report_details.information_reliability | resolveRange(vars.information_reliability_type_map)}}"
-                },
-                "operation": "Overwrite",
-                "collection": "/api/3/upsert/threat_intel_reports",
-                "__recommend": [],
-                "fieldOperation": {
-                  "recordTags": "Append"
-                },
-                "step_variables": []
-              },
-              "status": null,
-              "top": "435",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/2597053c-e718-44b4-8394-4d40fe26d357",
-              "group": null,
-              "uuid": "f433ceaf-233c-48c9-a04a-be36aebb8c28"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Create Threat Intel Feed",
-              "description": null,
-              "arguments": {
-                "for_each": {
-                  "item": "{{vars.input.params['report_iocs']}}",
-                  "__bulk": true,
-                  "parallel": false,
-                  "condition": "{{vars.item.ioc_type not in [\"adversary\", \"cve\"]}}",
-                  "batch_size": 100
-                },
-                "resource": {
-                  "tLP": "{{vars.report_details.tlp | resolveRange(vars.tlp_type_map)}}",
-                  "value": "{{vars.item.ioc}}",
-                  "__link": {
-                    "recordTags": "{{vars.threat_tags}}",
-                    "threatIntelReports": "[\"{{vars.steps.Create_Record['@id']}}\"]"
-                  },
-                  "source": "FortiRecon ACI Report",
-                  "sourceId": "{{vars.report_details.report_id}}",
-                  "__replace": "true",
-                  "confidence": 100,
-                  "reputation": "/api/3/picklists/7074e547-7785-4979-be32-c6d0c863e4bd",
-                  "sourceData": "{{vars.item}}",
-                  "typeOfFeed": "{{vars.item.ioc_type | resolveRange(vars.threat_intel_feed_type_map)}}",
-                  "description": "<p>{{vars.report_details.report_title}}</p>"
-                },
-                "_showJson": false,
-                "operation": "Append",
-                "collection": "/api/3/upsert/threat_intel_feeds",
-                "__recommend": [],
-                "fieldOperation": {
-                  "recordTags": "Append",
-                  "threatTypes": "Overwrite",
-                  "killChainPhases": "Overwrite"
-                },
-                "step_variables": []
-              },
-              "status": null,
-              "top": "570",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/2597053c-e718-44b4-8394-4d40fe26d357",
-              "group": null,
-              "uuid": "eb891c7d-47d9-480a-b672-246c55d97bcd"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Field Mapping",
-              "description": null,
-              "arguments": {
-                "threat_tags": "[]",
-                "tlp_type_map": "{\n  \t\"Unknown\": \"{{\"TLP\" | picklist(\"Unknown\")}}\",\n  \t\"White\": \"{{\"TLP\" | picklist(\"White\")}}\",\n  \t\"Green\": \"{{\"TLP\" | picklist(\"Green\")}}\",\n  \t\"Amber\": \"{{\"TLP\" | picklist(\"Amber\")}}\",\n  \t\"Red\": \"{{\"TLP\" | picklist(\"Red\")}}\"\n}",
-                "report_type_map": "{\n\"Flash Report\": \"{{\"Report Type\" | picklist(\"Flash Report\")}}\",\n\"Flash Alert\": \"{{\"Report Type\" | picklist(\"Flash Alert\")}}\",\n\"Threat Report\": \"{{\"Report Type\" | picklist(\"Threat Report\")}}\",\n\"Threat Alert\": \"{{\"Report Type\" | picklist(\"Threat Alert\")}}\"\n}",
-                "source_category_type_map": "{\n\t\"Media Trends\": \"{{\"Source Category\" | picklist(\"Media Trends\")}}\",\n\t\"Darknet\": \"{{\"Source Category\" | picklist(\"Darknet\")}}\",\n\t\"Humint\": \"{{\"Source Category\" | picklist(\"Humint\")}}\",\n\t\"OSINT\": \"{{\"Source Category\" | picklist(\"OSINT\")}}\",\n\t\"Fraudulent Domains\": \"{{\"Source Category\" | picklist(\"Fraudulent Domains\")}}\",\n\t\"Technical Intelligence\": \"{{\"Source Category\" | picklist(\"Technical Intelligence\")}}\",\n\t\"Executive Summary\": \"{{\"Source Category\" | picklist(\"Executive Summary\")}}\"\n}",
-                "relevance_rating_type_map": "{\n\t\"High\": \"{{\"Relevance Rating\" | picklist(\"High\")}}\",\n\t\"Medium\": \"{{\"Relevance Rating\" | picklist(\"Medium\")}}\",\n\t\"Low\": \"{{\"Relevance Rating\" | picklist(\"Low\")}}\"\n}",
-                "threat_intel_feed_type_map": "{\n\"hash\": \"{{\"ThreatIntelFeedType\" | picklist(\"FileHash\")}}\",\n\"url\": \"{{\"ThreatIntelFeedType\" | picklist(\"URL\")}}\",\n\"ip\": \"{{\"ThreatIntelFeedType\" | picklist(\"IP Address\")}}\",\n\"file_name, file_path\": \"{{\"ThreatIntelFeedType\" | picklist(\"Filename\")}}\",\n\"DOMAIN, domain\": \"{{\"ThreatIntelFeedType\" | picklist(\"Domain\")}}\",\n\"email\": \"{{\"ThreatIntelFeedType\" | picklist(\"Email Address\")}}\",\n\"registry_key\": \"{{\"ThreatIntelFeedType\" | picklist(\"Registry\")}}\"\n}",
-                "source_reliability_type_map": "{\n  \t\"A-Reliable\": \"{{\"Source Reliability\" | picklist(\"Reliable\")}}\",\n  \t\"B-Usually reliable\": \"{{\"Source Reliability\" | picklist(\"Usually Reliable\")}}\",\n  \t\"C-Fairly reliable\": \"{{\"Source Reliability\" | picklist(\"Fairly Reliable\")}}\",\n  \t\"D-Not usually reliable\": \"{{\"Source Reliability\" | picklist(\"Not Usually Reliable\")}}\",\n  \t\"E-Unreliable\": \"{{\"Source Reliability\" | picklist(\"Unreliable\")}}\",\n  \t\"F-Cannot be judged\": \"{{\"Source Reliability\" | picklist(\"Cannot Judged\")}}\"\n}",
-                "information_reliability_type_map": "{\n\t\"1-Confirmed\": \"{{\"Information Reliability\" | picklist(\"Confirmed\")}}\",\n\t\"2-Probably true\": \"{{\"Information Reliability\" | picklist(\"Probably True\")}}\",\n\t\"3-Possibly true\": \"{{\"Information Reliability\" | picklist(\"Possibly True\")}}\",\n\t\"4-Doubtfully true\": \"{{\"Information Reliability\" | picklist(\"Doubtfully True\")}}\",\n\t\"5-Improbable\": \"{{\"Information Reliability\" | picklist(\"Improbable\")}}\",\n\t\"6-Cannot be judged\": \"{{\"Information Reliability\" | picklist(\"Cannot Judged\")}}\"\n}"
+                "arguments": [],
+                "apply_async": false,
+                "step_variables": [],
+                "pass_parent_env": false,
+                "pass_input_record": true,
+                "workflowReference": "/api/3/workflows/a89c4164-2099-4bac-a0f7-be58a435ae26"
               },
               "status": null,
               "top": "165",
               "left": "125",
-              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
+              "stepType": "/api/3/workflow_step_types/74932bdc-b8b6-4d24-88c4-1a4dfbc524f3",
               "group": null,
-              "uuid": "d2297f9e-563c-4fee-bfb1-5db0046a035c"
-            },
-            {
-              "@type": "WorkflowStep",
-              "name": "Get Threat Tags",
-              "description": null,
-              "arguments": {
-                "__tmp": "{% set excludeList = [\"(not known)\", \"n/a\", \"unknown\", \"others\", \"N/A\" ] %}\n{% for tag in vars.report_details.threat %}\n{% if tag not in excludeList %}\n{% set _temp=vars.threat_tags.append((tag.replace(\"/\",\"-\")).replace(\"#\",\"\")) %}\n{% endif %}\n{% endfor %}\n{% for tag in vars.report_details.industry_tags %}\n{% if tag not in excludeList %}\n{% set _temp=vars.threat_tags.append(tag.replace(\"/\",\"-\")) %}\n{% endif %}\n{% endfor %}\n{% for tag in vars.report_details.adversary %}\n{% if tag not in excludeList %}\n{% set _temp=vars.threat_tags.append(tag.replace(\"/\",\"-\")) %}\n{% endif %}\n{% endfor %}\n{% for tag in vars.report_details.geography %}\n{% if tag not in excludeList %}\n{% set _temp=vars.threat_tags.append(tag.replace(\"/\",\"-\")) %}\n{% endif %}\n{% endfor %}"
-              },
-              "status": null,
-              "top": "300",
-              "left": "125",
-              "stepType": "/api/3/workflow_step_types/04d0cf46-b6a8-42c4-8683-60a7eaa69e8f",
-              "group": null,
-              "uuid": "c6e5d9ec-4955-4de1-819e-e54cf9931851"
+              "uuid": "8768f804-488b-46cd-a815-441d1745b05c"
             },
             {
               "@type": "WorkflowStep",
               "name": "Start",
               "description": null,
               "arguments": {
+                "resource": "threat_intel_reports",
+                "resources": [
+                  "threat_intel_reports"
+                ],
                 "step_variables": {
                   "input": {
-                    "params": []
+                    "params": [],
+                    "records": [
+                      "{{vars.input.records[0]}}"
+                    ]
                   }
+                },
+                "fieldbasedtrigger": {
+                  "sort": [],
+                  "limit": 30,
+                  "logic": "AND",
+                  "filters": [
+                    {
+                      "type": "object",
+                      "field": "adversary",
+                      "value": "",
+                      "_value": {
+                        "@id": "",
+                        "display": "",
+                        "itemValue": ""
+                      },
+                      "operator": "changed"
+                    }
+                  ]
                 }
               },
               "status": null,
               "top": "30",
               "left": "125",
-              "stepType": "/api/3/workflow_step_types/b348f017-9a94-471f-87f8-ce88b6a7ad62",
+              "stepType": "/api/3/workflow_step_types/9300bf69-5063-486d-b3a6-47eb9da24872",
               "group": null,
-              "uuid": "590eb40a-f17a-40e0-bf61-d715b864f4a9"
+              "uuid": "ea4e9934-fea1-4e97-8d62-2bc45836dd7f"
             }
           ],
           "routes": [
             {
               "@type": "WorkflowRoute",
-              "name": "Create ACI Report -> Create Threat Intel Feeds",
-              "targetStep": "/api/3/workflow_steps/eb891c7d-47d9-480a-b672-246c55d97bcd",
-              "sourceStep": "/api/3/workflow_steps/f433ceaf-233c-48c9-a04a-be36aebb8c28",
+              "name": "Start -> Map Adversary to MITRE Records",
+              "targetStep": "/api/3/workflow_steps/8768f804-488b-46cd-a815-441d1745b05c",
+              "sourceStep": "/api/3/workflow_steps/ea4e9934-fea1-4e97-8d62-2bc45836dd7f",
               "label": null,
               "isExecuted": false,
               "group": null,
-              "uuid": "a35851ec-8157-4d7b-9cce-fcb94e9481e5"
-            },
-            {
-              "@type": "WorkflowRoute",
-              "name": "Field Mapping -> Get Miter Group and Threat Tags",
-              "targetStep": "/api/3/workflow_steps/c6e5d9ec-4955-4de1-819e-e54cf9931851",
-              "sourceStep": "/api/3/workflow_steps/d2297f9e-563c-4fee-bfb1-5db0046a035c",
-              "label": null,
-              "isExecuted": false,
-              "group": null,
-              "uuid": "76868717-ecda-4ef0-a348-dd9618ed16ea"
-            },
-            {
-              "@type": "WorkflowRoute",
-              "name": "Get Miter Group and Threat Tags -> Create Record",
-              "targetStep": "/api/3/workflow_steps/f433ceaf-233c-48c9-a04a-be36aebb8c28",
-              "sourceStep": "/api/3/workflow_steps/c6e5d9ec-4955-4de1-819e-e54cf9931851",
-              "label": null,
-              "isExecuted": false,
-              "group": null,
-              "uuid": "b56630b5-624d-432f-86b0-64f9ec53c620"
-            },
-            {
-              "@type": "WorkflowRoute",
-              "name": "Start -> Field Mapping",
-              "targetStep": "/api/3/workflow_steps/d2297f9e-563c-4fee-bfb1-5db0046a035c",
-              "sourceStep": "/api/3/workflow_steps/590eb40a-f17a-40e0-bf61-d715b864f4a9",
-              "label": null,
-              "isExecuted": false,
-              "group": null,
-              "uuid": "ba93a172-b6a9-433b-b3b0-c4308130824b"
+              "uuid": "d733fe57-fa90-4055-929b-4acb1e722191"
             }
           ],
           "groups": [],
           "priority": "/api/3/picklists/2b563c61-ae2c-41c0-a85a-c9709585e3f2",
-          "uuid": "fb12cc48-a32a-4d2f-841a-b4d8e226a70f",
-          "id": 491,
+          "uuid": "f7066571-1472-4eea-a205-d22a5b1fa26d",
+          "id": 857,
           "owners": [],
           "isPrivate": false,
           "deletedAt": null,
           "importedBy": [],
           "recordTags": [
             "dataingestion",
-            "create",
             "fortinet-fortirecon-aci"
           ]
         }
@@ -2023,8 +2074,8 @@
     "Fortinet",
     "fortinet-fortirecon-aci",
     "dataingestion",
+    "create",
     "ingest",
-    "fetch",
-    "create"
+    "fetch"
   ]
 }
