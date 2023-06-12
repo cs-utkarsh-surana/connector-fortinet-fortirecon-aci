@@ -776,7 +776,7 @@
           "remoteExecutableFlag": false,
           "parameters": [],
           "synchronous": false,
-          "lastModifyDate": 1686288111,
+          "lastModifyDate": 1686574106,
           "collection": "/api/3/workflow_collections/7a145247-0a97-4b39-9902-8bd8e0be0e43",
           "versions": [],
           "triggerStep": "/api/3/workflow_steps/6b92edb8-103d-459d-823f-82c441a29878",
@@ -1082,7 +1082,7 @@
                   "input": {
                     "params": []
                   },
-                  "_configuration_schema": "[\n  {\n    \"title\": \"Pull Reports from Last X Hours\",\n    \"name\": \"last_sample_pull_time\",\n    \"type\": \"text\",\n    \"tooltip\": \"Fetch reports from last X hours. e.g 24\",\n    \"required\": true,\n    \"editable\": true,\n    \"visible\": true,\n    \"value\": 24\n  },\n  {\n    \"name\": \"source_category\",\n    \"title\": \"Source Category\",\n    \"type\": \"text\",\n    \"editable\": true,\n    \"visible\": true,\n    \"required\": false,\n    \"value\": \"Technical Intelligence\",\n    \"tooltip\": \"Specify a comma-separated string or single string of the source category associated with the reports\"\n  },\n  {\n    \"name\": \"page_size\",\n    \"title\": \"Page Size\",\n    \"type\": \"integer\",\n    \"editable\": true,\n    \"visible\": true,\n    \"value\": 500,\n    \"required\": false,\n    \"placeholder\": \"Must be greater 0 and less than or equal to 500.\",\n    \"tooltip\": \"Specify the maximum number of records that this operation should return for the specified page. By default, it retrieves 10 records.\"\n  }\n]"
+                  "_configuration_schema": "[\n  {\n    \"title\": \"Pull Reports from Last X Hours\",\n    \"name\": \"last_sample_pull_time\",\n    \"type\": \"text\",\n    \"tooltip\": \"Fetch reports from last X hours. e.g 24\",\n    \"required\": true,\n    \"editable\": true,\n    \"visible\": true,\n    \"value\": 24\n  },\n  {\n    \"name\": \"source_category\",\n    \"title\": \"Source Category\",\n    \"type\": \"text\",\n    \"editable\": true,\n    \"visible\": true,\n    \"required\": false,\n    \"value\": \"Technical Intelligence\",\n    \"placeholder\": \"Technical Intelligence\",\n    \"tooltip\": \"Only \\\"Technical Intelligence\\\" type \\\"Source Category\\\" is supported\"\n  },\n  {\n    \"name\": \"page_size\",\n    \"title\": \"Page Size\",\n    \"type\": \"integer\",\n    \"editable\": true,\n    \"visible\": true,\n    \"value\": 500,\n    \"required\": false,\n    \"placeholder\": \"Must be greater 0 and less than or equal to 500.\",\n    \"tooltip\": \"Specify the maximum number of records that this operation should return for the specified page. By default, it retrieves 10 records.\"\n  }\n]"
                 }
               },
               "status": null,
