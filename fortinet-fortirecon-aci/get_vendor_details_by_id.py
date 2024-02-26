@@ -6,14 +6,16 @@
 
 from .make_rest_api_call import MakeRestApiCall
 
+URL = {
+    "Attack Surface Exposure": "asm_exposure",
+    "Darknet Exposure": "darknet_exposure",
+    "Incidents": "incidents"
+}
 
-def get_iocs(config: dict, params: dict) -> dict:
+
+def get_vendor_details_by_id(config: dict, params: dict) -> dict:
     MK = MakeRestApiCall(config=config)
-
-    if params.get('report_id'):
-        params["report_id"] = str(params.get('report_id')).strip('[]')
-    endpoint = "/aci/{org_id}/iocs"
-
+    endpoint = '/aci/{org_id}/vendors'+'/{id}'.format(id=params.pop('id'))+'/{url}'.format(url=URL.get(params.get('type_of_info'))) if params.get('type_of_info') else ""
     if params.get("start_date"):
         params["start_date"] = MK.handle_date(params.get("start_date"))
     if params.get("end_date"):
