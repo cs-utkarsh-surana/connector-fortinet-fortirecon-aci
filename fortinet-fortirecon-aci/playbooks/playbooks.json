@@ -3,7 +3,7 @@
   "data": [
     {
       "@type": "WorkflowCollection",
-      "name": "Sample - Fortinet FortiRecon ACI - 1.1.0",
+      "name": "Sample - Fortinet FortiRecon ACI - 1.2.0",
       "description": "FortiRecon is a Digital Risk Protection Service (DRPS) product that provides an outside-the-network view to the risks posed to your enterprise.The Adversary Centric Intelligence (ACI) module leverages FortiGuard Threat Analysts to provide comprehensive coverage of dark web, open source, and technical threat intelligence, including threat actor insights. This information enables administrators to proactively assess risks, respond faster to incidents, better understand their attackers, and protect assets. This connector facilitates the automated operations related to ACI",
       "visible": true,
       "image": null,
@@ -44,7 +44,7 @@
                 "params": {
                   "id": "2022120253669"
                 },
-                "version": "1.1.0",
+                "version": "1.2.0",
                 "connector": "fortinet-fortirecon-aci",
                 "operation": "get_reports_with_iocs",
                 "operationTitle": "Get Reports With IOCs",
@@ -163,7 +163,7 @@
                   "report_id": "{{vars.input.params['report_details'].report_id}}",
                   "start_date": ""
                 },
-                "version": "1.1.0",
+                "version": "1.2.0",
                 "for_each": {
                   "item": "{{range(2,((vars.page_numbers | int)+1)) | list}}",
                   "parallel": false,
@@ -211,7 +211,7 @@
                   "report_id": "{{vars.input.params['report_details'].report_id}}",
                   "start_date": ""
                 },
-                "version": "1.1.0",
+                "version": "1.2.0",
                 "connector": "fortinet-fortirecon-aci",
                 "operation": "get_iocs",
                 "operationTitle": "Get IOCs",
@@ -377,7 +377,7 @@
                   "page": "",
                   "size": 10
                 },
-                "version": "1.1.0",
+                "version": "1.2.0",
                 "connector": "fortinet-fortirecon-aci",
                 "operation": "get_widgets",
                 "operationTitle": "Get Widgets",
@@ -864,7 +864,7 @@
                   "source_reliability": "",
                   "information_reliability": ""
                 },
-                "version": "1.1.0",
+                "version": "1.2.0",
                 "connector": "fortinet-fortirecon-aci",
                 "operation": "get_reports",
                 "operationTitle": "Get Reports",
@@ -900,7 +900,7 @@
                   "source_reliability": "",
                   "information_reliability": ""
                 },
-                "version": "1.1.0",
+                "version": "1.2.0",
                 "for_each": {
                   "item": "{{range(2,((vars.page_numbers | int)+1)) | list}}",
                   "parallel": false,
@@ -1005,7 +1005,7 @@
                   "source_reliability": "",
                   "information_reliability": ""
                 },
-                "version": "1.1.0",
+                "version": "1.2.0",
                 "connector": "fortinet-fortirecon-aci",
                 "operation": "get_reports",
                 "operationTitle": "Get Reports",
@@ -1474,7 +1474,7 @@
                   "end_date": "",
                   "start_date": ""
                 },
-                "version": "1.1.0",
+                "version": "1.2.0",
                 "connector": "fortinet-fortirecon-aci",
                 "operation": "get_leaked_cards",
                 "operationTitle": "Get Leaked Cards",
@@ -1580,7 +1580,7 @@
                   "marketplace": "",
                   "stealer_name": ""
                 },
-                "version": "1.1.0",
+                "version": "1.2.0",
                 "connector": "fortinet-fortirecon-aci",
                 "operation": "get_stealers_log",
                 "operationTitle": "Get Stealers Log",
@@ -1681,7 +1681,7 @@
                   "report_id": "2023050919305",
                   "start_date": ""
                 },
-                "version": "1.1.0",
+                "version": "1.2.0",
                 "connector": "fortinet-fortirecon-aci",
                 "operation": "get_iocs",
                 "operationTitle": "Get IOCs",
@@ -1790,7 +1790,7 @@
                   "source_reliability": "",
                   "information_reliability": ""
                 },
-                "version": "1.1.0",
+                "version": "1.2.0",
                 "connector": "fortinet-fortirecon-aci",
                 "operation": "get_reports",
                 "operationTitle": "Get Reports",
@@ -1889,7 +1889,7 @@
                   "keyword": "",
                   "widget_id": ""
                 },
-                "version": "1.1.0",
+                "version": "1.2.0",
                 "connector": "fortinet-fortirecon-aci",
                 "operation": "get_osint_feeds",
                 "operationTitle": "Get OSINT Feeds",
@@ -2061,6 +2061,1019 @@
           "recordTags": [
             "dataingestion",
             "fortinet-fortirecon-aci"
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "c17e866c-fafc-49d0-a3e2-bcd6969d1999",
+          "collection": "/api/3/workflow_collections/3e074d7c-3495-40ac-958e-27e10ead81b0",
+          "triggerLimit": null,
+          "description": "Retrieves a list of intelligence collection lookup saved searches for the given org id and other input parameters you have specified.",
+          "name": "Get ICL Saved Searches",
+          "tag": "#Fortinet FortiRecon ACI",
+          "recordTags": [
+            "Fortinet",
+            "fortinet-fortirecon-aci"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/2732ff77-5206-4a40-b316-b27806b599dd",
+          "steps": [
+            {
+              "uuid": "2732ff77-5206-4a40-b316-b27806b599dd",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "9f4de00a-5a0b-4c2a-9728-aa7999ecb44a",
+                "title": "Fortinet FortiRecon ACI: Get ICL Saved Searches",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "a7ea3ddc-7cf8-4492-8dcd-75f1a92d1ac4",
+              "@type": "WorkflowStep",
+              "name": "Get ICL Saved Searches",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "''",
+                "params": {
+                  "size": 10
+                },
+                "version": "1.2.0",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_icl_saved_searches",
+                "operationTitle": "Get ICL Saved Searches"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "c25624d3-11a3-4338-b9d3-94d90a872532",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get ICL Saved Searches",
+              "sourceStep": "/api/3/workflow_steps/2732ff77-5206-4a40-b316-b27806b599dd",
+              "targetStep": "/api/3/workflow_steps/a7ea3ddc-7cf8-4492-8dcd-75f1a92d1ac4"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "7c636d3f-fb2a-4e4b-b949-e723eb8fde0f",
+          "collection": "/api/3/workflow_collections/3e074d7c-3495-40ac-958e-27e10ead81b0",
+          "triggerLimit": null,
+          "description": "Retrieves a list of intelligence collection lookup saved searches for the given org id by saved search ID.",
+          "name": "Get ICL Saved Searches By ID",
+          "tag": "#Fortinet FortiRecon ACI",
+          "recordTags": [
+            "Fortinet",
+            "fortinet-fortirecon-aci"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/6e802737-f991-4ca0-97e0-50bf28cb4a99",
+          "steps": [
+            {
+              "uuid": "6e802737-f991-4ca0-97e0-50bf28cb4a99",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "d2fcfe1c-aa26-4929-b09f-883088cfbcd5",
+                "title": "Fortinet FortiRecon ACI: Get ICL Saved Searches By ID",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "9b7fd13b-1e74-4e03-83df-0bd010973588",
+              "@type": "WorkflowStep",
+              "name": "Get ICL Saved Searches By ID",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "''",
+                "params": {
+                  "size": 10
+                },
+                "version": "1.2.0",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_icl_saved_searches_by_id",
+                "operationTitle": "Get ICL Saved Searches By ID"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "b2f9e9e9-7684-4d85-8b68-04f3f6654603",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get ICL Saved Searches By ID",
+              "sourceStep": "/api/3/workflow_steps/6e802737-f991-4ca0-97e0-50bf28cb4a99",
+              "targetStep": "/api/3/workflow_steps/9b7fd13b-1e74-4e03-83df-0bd010973588"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "eb8bd53b-ce84-4a65-afd6-aebdd9916c9c",
+          "collection": "/api/3/workflow_collections/3e074d7c-3495-40ac-958e-27e10ead81b0",
+          "triggerLimit": null,
+          "description": "Retrieves ransomware information for given organization ID based on the input parameters you have specified.",
+          "name": "Get Ransomware Information",
+          "tag": "#Fortinet FortiRecon ACI",
+          "recordTags": [
+            "Fortinet",
+            "fortinet-fortirecon-aci"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/8df35802-b757-4291-80f3-ade79dc4e38e",
+          "steps": [
+            {
+              "uuid": "8df35802-b757-4291-80f3-ade79dc4e38e",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "433dc6e0-dd3d-4439-8443-b908dd52e3a9",
+                "title": "Fortinet FortiRecon ACI: Get Ransomware Information",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "0a05c952-f7ab-4513-bc2f-9814bb474b91",
+              "@type": "WorkflowStep",
+              "name": "Get Ransomware Information",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "''",
+                "params": [],
+                "version": "1.2.0",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_ransomware_information",
+                "operationTitle": "Get Ransomware Information"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "14bac4cf-04dc-4c42-be45-a6e378c9527f",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Ransomware Information",
+              "sourceStep": "/api/3/workflow_steps/8df35802-b757-4291-80f3-ade79dc4e38e",
+              "targetStep": "/api/3/workflow_steps/0a05c952-f7ab-4513-bc2f-9814bb474b91"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "e7b77f14-a8c8-4cbb-bfae-9f004c2fe834",
+          "collection": "/api/3/workflow_collections/3e074d7c-3495-40ac-958e-27e10ead81b0",
+          "triggerLimit": null,
+          "description": "Retrieves stealer infections leaked count for the given org id and the input parameters specified.",
+          "name": "Get Stealers Infections Leaked Count",
+          "tag": "#Fortinet FortiRecon ACI",
+          "recordTags": [
+            "Fortinet",
+            "fortinet-fortirecon-aci"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/1c7c8d55-4ebe-47d0-9f38-4439df8a963e",
+          "steps": [
+            {
+              "uuid": "1c7c8d55-4ebe-47d0-9f38-4439df8a963e",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "698aabc6-139c-4505-8599-85b9f521562c",
+                "title": "Fortinet FortiRecon ACI: Get Stealers Infections Leaked Count",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "dc73460b-87fc-4aa7-8619-a66635d9f15b",
+              "@type": "WorkflowStep",
+              "name": "Get Stealers Infections Leaked Count",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "''",
+                "params": [],
+                "version": "1.2.0",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_stealers_infections_leaked_count",
+                "operationTitle": "Get Stealers Infections Leaked Count"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "04a68c19-7061-4a50-bef7-c61b94982ba2",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Stealers Infections Leaked Count",
+              "sourceStep": "/api/3/workflow_steps/1c7c8d55-4ebe-47d0-9f38-4439df8a963e",
+              "targetStep": "/api/3/workflow_steps/dc73460b-87fc-4aa7-8619-a66635d9f15b"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "e6f47070-5b6c-4cb2-b232-07ecf57da929",
+          "collection": "/api/3/workflow_collections/3e074d7c-3495-40ac-958e-27e10ead81b0",
+          "triggerLimit": null,
+          "description": "Retrieves a list of leaked stealers infections for the given org id and the input parameters you have specified.",
+          "name": "Get Leaked Stealers Infections",
+          "tag": "#Fortinet FortiRecon ACI",
+          "recordTags": [
+            "Fortinet",
+            "fortinet-fortirecon-aci"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/e92435c9-14db-4434-a49c-6bb6980626ce",
+          "steps": [
+            {
+              "uuid": "e92435c9-14db-4434-a49c-6bb6980626ce",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "85769989-bfba-420c-9174-77cfc7e35860",
+                "title": "Fortinet FortiRecon ACI: Get Leaked Stealers Infections",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "3a23eecb-d0d2-4fed-b9b2-f407b4a25863",
+              "@type": "WorkflowStep",
+              "name": "Get Leaked Stealers Infections",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "''",
+                "params": {
+                  "size": 10
+                },
+                "version": "1.2.0",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_leaked_stealers_infections",
+                "operationTitle": "Get Leaked Stealers Infections"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "c2414dc6-4a5e-4ee3-8c16-8ff2c02bd454",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Leaked Stealers Infections",
+              "sourceStep": "/api/3/workflow_steps/e92435c9-14db-4434-a49c-6bb6980626ce",
+              "targetStep": "/api/3/workflow_steps/3a23eecb-d0d2-4fed-b9b2-f407b4a25863"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "4aa56d6f-f952-4177-9ea3-4787788c80d0",
+          "collection": "/api/3/workflow_collections/3e074d7c-3495-40ac-958e-27e10ead81b0",
+          "triggerLimit": null,
+          "description": "Retrieves vendor details by its ID for the given organization ID and other input parameters specified.",
+          "name": "Get Vendor Details By ID",
+          "tag": "#Fortinet FortiRecon ACI",
+          "recordTags": [
+            "Fortinet",
+            "fortinet-fortirecon-aci"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/fc2a57e1-9221-4ae9-ac8f-edbb336e4bc6",
+          "steps": [
+            {
+              "uuid": "fc2a57e1-9221-4ae9-ac8f-edbb336e4bc6",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "a3b18df8-a5d1-4637-a390-11719e1274fe",
+                "title": "Fortinet FortiRecon ACI: Get Vendor Details By ID",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "4a413d80-2599-4aee-b508-c5932f07f55e",
+              "@type": "WorkflowStep",
+              "name": "Get Vendor Details By ID",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "''",
+                "params": [],
+                "version": "1.2.0",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_vendor_details_by_id",
+                "operationTitle": "Get Vendor Details By ID"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "c7ac92d3-0bcd-4dd3-a3fb-f6725d2500fe",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Vendor Details By ID",
+              "sourceStep": "/api/3/workflow_steps/fc2a57e1-9221-4ae9-ac8f-edbb336e4bc6",
+              "targetStep": "/api/3/workflow_steps/4a413d80-2599-4aee-b508-c5932f07f55e"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "9de61d12-8217-473c-82a4-aa47a65451fb",
+          "collection": "/api/3/workflow_collections/3e074d7c-3495-40ac-958e-27e10ead81b0",
+          "triggerLimit": null,
+          "description": "Retrieves vendor watchlist for the given organization ID.",
+          "name": "Get Vendor Watchlist",
+          "tag": "#Fortinet FortiRecon ACI",
+          "recordTags": [
+            "Fortinet",
+            "fortinet-fortirecon-aci"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/99b85fd2-ead8-4856-b1d9-aa357c174c78",
+          "steps": [
+            {
+              "uuid": "99b85fd2-ead8-4856-b1d9-aa357c174c78",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "7718e03e-86c9-4fd6-88c1-5f5ecdc705c9",
+                "title": "Fortinet FortiRecon ACI: Get Vendor Watchlist",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "ae993906-90af-4437-ac23-403445eccad4",
+              "@type": "WorkflowStep",
+              "name": "Get Vendor Watchlist",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "''",
+                "params": [],
+                "version": "1.2.0",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_vendor_watchlist",
+                "operationTitle": "Get Vendor Watchlist"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "6c5d9420-c3d4-498b-9549-a562b3f197dd",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Vendor Watchlist",
+              "sourceStep": "/api/3/workflow_steps/99b85fd2-ead8-4856-b1d9-aa357c174c78",
+              "targetStep": "/api/3/workflow_steps/ae993906-90af-4437-ac23-403445eccad4"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "10c31d2e-bb78-4d43-9d54-7a27008349a9",
+          "collection": "/api/3/workflow_collections/3e074d7c-3495-40ac-958e-27e10ead81b0",
+          "triggerLimit": null,
+          "description": "Retrieves a list Vulnerability Intelligence CVEs for the given organization ID and the input parameters specified.",
+          "name": "Get Vulnerability Intelligence CVEs",
+          "tag": "#Fortinet FortiRecon ACI",
+          "recordTags": [
+            "Fortinet",
+            "fortinet-fortirecon-aci"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/a88e0a1f-7d0d-46c3-95c8-205a073133c8",
+          "steps": [
+            {
+              "uuid": "a88e0a1f-7d0d-46c3-95c8-205a073133c8",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "5a4a3786-eea4-4ce2-903b-098d9662dca6",
+                "title": "Fortinet FortiRecon ACI: Get Vulnerability Intelligence CVEs",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "0c7b1fad-874e-4029-9045-6fddc8dfbd1b",
+              "@type": "WorkflowStep",
+              "name": "Get Vulnerability Intelligence CVEs",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "''",
+                "params": {
+                  "size": 10
+                },
+                "version": "1.2.0",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_vulnerability_intelligence_cves",
+                "operationTitle": "Get Vulnerability Intelligence CVEs"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "02f691b7-9234-43c0-925f-c9452ceabf5c",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Vulnerability Intelligence CVEs",
+              "sourceStep": "/api/3/workflow_steps/a88e0a1f-7d0d-46c3-95c8-205a073133c8",
+              "targetStep": "/api/3/workflow_steps/0c7b1fad-874e-4029-9045-6fddc8dfbd1b"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "a4b40f67-2e29-4e77-9092-a424cde513f4",
+          "collection": "/api/3/workflow_collections/3e074d7c-3495-40ac-958e-27e10ead81b0",
+          "triggerLimit": null,
+          "description": "Retrieves a list Vulnerability Intelligence CVEs by ID for the given organization ID.",
+          "name": "Get Vulnerability Intelligence CVEs By ID",
+          "tag": "#Fortinet FortiRecon ACI",
+          "recordTags": [
+            "Fortinet",
+            "fortinet-fortirecon-aci"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/abefc8f2-e574-4b2b-9749-f86e79b2e91e",
+          "steps": [
+            {
+              "uuid": "abefc8f2-e574-4b2b-9749-f86e79b2e91e",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "8405b4bd-1e54-4e95-b430-c499968c44f8",
+                "title": "Fortinet FortiRecon ACI: Get Vulnerability Intelligence CVEs By ID",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "3ada49cc-b5c1-417e-9a21-d92a38ed100d",
+              "@type": "WorkflowStep",
+              "name": "Get Vulnerability Intelligence CVEs By ID",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "''",
+                "params": [],
+                "version": "1.2.0",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_vulnerability_intelligence_cves_by_id",
+                "operationTitle": "Get Vulnerability Intelligence CVEs By ID"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "39a4ca2f-cfbc-4d3b-bd2e-5040a88d278d",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Vulnerability Intelligence CVEs By ID",
+              "sourceStep": "/api/3/workflow_steps/abefc8f2-e574-4b2b-9749-f86e79b2e91e",
+              "targetStep": "/api/3/workflow_steps/3ada49cc-b5c1-417e-9a21-d92a38ed100d"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "3579f87b-93b0-4488-a293-5d8614612cd6",
+          "collection": "/api/3/workflow_collections/3e074d7c-3495-40ac-958e-27e10ead81b0",
+          "triggerLimit": null,
+          "description": "Retrieves a list Vulnerability Intelligence Elevated CVEs for the given organization ID.",
+          "name": "Get Vulnerability Intelligence Elevated CVEs",
+          "tag": "#Fortinet FortiRecon ACI",
+          "recordTags": [
+            "Fortinet",
+            "fortinet-fortirecon-aci"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/d588989f-1a70-43bb-982b-eda0a3474853",
+          "steps": [
+            {
+              "uuid": "d588989f-1a70-43bb-982b-eda0a3474853",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "0037d378-127f-43b2-9c7d-6d78401eaee7",
+                "title": "Fortinet FortiRecon ACI: Get Vulnerability Intelligence Elevated CVEs",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "9e3284f6-1378-4a23-95bb-af1d811fc8bd",
+              "@type": "WorkflowStep",
+              "name": "Get Vulnerability Intelligence Elevated CVEs",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "''",
+                "params": {
+                  "size": 10
+                },
+                "version": "1.2.0",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_vulnerability_intelligence_elevated_cves",
+                "operationTitle": "Get Vulnerability Intelligence Elevated CVEs"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "833e1288-e642-43da-ab1d-016d2eb1599b",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Vulnerability Intelligence Elevated CVEs",
+              "sourceStep": "/api/3/workflow_steps/d588989f-1a70-43bb-982b-eda0a3474853",
+              "targetStep": "/api/3/workflow_steps/9e3284f6-1378-4a23-95bb-af1d811fc8bd"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "97bbf172-27ec-49e8-9c83-b5dd0c41dd66",
+          "collection": "/api/3/workflow_collections/3e074d7c-3495-40ac-958e-27e10ead81b0",
+          "triggerLimit": null,
+          "description": "Retrieves a list Vulnerability Intelligence global CVEs for the given organization ID and the input parameters specified.",
+          "name": "Get Vulnerability Intelligence Global CVEs",
+          "tag": "#Fortinet FortiRecon ACI",
+          "recordTags": [
+            "Fortinet",
+            "fortinet-fortirecon-aci"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/448c2fdd-2550-44d8-ae30-fae89cada0d5",
+          "steps": [
+            {
+              "uuid": "448c2fdd-2550-44d8-ae30-fae89cada0d5",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "02376cca-401b-4260-a06c-fac312077c1b",
+                "title": "Fortinet FortiRecon ACI: Get Vulnerability Intelligence Global CVEs",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "2adfc3e3-3506-444f-8e28-8159e47352d6",
+              "@type": "WorkflowStep",
+              "name": "Get Vulnerability Intelligence Global CVEs",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "''",
+                "params": {
+                  "size": 10
+                },
+                "version": "1.2.0",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_vulnerability_intelligence_global_cves",
+                "operationTitle": "Get Vulnerability Intelligence Global CVEs"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "029a6468-f6ad-4d9e-89b9-b4bc65d45cc1",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Vulnerability Intelligence Global CVEs",
+              "sourceStep": "/api/3/workflow_steps/448c2fdd-2550-44d8-ae30-fae89cada0d5",
+              "targetStep": "/api/3/workflow_steps/2adfc3e3-3506-444f-8e28-8159e47352d6"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "261da6a9-cef0-4e8c-9cba-c9502cb5e0fa",
+          "collection": "/api/3/workflow_collections/3e074d7c-3495-40ac-958e-27e10ead81b0",
+          "triggerLimit": null,
+          "description": "Retrieves Vulnerability Intelligence global CVEs details by ID for the given organization ID.",
+          "name": "Get Vulnerability Intelligence Global CVEs By ID",
+          "tag": "#Fortinet FortiRecon ACI",
+          "recordTags": [
+            "Fortinet",
+            "fortinet-fortirecon-aci"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/cdc436fc-20d2-448d-b5c8-2b3ac5f24cb1",
+          "steps": [
+            {
+              "uuid": "cdc436fc-20d2-448d-b5c8-2b3ac5f24cb1",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "67b86fb7-d001-4ff9-b4e5-59d59879463b",
+                "title": "Fortinet FortiRecon ACI: Get Vulnerability Intelligence Global CVEs By ID",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "3f93f648-e4aa-4366-9ee1-0d29bf74680f",
+              "@type": "WorkflowStep",
+              "name": "Get Vulnerability Intelligence Global CVEs By ID",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "''",
+                "params": [],
+                "version": "1.2.0",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_vulnerability_intelligence_global_cves_by_id",
+                "operationTitle": "Get Vulnerability Intelligence Global CVEs By ID"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "e7b5dac6-c5c3-4f6d-9015-e16bfd6175a6",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Vulnerability Intelligence Global CVEs By ID",
+              "sourceStep": "/api/3/workflow_steps/cdc436fc-20d2-448d-b5c8-2b3ac5f24cb1",
+              "targetStep": "/api/3/workflow_steps/3f93f648-e4aa-4366-9ee1-0d29bf74680f"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "81bcc037-6c42-42a4-b6f5-bf1021ce09c5",
+          "collection": "/api/3/workflow_collections/3e074d7c-3495-40ac-958e-27e10ead81b0",
+          "triggerLimit": null,
+          "description": "Retrieves vulnerability intelligence information for given organization ID",
+          "name": "Get Vulnerability Intelligence Information",
+          "tag": "#Fortinet FortiRecon ACI",
+          "recordTags": [
+            "Fortinet",
+            "fortinet-fortirecon-aci"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/c972b685-6274-4566-b121-20cc4cd48b03",
+          "steps": [
+            {
+              "uuid": "c972b685-6274-4566-b121-20cc4cd48b03",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "38b73b78-aaf2-4aa3-a7b5-567d9bed332d",
+                "title": "Fortinet FortiRecon ACI: Get Vulnerability Intelligence Information",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "859a629b-11b1-40c9-9433-1e6959cdfeff",
+              "@type": "WorkflowStep",
+              "name": "Get Vulnerability Intelligence Information",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "Fortinet FortiRecon ACI",
+                "config": "''",
+                "params": [],
+                "version": "1.2.0",
+                "connector": "fortinet-fortirecon-aci",
+                "operation": "get_vulnerability_intelligence_information",
+                "operationTitle": "Get Vulnerability Intelligence Information"
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "e2a39be2-44e4-4fef-8075-ed6fd170539d",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get Vulnerability Intelligence Information",
+              "sourceStep": "/api/3/workflow_steps/c972b685-6274-4566-b121-20cc4cd48b03",
+              "targetStep": "/api/3/workflow_steps/859a629b-11b1-40c9-9433-1e6959cdfeff"
+            }
           ]
         }
       ]
