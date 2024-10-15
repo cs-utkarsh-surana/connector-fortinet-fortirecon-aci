@@ -5,12 +5,16 @@ Copyright (c) 2024 Fortinet Inc
 Copyright end
 """
 
-from .make_rest_api_call import MakeRestApiCall
+from ..make_rest_api_call import MakeRestApiCall
 
 
-def get_leaked_stealers_infections(config: dict, params: dict) -> dict:
+def get_iocs(config: dict, params: dict) -> dict:
     MK = MakeRestApiCall(config=config)
-    endpoint = '/aci/{org_id}/stealers_infections/leaked'
+
+    if params.get('report_id'):
+        params["report_id"] = str(params.get('report_id')).strip('[]')
+    endpoint = "/aci/{org_id}/iocs"
+
     if params.get("start_date"):
         params["start_date"] = MK.handle_date(params.get("start_date"))
     if params.get("end_date"):

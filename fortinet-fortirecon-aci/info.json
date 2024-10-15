@@ -1,9 +1,10 @@
 {
   "name": "fortinet-fortirecon-aci",
   "label": "Fortinet FortiRecon ACI",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "FortiRecon is a Digital Risk Protection Service (DRPS) product that provides an outside-the-network view to the risks posed to your enterprise.The Adversary Centric Intelligence (ACI) module leverages FortiGuard Threat Analysts to provide comprehensive coverage of dark web, open source, and technical threat intelligence, including threat actor insights. This information enables administrators to proactively assess risks, respond faster to incidents, better understand their attackers, and protect assets. This connector facilitates the automated operations related to ACI. <br/><br/>This connector has a dependency on the <a href=\"/content-hub/all-content/?contentType=solutionpack&amp;tag=ThreatIntelManagement\" target=\"_blank\" rel=\"noopener\">Threat Intel Management Solution Pack</a>. Install the Solution Pack before enabling ingestion of Threat Feeds from this source.",
-  "publisher": "Fortinet",
+  "publisher": "Fortinet FortiRecon",
+  "contributor": "Ramkrushna Pathade",
   "cs_approved": true,
   "cs_compatible": true,
   "category": "Attack Surface Management",
@@ -638,157 +639,6 @@
       }
     },
     {
-      "operation": "get_stealers_log",
-      "title": "Get Stealers Log",
-      "annotation": "get_stealers_log",
-      "description": "Retrieves a list of all stealer log infections or specific stealer log infections for the given organization ID and other input parameters you have specified from Fortinet FortiRecon ACI.",
-      "category": "investigation",
-      "is_config_required": true,
-      "visible": true,
-      "enabled": true,
-      "parameters": [
-        {
-          "name": "stealer_name",
-          "title": "Stealer Name",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Should be comma separated string or single string.",
-          "placeholder": "example: Redline,Redline1",
-          "description": "Specify a comma-separated string or single string of the names of the stealers associated with the steal log infections you want to retrieve from Fortinet FortiRecon ACI. For example, Redline,Redline1"
-        },
-        {
-          "name": "domain",
-          "title": "Domain",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Should be comma separated string or single string.",
-          "placeholder": "example: domain1.com,domain2.com",
-          "description": "Specify a comma-separated string or single string of the domains associated with the steal log infections you want to retrieve from Fortinet FortiRecon ACI. For example, domain1.com,domain2.com"
-        },
-        {
-          "name": "country",
-          "title": "Country",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Should be comma separated string or single string.",
-          "placeholder": "example: India,Dubai",
-          "description": "Specify a comma-separated string or single string of the countries associated with the steal log infections you want to retrieve from Fortinet FortiRecon ACI. For example, India,Dubai"
-        },
-        {
-          "name": "state",
-          "title": "State",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Should be comma separated string or single string.",
-          "placeholder": "example: Haryana,Telangana",
-          "description": "Specify a comma-separated string or single string of the states associated with the steal log infections you want to retrieve from Fortinet FortiRecon ACI. For example, Haryana,Telangana"
-        },
-        {
-          "name": "isp",
-          "title": "ISP",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Should be comma separated string or single string.",
-          "placeholder": "example: Hutchison Max Telecom Limited",
-          "description": "Specify a comma-separated string or single string of the ISPs associated with the steal log infections you want to retrieve from Fortinet FortiRecon ACI. For example, Hutchison Max Telecom Limited"
-        },
-        {
-          "name": "marketplace",
-          "title": "Marketplace",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Should be comma separated string or single string.",
-          "placeholder": "example: russian-market,russian-market2",
-          "description": "Specify a comma-separated string or single string of the marketplaces associated with the steal log infections you want to retrieve from Fortinet FortiRecon ACI. For example, russian-market,russian-market2"
-        },
-        {
-          "name": "keyword",
-          "title": "Keyword",
-          "type": "text",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "placeholder": "keyword",
-          "description": "Specify the keyword using which you want to filter the steal log infections retrieved from Fortinet FortiRecon ACI."
-        },
-        {
-          "name": "start_date",
-          "title": "Start Date",
-          "type": "datetime",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Should be Date or Default is Now - 6 months (YYYY-MM-DD)",
-          "description": "Specify the date from when you want to retrieve steal log infections from Fortinet FortiRecon ACI. By default, this is set to Now - 6 months (YYYY-MM-DD)."
-        },
-        {
-          "name": "end_date",
-          "title": "End Date",
-          "type": "datetime",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Should be Date or Default is Current Date (YYYY-MM-DD)",
-          "description": "Specify the date till when you want to retrieve steal log infections from Fortinet FortiRecon ACI. By default, this is set to Current Date (YYYY-MM-DD)."
-        },
-        {
-          "name": "page",
-          "title": "Page",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "required": false,
-          "tooltip": "Page number from which you want to retrieve records.",
-          "description": "Specify the page number from which to retrieve results."
-        },
-        {
-          "name": "size",
-          "title": "Size",
-          "type": "integer",
-          "editable": true,
-          "visible": true,
-          "value": 10,
-          "required": false,
-          "placeholder": "Must be greater 0 and less than or equal to 500.",
-          "tooltip": "Specify the maximum number of records that this operation should return for the specified page. By default, it retrieves 10 records.",
-          "description": "Specify the maximum number of records that this operation should return for the specified page. By default, it retrieves 10 records. Must be greater 0 and less than or equal to 500."
-        }
-      ],
-      "output_schema": {
-        "hits": [
-          {
-            "affiliated_domains": "",
-            "country": "",
-            "discovery_date": "",
-            "isp": "",
-            "last_updated": "",
-            "marketplace": "",
-            "org_id": "",
-            "price": "",
-            "sites": "",
-            "state": "",
-            "stealer_name": "",
-            "vendor": ""
-          }
-        ],
-        "page": "",
-        "size": "",
-        "total": ""
-      }
-    },
-    {
       "operation": "get_icl_saved_searches",
       "title": "Get ICL Saved Searches",
       "annotation": "get_icl_saved_searches",
@@ -1117,287 +967,6 @@
       ]
     },
     {
-      "operation": "get_ransomware_information",
-      "title": "Get Ransomware Information",
-      "annotation": "get_ransomware_information",
-      "description": "Retrieves ransomware information for given organization ID based on the input parameters you have specified.",
-      "category": "investigation",
-      "is_config_required": true,
-      "visible": true,
-      "enabled": true,
-      "parameters": [
-        {
-          "name": "type_of_info",
-          "title": "Type of Information to Fetch",
-          "type": "select",
-          "editable": true,
-          "visible": true,
-          "required": true,
-          "tooltip": "Select what type of information to fetch for ransomware.",
-          "description": "Select what type of information to fetch for ransomware.",
-          "options": [
-            "Fetch Active Ransomware",
-            "Fetch Organizations Affected by Ransomware",
-            "Fetch Ransomware Summary",
-            "Fetch Ransomware Trend Statistics",
-            "Fetch Vendors Affected By Ransomware",
-            "Fetch Ransomware Victim Targets"
-          ],
-          "onchange": {
-            "Fetch Ransomware Summary": [
-              {
-                "name": "start_date",
-                "title": "Start Date",
-                "type": "datetime",
-                "editable": true,
-                "visible": true,
-                "required": false,
-                "tooltip": "Select the start date of the range containing the date when a ransomware was added.",
-                "description": "Select the start date of the range containing the date when a ransomware was added."
-              },
-              {
-                "name": "end_date",
-                "title": "End Date",
-                "type": "datetime",
-                "editable": true,
-                "visible": true,
-                "required": false,
-                "tooltip": "Select the end date of the range containing the date when a ransomware was added.",
-                "description": "Select the end date of the range containing the date when a ransomware was added."
-              }
-            ],
-            "Fetch Ransomware Trend Statistics": [
-              {
-                "name": "start_date",
-                "title": "Start Date",
-                "type": "datetime",
-                "editable": true,
-                "visible": true,
-                "required": false,
-                "tooltip": "Select the start date of the range containing the date when a ransomware was added.",
-                "description": "Select the start date of the range containing the date when a ransomware was added."
-              },
-              {
-                "name": "end_date",
-                "title": "End Date",
-                "type": "datetime",
-                "editable": true,
-                "visible": true,
-                "required": false,
-                "tooltip": "Select the end date of the range containing the date when a ransomware was added.",
-                "description": "Select the end date of the range containing the date when a ransomware was added."
-              }
-            ],
-            "Fetch Ransomware Victim Targets": [
-              {
-                "name": "category",
-                "title": "Category",
-                "type": "select",
-                "editable": true,
-                "visible": true,
-                "required": false,
-                "tooltip": "Specify the category based on which you want to filter the records, you can choose between Potential Ransomware Victims and Ransomware Victims.",
-                "description": "Specify the category based on which you want to filter the records, you can choose between Potential Ransomware Victims and Ransomware Victims.",
-                "options": [
-                  "Potential Ransomware Victims",
-                  "Ransomware Victims"
-                ]
-              },
-              {
-                "name": "country",
-                "title": "Country",
-                "type": "text",
-                "editable": true,
-                "visible": true,
-                "required": false,
-                "tooltip": "Filter the results by specific country/countries. Multiple countries should be comma separated and will work as OR filter, example: India, United States.",
-                "description": "Filter the results by specific country/countries. Multiple countries should be comma separated and will work as OR filter, example: India, United States."
-              },
-              {
-                "name": "sectors",
-                "title": "Sectors",
-                "type": "text",
-                "editable": true,
-                "visible": true,
-                "required": false,
-                "tooltip": "Filter the results by specific sectors. Multiple sectors should be comma separated and will work as OR filter, example: Business Services,Accounting Services.",
-                "description": "Filter the results by specific sectors. Multiple sectors should be comma separated and will work as OR filter, example: Business Services,Accounting Services."
-              },
-              {
-                "name": "ransomware",
-                "title": "Ransomware",
-                "type": "text",
-                "editable": true,
-                "visible": true,
-                "required": false,
-                "tooltip": "Filter the results by specific ransomware. Multiple ransomware should be comma separated and will work as OR filter, example: abc,pqr.",
-                "description": "Filter the results by specific ransomware. Multiple ransomware should be comma separated and will work as OR filter, example: abc,pqr."
-              },
-              {
-                "name": "start_date",
-                "title": "Start Date",
-                "type": "datetime",
-                "editable": true,
-                "visible": true,
-                "required": false,
-                "tooltip": "Select the start date of the range containing the date when a ransomware was added.",
-                "description": "Select the start date of the range containing the date when a ransomware was added."
-              },
-              {
-                "name": "end_date",
-                "title": "End Date",
-                "type": "datetime",
-                "editable": true,
-                "visible": true,
-                "required": false,
-                "tooltip": "Select the end date of the range containing the date when a ransomware was added.",
-                "description": "Select the end date of the range containing the date when a ransomware was added."
-              },
-              {
-                "name": "page",
-                "title": "Page",
-                "type": "integer",
-                "editable": true,
-                "visible": true,
-                "required": false,
-                "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-                "description": "Specify the page number from which to retrieve the results. Default value is 1."
-              },
-              {
-                "name": "size",
-                "title": "Size",
-                "type": "integer",
-                "editable": true,
-                "visible": true,
-                "required": false,
-                "value": 10,
-                "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
-                "description": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
-              }
-            ]
-          }
-        }
-      ],
-      "conditional_output_schema": [
-        {
-          "condition": "{{type_of_info === 'Fetch Active Ransomware'}}",
-          "output_schema": {
-            "hits": [
-              {
-                "date": "",
-                "ransomeware": "",
-                "victim_count": ""
-              },
-              {
-                "date": "",
-                "ransomeware": "",
-                "victim_count": ""
-              }
-            ]
-          }
-        },
-        {
-          "condition": "{{type_of_info === 'Fetch Organizations Affected by Ransomware'}}",
-          "output_schema": {
-            "monitored_domains_list_of_org": [
-              {
-                "actor_collection_date": "",
-                "actor_name": "",
-                "addition_type": "",
-                "domain_name": "",
-                "matched_potential_ransomware": "",
-                "matched_ransomware": "",
-                "ransomeware_name": "",
-                "ransomware_collection_date": ""
-              }
-            ],
-            "total_domains_list_of_org_count": "",
-            "total_mapped_org_count": ""
-          }
-        },
-        {
-          "condition": "{{type_of_info === 'Fetch Ransomware Summary'}}",
-          "output_schema": {
-            "most_affected_sector": "",
-            "top_active_ransomware": "",
-            "top_country_victimName": "",
-            "top_country_victim_percentage": "",
-            "top_sector_victim_percentage": "",
-            "total_ransomware_groups": "",
-            "total_ransomware_incidents": ""
-          }
-        },
-        {
-          "condition": "{{type_of_info === 'Fetch Ransomware Trend Statistics'}}",
-          "output_schema": {
-            "affected_sectors": [
-              {
-                "affected_sector_count": "",
-                "affected_sector_percentage": "",
-                "sector": ""
-              }
-            ],
-            "incidents_time_details": {},
-            "top_active_ransomwares": [
-              {
-                "ransomeware": "",
-                "ransomeware_count": ""
-              }
-            ],
-            "top_country_victims": [
-              {
-                "country": "",
-                "country_victim_percentage": "",
-                "top_affected_country_count": ""
-              }
-            ]
-          }
-        },
-        {
-          "condition": "{{type_of_info === 'Fetch Vendors Affected By Ransomware'}}",
-          "output_schema": {
-            "monitored_domains_list_of_vendor": [
-              {
-                "actor_collection_date": "",
-                "actor_name": "",
-                "addition_type": "",
-                "domain_name": "",
-                "matched_potential_ransomware": "",
-                "matched_ransomware": "",
-                "ransomware_collection_date": "",
-                "ransomware_name": ""
-              }
-            ],
-            "total_domains_list_of_vendor_count": "",
-            "total_mapped_vendor_count": ""
-          }
-        },
-        {
-          "condition": "{{type_of_info === 'Fetch Ransomware Victim Targets'}}",
-          "output_schema": {
-            "hits": [
-              {
-                "category": "",
-                "collection_date": "",
-                "country": "",
-                "description": "",
-                "domains": "",
-                "id": "",
-                "name": "",
-                "ransomware": "",
-                "revenue": "",
-                "sectors": "",
-                "updated_date": ""
-              }
-            ],
-            "page": "",
-            "size": "",
-            "total": ""
-          }
-        }
-      ]
-    },
-    {
       "operation": "get_stealers_infections_leaked_count",
       "title": "Get Stealers Infections Leaked Count",
       "annotation": "get_stealers_infections_leaked_count",
@@ -1646,10 +1215,10 @@
       }
     },
     {
-      "operation": "get_vendor_details_by_id",
+      "operation": "get_vendor_exposures_by_id",
       "title": "Get Vendor Details By ID",
-      "annotation": "get_vendor_details_by_id",
-      "description": "Retrieves vendor details by its ID for the given organization ID and other input parameters specified.",
+      "annotation": "get_vendor_exposures_by_id",
+      "description": "Retrieves vendor exposures by its ID for the given organization ID and other input parameters specified.",
       "category": "investigation",
       "is_config_required": true,
       "visible": true,
@@ -1657,13 +1226,13 @@
       "parameters": [
         {
           "name": "type_of_info",
-          "title": "Get Details For",
+          "title": "Get Exposures For",
           "type": "select",
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Select the type of information you want to fetch for ransomware.",
-          "description": "Select the type of information you want to fetch for ransomware.",
+          "tooltip": "Select the type of information you want to fetch for vendor.",
+          "description": "Select the type of information you want to fetch for vendor.",
           "options": [
             "Attack Surface Exposure",
             "Darknet Exposure",
@@ -1795,23 +1364,6 @@
             },
             "risk_level": ""
           }
-        },
-        {
-          "condition": "{{true}}",
-          "output_schema": {
-            "alexa_rank": "",
-            "continent": "",
-            "country": "",
-            "desc": "",
-            "domain": "",
-            "employee_count": "",
-            "logo": "",
-            "name": "",
-            "primary_industry": [],
-            "revenue": "",
-            "vendor_id": "",
-            "website": ""
-          }
         }
       ]
     },
@@ -1819,24 +1371,137 @@
       "operation": "get_vendor_watchlist",
       "title": "Get Vendor Watchlist",
       "annotation": "get_vendor_watchlist",
-      "description": "Retrieves vendor watchlist for the given organization ID.",
+      "description": "Retrieves vendor watch-list for the given organization ID.",
       "category": "investigation",
       "is_config_required": true,
       "visible": true,
       "enabled": true,
-      "parameters": [],
+      "parameters": [
+        {
+          "name": "domain",
+          "title": "Filter By Domain",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify a domain to filter the vendors added for monitoring by domain.",
+          "description": "Specify a domain to filter the vendors added for monitoring by domain."
+        },
+        {
+          "name": "name",
+          "title": "Filter By Name",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify a name to filter the vendors added for monitoring by name.",
+          "description": "Specify a name to filter the vendors added for monitoring by name."
+        },
+        {
+          "name": "approval_status",
+          "title": "Approval Status",
+          "type": "select",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the approval status of the vendor, you can select between pending, approved, rejected.",
+          "description": "Specify the status of the vendor, you can select between pending, approved, rejected.",
+          "options": [
+            "pending",
+            "approved",
+            "rejected"
+          ]
+        },
+        {
+          "name": "status",
+          "title": "Status",
+          "type": "select",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the monitoring status of the vendor, you can select between pending, started, failed, completed.",
+          "description": "Specify the monitoring status of the vendor, you can select between pending, started, failed, completed.",
+          "options": [
+            "pending",
+            "started",
+            "failed",
+            "completed"
+          ]
+        },
+        {
+          "name": "page",
+          "title": "Page",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
+          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+        },
+        {
+          "name": "size",
+          "title": "Size",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": 10,
+          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
+          "description": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
+        }
+      ],
       "output_schema": {
         "hits": [
           {
+            "vendor_id": "",
+            "name": "",
             "domain": "",
-            "last_refreshed_on": "",
+            "website": "",
             "logo": "",
             "risk_level": "",
             "status": "",
-            "vendor_id": "",
-            "website": ""
+            "approval_status": "",
+            "last_refreshed_on": ""
           }
         ]
+      }
+    },
+    {
+      "operation": "get_vendor_details_by_id",
+      "title": "Get Vendor Details By ID",
+      "annotation": "get_vendor_details_by_id",
+      "description": "Retrieves a vendor details by ID for the given organization ID.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "parameters": [
+        {
+          "name": "id",
+          "title": "ID",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Specify the vendor ID to fetch its details.",
+          "description": "Specify the vendor ID to fetch its details."
+        }
+      ],
+      "output_schema": {
+        "vendor_id": "",
+        "alexa_rank": "",
+        "approval_status": "",
+        "continent": "",
+        "country": "",
+        "desc": "",
+        "domain": "",
+        "employee_count": "",
+        "logo": "",
+        "name": "",
+        "revenue": "",
+        "primary_industry": [],
+        "status": "",
+        "website": ""
       }
     },
     {
@@ -1849,6 +1514,20 @@
       "visible": true,
       "enabled": true,
       "parameters": [
+        {
+          "name": "input_src_type",
+          "title": "Input Source Type",
+          "type": "select",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Select the input source type based on which you want to filter the result. You can select between client and aci.",
+          "description": "Select the input source type based on which you want to filter the result. You can select between client and aci.",
+          "options": [
+            "client",
+            "aci"
+          ]
+        },
         {
           "name": "fortirecon_severity",
           "title": "Fortirecon Severity",
@@ -2045,15 +1724,43 @@
       }
     },
     {
-      "operation": "get_vulnerability_intelligence_elevated_cves",
-      "title": "Get Vulnerability Intelligence Elevated CVEs",
-      "annotation": "get_vulnerability_intelligence_elevated_cves",
-      "description": "Retrieves a list Vulnerability Intelligence Elevated CVEs for the given organization ID.",
+      "operation": "get_vulnerability_intelligence_vulnerable_products",
+      "title": "Get Vulnerability Intelligence vulnerable products",
+      "annotation": "get_vulnerability_intelligence_vulnerable_products",
+      "description": "Retrieves a list vulnerable products for the given organization ID and the input parameters specified.",
       "category": "investigation",
       "is_config_required": true,
       "visible": true,
       "enabled": true,
       "parameters": [
+        {
+          "name": "input_src_type",
+          "title": "Input Source Type",
+          "type": "select",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Select the input source type based on which you want to filter the result. You can select between client and aci.",
+          "description": "Select the input source type based on which you want to filter the result. You can select between client and aci.",
+          "options": [
+            "client",
+            "aci"
+          ]
+        },
+        {
+          "name": "sort",
+          "title": "Sort By Product Count",
+          "type": "select",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Select the sort by type based on which you want to sort the result. You can select between count:desc and count:asc.",
+          "description": "Select the sort by type based on which you want to sort the result. You can select between count:desc and count:asc.",
+          "options": [
+            "count:desc",
+            "count:asc"
+          ]
+        },
         {
           "name": "page",
           "title": "Page",
@@ -2077,100 +1784,601 @@
         }
       ],
       "output_schema": {
-        "hits": [
-          {
-            "cve_id": "",
-            "elevated": "",
-            "last_severity_updated_date": "",
-            "latest_severity": "",
-            "nvd_severity": "",
-            "nvd_v2_severity": ""
+          "product": "",
+          "count": "",
+          "recon_severity": {
+              "low": "",
+              "medium": "",
+              "critical": ""
+          },
+          "nvd_severity": {
+              "medium": "",
+              "high": "",
+              "critical": "",
+              "low": ""
           }
-        ],
-        "page": "",
-        "size": "",
-        "total": ""
       }
     },
     {
-      "operation": "get_vulnerability_intelligence_global_cves",
-      "title": "Get Vulnerability Intelligence Global CVEs",
-      "annotation": "get_vulnerability_intelligence_global_cves",
-      "description": "Retrieves a list Vulnerability Intelligence global CVEs for the given organization ID and the input parameters specified.",
+      "operation": "get_vulnerability_intelligence_vulnerable_vendors",
+      "title": "Get Vulnerability Intelligence vulnerable vendors",
+      "annotation": "get_vulnerability_intelligence_vulnerable_vendors",
+      "description": "Retrieves a list vulnerable vendors for the given organization ID and the input parameters specified.",
       "category": "investigation",
       "is_config_required": true,
       "visible": true,
       "enabled": true,
       "parameters": [
         {
-          "name": "fortirecon_severity",
-          "title": "Fortirecon Severity",
+          "name": "input_src_type",
+          "title": "Input Source Type",
           "type": "select",
           "editable": true,
           "visible": true,
-          "required": false,
-          "tooltip": "Select the severity based on which you want to filter the result. You can select between CRITICAL, HIGH, MEDIUM and LOW.",
-          "description": "Select the severity based on which you want to filter the result. You can select between CRITICAL, HIGH, MEDIUM and LOW.",
+          "required": true,
+          "tooltip": "Select the input source type based on which you want to filter the result. You can select between client and aci.",
+          "description": "Select the input source type based on which you want to filter the result. You can select between client and aci.",
           "options": [
-            "CRITICAL",
-            "HIGH",
-            "MEDIUM",
-            "LOW"
+            "client",
+            "aci"
           ]
         },
         {
-          "name": "cve_year",
-          "title": "CVE Year",
+          "name": "sort",
+          "title": "Sort By Vendor Count",
+          "type": "select",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Select the sort by type based on which you want to sort the result. You can select between count:desc and count:asc.",
+          "description": "Select the sort by type based on which you want to sort the result. You can select between count:desc and count:asc.",
+          "options": [
+            "count:desc",
+            "count:asc"
+          ]
+        },
+        {
+          "name": "page",
+          "title": "Page",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
+          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+        },
+        {
+          "name": "size",
+          "title": "Size",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": 10,
+          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
+          "description": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
+        }
+      ],
+      "output_schema": {
+          "vendor": "",
+          "count": "",
+          "recon_severity": {
+              "low": "",
+              "medium": "",
+              "critical": ""
+          },
+          "nvd_severity": {
+              "medium": "",
+              "high": "",
+              "critical": "",
+              "low": ""
+          }
+      }
+    },
+    {
+      "operation": "get_vulnerability_intelligence_hits_by_cve_id",
+      "title": "Get Vulnerability Intelligence hits By CVE ID",
+      "annotation": "get_vulnerability_intelligence_hits_by_cve_id",
+      "description": "Get details found in the various data sources for the given CVE ID.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "parameters": [
+        {
+          "name": "based_on",
+          "title": "Get the CVE hits for a given CVE ID Based On",
+          "type": "select",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Select on what basis you want to fetch the CVE Result.",
+          "description": "Select on what basis you want to fetch the CVE Result.",
+          "options": [
+            "ACI Reporting",
+            "Darknet Chatter",
+            "Working Exploits",
+            "POC Exploits",
+            "Security Blogs",
+            "Hacktivist Chatter",
+            "Social Media"
+          ]
+        },
+        {
+          "name": "id",
+          "title": "ID",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Specify the CVE ID to fetch its results.",
+          "description": "Specify the CVE ID to fetch its results."
+        },
+        {
+          "name": "page",
+          "title": "Page",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
+          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+        },
+        {
+          "name": "size",
+          "title": "Size",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": 10,
+          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
+          "description": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
+        }
+      ],
+      "conditional_output_schema": [
+        {
+          "condition": "{{based_on === 'ACI Reporting'}}",
+          "output_schema": {
+            "hits": [
+              {
+                "report_id": "",
+                "report_title": "",
+                "summary": "",
+                "publish_date": "",
+                "relevance_rating": "",
+                "_id": "",
+                "adversary": "",
+                "source_category": "",
+                "motivation": ""
+              }
+            ],
+            "page": "",
+            "size": "",
+            "total": ""
+          }
+        },
+        {
+          "condition": "{{based_on === 'Darknet Chatter'}}",
+          "output_schema": {
+            "hits": [
+              {
+                "published_ts": "",
+                "is_topic": "",
+                "source_site": "",
+                "title": "",
+                "thread_id": "",
+                "thread_url": "",
+                "content": "",
+                "author_name": "",
+                "_id": ""
+              }
+            ],
+            "page": "",
+            "size": "",
+            "total": ""
+          }
+        },
+        {
+          "condition": "{{based_on === 'Working Exploits'}}",
+          "output_schema": {
+            "hits": [
+              {
+                "url": "",
+                "published_ts": "",
+                "repo_source": "",
+                "author_name": "",
+                "_id": ""
+              }
+            ],
+            "page": "",
+            "size": "",
+            "total": ""
+          }
+        },
+        {
+          "condition": "{{based_on === 'POC Exploits'}}",
+          "output_schema": {
+            "hits": [
+              {
+                "html_url": "",
+                "owner_username": "",
+                "repo_name": "",
+                "description": ""
+              }
+            ],
+            "page": "",
+            "size": "",
+            "total": ""
+          }
+        },
+        {
+          "condition": "{{based_on === 'Security Blogs'}}",
+          "output_schema": {
+            "hits": [
+              {
+                "title": "",
+                "description": "",
+                "link": "",
+                "author": "",
+                "published_date": "",
+                "is_trusted": "",
+                "_id": ""
+              }
+            ],
+            "page": "",
+            "size": "",
+            "total": ""
+          }
+        },
+        {
+          "condition": "{{based_on === 'Hacktivist Chatter'}}",
+          "output_schema": {
+            "hits": [
+              {
+                "channel": "",
+                "message": "",
+                "message_type": "",
+                "image_url": "",
+                "author_id": "",
+                "author_name": "",
+                "published_ts": "",
+                "message_link": "",
+                "sender_url": "",
+                "_id": ""
+              }
+            ],
+            "page": "",
+            "size": "",
+            "total": ""
+          }
+        },
+        {
+          "condition": "{{based_on === 'Social Media'}}",
+          "output_schema": {
+            "hits": [
+              {
+                "_id": "",
+                "author_id": "",
+                "author_name": "",
+                "source_url": "",
+                "content": "",
+                "published_ts": ""
+              }
+            ],
+            "page": "",
+            "size": "",
+            "total": ""
+          }
+        }
+      ]
+    },
+    {
+      "operation": "get_vulnerability_intelligence_stats_for_cve_id",
+      "title": "Get Vulnerability Intelligence Stats For CVE ID",
+      "annotation": "get_vulnerability_intelligence_stats_for_cve_id",
+      "description": "Get stats for the given CVE ID based on various parameters.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "parameters": [
+        {
+          "name": "based_on",
+          "title": "Get stats for the given CVE ID Based On",
+          "type": "select",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Select on what basis you want to fetch the CVE stats.",
+          "description": "Select on what basis you want to fetch the CVE stats.",
+          "options": [
+            "Data Source Distribution",
+            "Data Source Trend",
+            "Score Trend"
+          ]
+        },
+        {
+          "name": "id",
+          "title": "ID",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Specify the CVE ID to fetch its stats.",
+          "description": "Specify the CVE ID to fetch its stats."
+        },
+        {
+          "name": "page",
+          "title": "Page",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
+          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+        },
+        {
+          "name": "size",
+          "title": "Size",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": 10,
+          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
+          "description": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
+        }
+      ],
+      "conditional_output_schema": [
+        {
+          "condition": "{{based_on === 'Data Source Distribution'}}",
+          "output_schema": {
+            "hits": [
+              {
+                "count": "",
+                "label": ""
+              }
+            ]
+          }
+        },
+        {
+          "condition": "{{based_on === 'Data Source Trend'}}",
+          "output_schema": {
+            "hits": [
+              {
+                "data": {
+                  "ACI Reporting": "",
+                  "Darknet Chatter": "",
+                  "FortiGuard Outbreak Alert": "",
+                  "Hacktivist Chatter": "",
+                  "POC Exploit": "",
+                  "Security Blogs": "",
+                  "Social Media": "",
+                  "Working Exploit": ""
+                },
+                "date": ""
+              }
+            ],
+            "page": "",
+            "size": "",
+            "total": ""
+          }
+        },
+        {
+          "condition": "{{based_on === 'Score Trend'}}",
+          "output_schema": {
+            "hits": [
+              {
+                "date": "",
+                "epss_score": "",
+                "recon_score": ""
+              }
+            ],
+            "page": "",
+            "size": "",
+            "total": ""
+          }
+        }
+      ]
+    },
+    {
+      "operation": "get_stealers_infections_on_sale_count",
+      "title": "Get Stealers Infections On Sale Count",
+      "annotation": "get_stealers_infections_on_sale_count",
+      "description": "Retrieves stealer infections on sale count for the given org id and the input parameters specified.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "parameters": [
+        {
+          "name": "based_on",
+          "title": "Based On",
+          "type": "select",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Select on what basis to fetch the stealers infections on sale count. You can choose between Affiliated Domain and Stealer.",
+          "description": "Select on what basis to fetch the stealers infections on sale count. You can choose between Affiliated Domain and Stealer.",
+          "options": [
+            "Matched Domain",
+            "Stealer"
+          ],
+          "onchange": {
+            "Matched Domain": [
+              {
+                "name": "page",
+                "title": "Page",
+                "type": "integer",
+                "editable": true,
+                "visible": true,
+                "required": false,
+                "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
+                "description": "Specify the page number from which to retrieve the results. Default value is 1."
+              },
+              {
+                "name": "size",
+                "title": "Size",
+                "type": "integer",
+                "editable": true,
+                "visible": true,
+                "required": false,
+                "value": 10,
+                "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
+                "description": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
+              }
+            ],
+            "Stealer": [
+              {
+                "name": "page",
+                "title": "Page",
+                "type": "integer",
+                "editable": true,
+                "visible": true,
+                "required": false,
+                "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
+                "description": "Specify the page number from which to retrieve the results. Default value is 1."
+              },
+              {
+                "name": "size",
+                "title": "Size",
+                "type": "integer",
+                "editable": true,
+                "visible": true,
+                "required": false,
+                "value": 10,
+                "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
+                "description": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
+              }
+            ]
+          }
+        }
+      ],
+      "conditional_output_schema": [
+        {
+          "condition": "{{based_on === 'Matched Domain'}}",
+          "output_schema": {
+            "count_by_matched_domain": {
+              "aggregations": [
+                {
+                  "count": "",
+                  "id": ""
+                }
+              ],
+              "total": ""
+            }
+          }
+        },
+        {
+          "condition": "{{based_on === 'Stealer'}}",
+          "output_schema": {
+            "count_by_stealer": {
+              "aggregations": [
+                {
+                  "count": "",
+                  "id": ""
+                }
+              ],
+              "total": ""
+            }
+          }
+        }
+      ]
+    },
+    {
+      "operation": "get_stealers_infections_on_sale",
+      "title": "Get Stealers Infections On Sale",
+      "annotation": "get_stealers_infections_on_sale",
+      "description": "Retrieves a list of stealers infections on sale for the given org id and the input parameters you have specified.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "parameters": [
+        {
+          "name": "search_string",
+          "title": "Search By Keyword",
           "type": "text",
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Filter results by specific CVE year. Multiple CVE years should be comma separated and will work as OR filter, example: 2018,2019.",
-          "description": "Filter results by specific CVE year. Multiple CVE years should be comma separated and will work as OR filter, example: 2018,2019."
+          "tooltip": "Specify a keyword to search in stealers infections on sale by searching the given keyword in stealer name, sites, country, isp, state.",
+          "description": "Specify a keyword to search in stealers infections on sale by searching the given keyword in stealer name, sites, country, isp, state."
         },
         {
-          "name": "vendors",
-          "title": "Vendors",
+          "name": "stealers",
+          "title": "Stealer Name",
           "type": "text",
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Filter results by specific vendor. Multiple vendors should be comma separated and will work as OR filter, example: debian,canonical,nodejs,openssl.",
-          "description": "Filter results by specific vendor. Multiple vendors should be comma separated and will work as OR filter, example: debian,canonical,nodejs,openssl."
+          "tooltip": "Filter the results by specific stealer name. Multiple stealer names should be comma separated and will work as OR filter, example: Vidar,Redline,Racoon,AZORult,risepro.",
+          "description": "Filter the results by specific stealer name. Multiple stealer names should be comma separated and will work as OR filter, example: Vidar,Redline,Racoon,AZORult,risepro."
         },
         {
-          "name": "products",
-          "title": "Products",
+          "name": "marketplaces",
+          "title": "Marketplace Name",
           "type": "text",
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Filter results by specific product. Multiple products should be comma separated and will work as OR filter, example: debian_linux,ubuntu_linux,openssl.",
-          "description": "Filter results by specific product. Multiple products should be comma separated and will work as OR filter, example: debian_linux,ubuntu_linux,openssl."
+          "tooltip": "Filter the results by specific marketplace name. Multiple marketplace names should be comma separated and will work as OR filter, example: 2easy,genesis,russian market.",
+          "description": "Filter the results by specific marketplace name. Multiple marketplace names should be comma separated and will work as OR filter, example: 2easy,genesis,russian market."
         },
         {
-          "name": "keyword",
-          "title": "Keyword",
+          "name": "isps",
+          "title": "ISP Name",
           "type": "text",
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Filter results by specific keyword. Provided keyword will be partially searched in these fields: cve id, . Example: CVE-2018.",
-          "description": "Filter results by specific keyword. Provided keyword will be partially searched in these fields: cve id, . Example: CVE-2018."
+          "tooltip": "Filter the results by specific ISP name. Multiple ISP names should be comma separated and will work as OR filter, example: Amazon.com,IRANET TELECOM.",
+          "description": "Filter the results by specific ISP name. Multiple ISP names should be comma separated and will work as OR filter, example: Amazon.com,IRANET TELECOM."
         },
         {
-          "name": "elevated",
-          "title": "Elevated",
+          "name": "countries",
+          "title": "Country Name",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Filter the results by specific country name. Multiple country names should be comma separated and will work as OR filter, example: India,Colombia.",
+          "description": "Filter the results by specific country name. Multiple country names should be comma separated and will work as OR filter, example: India,Colombia."
+        },
+        {
+          "name": "states",
+          "title": "State Name",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Filter the results by specific State name. Multiple State names should be comma separated and will work as OR filter, example: India,Colombia.",
+          "description": "Filter the results by specific State name. Multiple State names should be comma separated and will work as OR filter, example: India,Colombia."
+        },
+        {
+          "name": "matched_domains",
+          "title": "Matched Domain",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Filter the results by specific matched domain. Multiple matched domains should be comma separated and will work as OR filter, example: domain1.com,domain2.com",
+          "description": "Filter the results by specific matched domain. Multiple matched domains should be comma separated and will work as OR filter, example: domain1.com,domain2.com"
+        },
+        {
+          "name": "status",
+          "title": "Status",
           "type": "select",
           "editable": true,
           "visible": true,
           "required": false,
+          "tooltip": "Specify the status of stealers infections on sale, you can select between ACTIVE and RESOLVED.",
+          "description": "Specify the status of stealers infections on sale, you can select between ACTIVE and RESOLVED.",
           "options": [
-            "True",
-            "False"
-          ],
-          "tooltip": "Select 'True' to fetch elevated CVEs.",
-          "description": "Select 'True' to fetch elevated CVEs."
+            "ACTIVE",
+            "RESOLVED"
+          ]
         },
         {
           "name": "start_date",
@@ -2179,8 +2387,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Select the start date of the range containing the date when a Vulnerability Intelligence Global CVE was added.",
-          "description": "Select the start date of the range containing the date when a Vulnerability Intelligence Global CVE was added."
+          "tooltip": "Select the start date of the range containing the date when a stealers infection on sale was added. Selecting a start date is mandatory if an End Date is selected.",
+          "description": "Select the start date of the range containing the date when a stealers infection on sale was added. Selecting a start date is mandatory if an End Date is selected."
         },
         {
           "name": "end_date",
@@ -2189,8 +2397,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Select the end date of the range containing the date when a Vulnerability Intelligence Global CVE was added.",
-          "description": "Select the end date of the range containing the date when a Vulnerability Intelligence Global CVE was added."
+          "tooltip": "Select the end date of the range containing the date when a stealers infection on sale was added. Default is the current date.",
+          "description": "Select the end date of the range containing the date when a stealers infection on sale was added. Default is the current date."
         },
         {
           "name": "page",
@@ -2217,19 +2425,20 @@
       "output_schema": {
         "hits": [
           {
-            "addition": "",
-            "created_at": "",
-            "cve_id": "",
-            "description": "",
-            "fortirecon_score": "",
-            "fortirecon_severity": "",
-            "nvd_score": "",
-            "nvd_severity": "",
-            "nvd_v2_score": "",
-            "nvd_v2_severity": "",
-            "products": [],
-            "report_id": "",
-            "vendors": []
+            "id": "",
+            "marketplace": "",
+            "isp": "",
+            "sites": [],
+            "stealer_name": "",
+            "country": "",
+            "country_code": "",
+            "state": "",
+            "matched_domains": [],
+            "price": "",
+            "currency": "",
+            "vendor": "",
+            "status": "",
+            "discovery_ts": ""
           }
         ],
         "page": "",
@@ -2238,10 +2447,126 @@
       }
     },
     {
-      "operation": "get_vulnerability_intelligence_global_cves_by_id",
-      "title": "Get Vulnerability Intelligence Global CVEs By ID",
-      "annotation": "get_vulnerability_intelligence_global_cves_by_id",
-      "description": "Retrieves Vulnerability Intelligence global CVEs details by ID for the given organization ID.",
+      "operation": "get_ransomware_victims",
+      "title": "Get Ransomware Victims",
+      "annotation": "get_ransomware_victims",
+      "description": "Retrieves ransomware victims list.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "parameters": [
+        {
+          "name": "q",
+          "title": "Search By Keyword",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify a keyword to search in ransomware victims by searching the given keyword in title, ransomware name, description fields.",
+          "description": "Specify a keyword to search in ransomware victims by searching the given keyword in title, ransomware name, description fields."
+        },
+        {
+          "name": "ransomware_name",
+          "title": "Filter By Ransomware Name",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify a ransomware name to filter the ransomware victims by ransomware name.",
+          "description": "Specify a ransomware name to filter the ransomware victims by ransomware name."
+        },
+        {
+          "name": "country",
+          "title": "Country",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Filter the ransomware victims by specific country/countries. Multiple countries should be comma separated and will work as OR filter, example: India, United States.",
+          "description": "Filter the ransomware victims by specific country/countries. Multiple countries should be comma separated and will work as OR filter, example: India, United States."
+        },
+        {
+          "name": "sectors",
+          "title": "Sectors",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Filter the ransomware victims by specific sector(s). Multiple sectors should be comma separated and will work as OR filter, example: Business Services,Accounting Services.",
+          "description": "Filter the ransomware victims by specific sector(s). Multiple sectors should be comma separated and will work as OR filter, example: Business Services,Accounting Services."
+        },
+        {
+          "name": "start_date",
+          "title": "Start Date",
+          "type": "datetime",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Date must be in this format (YYYY-MM-DD)",
+          "description": "Specify the date from when you want to retrieve ransomware victims. Supported Date format: (YYYY-MM-DD)."
+        },
+        {
+          "name": "end_date",
+          "title": "End Date",
+          "type": "datetime",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Date must be in this format (YYYY-MM-DD)",
+          "description": "Specify the date till when you want to retrieve ransomware victims. Supported Date format: (YYYY-MM-DD)."
+        },
+        {
+          "name": "page",
+          "title": "Page",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
+          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+        },
+        {
+          "name": "size",
+          "title": "Size",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": 10,
+          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
+          "description": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
+        }
+      ],
+      "output_schema": {
+        "hits": [
+          {
+            "id": "",
+            "title": "",
+            "name": "",
+            "domains": [],
+            "revenue": "",
+            "post_text": "",
+            "sectors": [],
+            "country": "",
+            "continent": "",
+            "ransomware_name": "",
+            "description": "",
+            "added_ts": "",
+            "updated_ts": "",
+            "collection_ts": ""
+          }
+        ],
+        "page": "",
+        "size": "",
+        "total": ""
+      }
+    },
+    {
+      "operation": "get_ransomware_victims_details_by_id",
+      "title": "Get Vendor Details By ID",
+      "annotation": "get_ransomware_victims_details_by_id",
+      "description": "Retrieves a ransomware victim details by ID.",
       "category": "investigation",
       "is_config_required": true,
       "visible": true,
@@ -2254,118 +2579,635 @@
           "editable": true,
           "visible": true,
           "required": true,
-          "tooltip": "Specify the ID of the CVE to fetch its details.",
-          "description": "Specify the ID of the CVE to fetch its details."
+          "tooltip": "Specify the ransomware victim ID to fetch its details.",
+          "description": "Specify the ransomware victim ID to fetch its details."
         }
       ],
       "output_schema": {
-        "affected_hosts": [],
-        "cve_id": "",
-        "darknet": [],
-        "darknet_hits": "",
-        "exploit_hits": "",
-        "exploits": [],
-        "fortirecon_score": "",
-        "fortirecon_severity": "",
-        "github": [],
-        "github_hits": "",
-        "intel": [],
-        "intel_hits": "",
-        "nvd_score": "",
-        "nvd_severity": "",
-        "nvd_v2_score": "",
-        "nvd_v2_severity": "",
-        "osint": [],
-        "osint_hits": "",
-        "products": "",
-        "social": [],
-        "social_hits": "",
-        "vendors": ""
+        "id": "",
+        "post_title": "",
+        "post_text": "",
+        "ransomware_name": "",
+        "victim_domains": [],
+        "victim_company": "",
+        "victim_country": "",
+        "victim_continent": "",
+        "victim_sectors": [],
+        "victim_description": "",
+        "victim_parent_org": "",
+        "victim_revenue_in_usd": [],
+        "posted_ts": "",
+        "updated_ts": "",
+        "collection_ts": ""
       }
     },
     {
-      "operation": "get_vulnerability_intelligence_information",
-      "title": "Get Vulnerability Intelligence Information",
-      "annotation": "get_vulnerability_intelligence_information",
-      "description": "Retrieves vulnerability intelligence information for given organization ID",
+      "operation": "get_ransomware_intel_vendors_watchlist",
+      "title": "Get Ransomware Victims",
+      "annotation": "get_ransomware_intel_vendors_watchlist",
+      "description": "Retrieves the vendors added for ransomware intelligence monitoring.",
       "category": "investigation",
       "is_config_required": true,
       "visible": true,
       "enabled": true,
       "parameters": [
         {
-          "name": "fetch_info_for",
-          "title": "Fetch Information For",
+          "name": "page",
+          "title": "Page",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
+          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+        },
+        {
+          "name": "size",
+          "title": "Size",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": 10,
+          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
+          "description": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
+        }
+      ],
+      "output_schema": {
+        "hits": [
+          {
+            "id": "",
+            "domain": "",
+            "vendor_name": "",
+            "added_ts": "",
+            "updated_ts": ""
+          }
+        ],
+        "page": "",
+        "size": "",
+        "total": ""
+      }
+    },
+    {
+      "operation": "get_ransomware_intel_vendors_watchlist_matched",
+      "title": "Get Ransomware Victims Matched",
+      "annotation": "get_ransomware_intel_vendors_watchlist_matched",
+      "description": "Retrieves the matched vendors which are added for ransomware intelligence monitoring.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "parameters": [
+        {
+          "name": "page",
+          "title": "Page",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
+          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+        },
+        {
+          "name": "size",
+          "title": "Size",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": 10,
+          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
+          "description": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
+        }
+      ],
+      "output_schema": {
+        "hits": [
+          {
+            "domains": [],
+            "name": "",
+            "type": "",
+            "collection_ts": ""
+          }
+        ],
+        "page": "",
+        "size": "",
+        "total": ""
+      }
+    },
+    {
+      "operation": "get_ransomware_intelligence_statistics",
+      "title": "Get Ransomware Intelligence Stats",
+      "annotation": "get_ransomware_intelligence_statistics",
+      "description": "Retrieves Ransomware Intelligence Stats for the input parameters specified.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "parameters": [
+        {
+          "name": "type_of_info",
+          "title": "Get Ransomware Intelligence Stats For",
           "type": "select",
           "editable": true,
           "visible": true,
-          "required": true,
-          "tooltip": "Select the type of information to fetch for vulnerability intelligence.",
-          "description": "Select the type of information to fetch for vulnerability intelligence.",
+          "required": false,
+          "tooltip": "Select the type of stats you want to fetch for ransomware intelligence.",
+          "description": "Select the type of stats you want to fetch for ransomware intelligence.",
           "options": [
-            "Global Notable CVEs Summary",
-            "Global Top Vendors By CVEs",
-            "Monitored CVEs Summary",
-            "Top Vendors By CVEs"
+            "Top Ransomware Victims By Sector",
+            "Top Ransomware Victims By Revenue",
+            "Top Ransomware Victims By Country",
+            "Top Ransomware Groups",
+            "Ransomware Victims Over Time",
+            "Latest Active Ransomware Groups"
           ]
+        },
+        {
+          "name": "time_range_type",
+          "title": "Time Range Type",
+          "type": "select",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the range type to get the ransomware intelligence stats for the time range, you can select between all, last90days, last30days, last15days, last7days, current_month, previous_month.",
+          "description": "Specify the range type to get the ransomware intelligence stats for the time range, you can select between all, last90days, last30days, last15days, last7days, current_month, previous_month.",
+          "options": [
+            "all",
+            "last90days",
+            "last30days",
+            "last15days",
+            "last7days",
+            "current_month",
+            "previous_month"
+          ]
+        },
+        {
+          "name": "start_date",
+          "title": "Start Date",
+          "type": "datetime",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Date must be in this format (YYYY-MM-DD)",
+          "description": "Specify the date from when you want to retrieve ransomware intelligence stats. Supported Date format: (YYYY-MM-DD)."
+        },
+        {
+          "name": "end_date",
+          "title": "End Date",
+          "type": "datetime",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Date must be in this format (YYYY-MM-DD)",
+          "description": "Specify the date till when you want to retrieve ransomware intelligence stats. Supported Date format: (YYYY-MM-DD)."
         }
       ],
       "conditional_output_schema": [
         {
-          "condition": "{{fetch_info_for === 'Global Notable'}}",
-          "output_schema": {
-            "critical": "",
-            "easm_added_cves": "",
-            "high": "",
-            "low": "",
-            "manual_added_cves": "",
-            "medium": "",
-            "total": ""
-          }
-        },
-        {
-          "condition": "{{fetch_info_for === 'Global Top Vendors'}}",
-          "output_schema": {
-            "hits": [
+          "condition": "{{type_of_info === 'Top Ransomware Victims By Sector'}}",
+          "output_schema": 
               {
-                "critical": "",
-                "high": "",
-                "low": "",
-                "medium": "",
-                "total": "",
-                "vendor": ""
-              }
-            ]
+                "items": [
+                    {
+                        "items": [
+                            {
+                                "count": "",
+                                "country": ""
+                            }
+                        ]
+                    }
+                ],
+                "sectors": "Manufacturing"
+            }
+        },
+        {
+          "condition": "{{type_of_info === 'Top Ransomware Victims By Revenue'}}",
+          "output_schema": {
+              "items": [
+                  {
+                      "data": [
+                          {
+                              "name": "",
+                              "ransomware_name": "",
+                              "revenue": "",
+                              "revenue_in_number": ""
+                          }
+                      ],
+                      "display_id": "",
+                      "label": ""
+                  }
+              ]
           }
         },
         {
-          "condition": "{{fetch_info_for === 'Monitored CVEs Summary'}}",
+          "condition": "{{type_of_info === 'Top Ransomware Victims By Country'}}",
           "output_schema": {
-            "critical": "",
-            "easm_added_cves": "",
-            "high": "",
-            "low": "",
-            "manual_added_cves": "",
-            "medium": "",
-            "total": ""
+              "items": [
+                  {
+                      "country": "",
+                      "items": [
+                          {
+                              "count": "",
+                              "sectors": ""
+                          }
+                      ]
+                  }
+              ]
           }
         },
         {
-          "condition": "{{fetch_info_for === 'Top Vendors'}}",
+          "condition": "{{type_of_info === 'Top Ransomware Groups'}}",
           "output_schema": {
-            "hits": [
-              {
-                "critical": "",
-                "high": "",
-                "low": "",
-                "medium": "",
-                "total": "",
-                "vendor": ""
-              }
-            ]
+              "date_range": "",
+              "items": [
+                  {
+                      "count": "",
+                      "group": ""
+                  }
+              ],
+              "total": ""
+          }
+        },
+        {
+          "condition": "{{type_of_info === 'Ransomware Victims Over Time'}}",
+          "output_schema": {
+              "items": [
+                  {
+                      "count": "",
+                      "date": ""
+                  }
+              ],
+              "total": ""
+          }
+        },
+        {
+          "condition": "{{type_of_info === 'Latest Active Ransomware Groups'}}",
+          "output_schema": {
+              "items": [
+                  {
+                      "count": "",
+                      "group": "",
+                      "last_added": ""
+                  }
+              ],
+              "total": ""
           }
         }
       ]
+    },
+    {
+      "operation": "get_ransomware_threat_campaigns",
+      "title": "Get Ransomware Victims Matched",
+      "annotation": "get_ransomware_threat_campaigns",
+      "description": "Retrieves the the ransomware threat campaign.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "parameters": [
+        {
+          "name": "page",
+          "title": "Page",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
+          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+        },
+        {
+          "name": "size",
+          "title": "Size",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": 10,
+          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
+          "description": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
+        }
+      ],
+      "output_schema": {
+        "hits": [
+          {
+            "actors": "",
+            "id": "",
+            "ransomware_name": "",
+            "report_date": "",
+            "report_id": "",
+            "report_title": ""
+          }
+        ],
+        "page": "",
+        "size": "",
+        "total": ""
+      }
+    },
+    {
+      "operation": "get_ransomware_potential_victims",
+      "title": "Get Potential Ransomware Victims",
+      "annotation": "get_ransomware_potential_victims",
+      "description": "Retrieves potential ransomware victim targets.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "parameters": [
+        {
+          "name": "actor",
+          "title": "Filter By Actor Name",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify a Actor name to filter the potential ransomware victims by actor name. Multiple actor names should be comma separated and will work as OR filter, example: abc,pqr.",
+          "description": "Specify a Actor name to filter the potential ransomware victims by actor name. Multiple actor names should be comma separated and will work as OR filter, example: abc,pqr."
+        },
+        {
+          "name": "country",
+          "title": "Country",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Filter the potential ransomware victims by specific country/countries. Multiple countries should be comma separated and will work as OR filter, example: India, United States.",
+          "description": "Filter the potential ransomware victims by specific country/countries. Multiple countries should be comma separated and will work as OR filter, example: India, United States."
+        },
+        {
+          "name": "sectors",
+          "title": "Sectors",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Filter the potential ransomware victims by specific sector(s). Multiple sectors should be comma separated and will work as OR filter, example: Business Services,Accounting Services.",
+          "description": "Filter the potential ransomware victims by specific sector(s). Multiple sectors should be comma separated and will work as OR filter, example: Business Services,Accounting Services."
+        },
+        {
+          "name": "start_date",
+          "title": "Start Date",
+          "type": "datetime",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Date must be in this format (YYYY-MM-DD)",
+          "description": "Specify the date from when you want to retrieve potential ransomware victims. Supported Date format: (YYYY-MM-DD)."
+        },
+        {
+          "name": "end_date",
+          "title": "End Date",
+          "type": "datetime",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Date must be in this format (YYYY-MM-DD)",
+          "description": "Specify the date till when you want to retrieve potential ransomware victims. Supported Date format: (YYYY-MM-DD)."
+        },
+        {
+          "name": "page",
+          "title": "Page",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
+          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+        },
+        {
+          "name": "size",
+          "title": "Size",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": 10,
+          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
+          "description": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
+        }
+      ],
+      "output_schema": {
+        "hits": [
+            {
+              "actor": "",
+              "collection_date": "",
+              "country": "",
+              "description": "",
+              "domains": [],
+              "id": "",
+              "name": "",
+              "report_id": "",
+              "revenue": "",
+              "sectors": [],
+              "source": "",
+              "updated_date": ""
+          }
+        ],
+        "page": "",
+        "size": "",
+        "total": ""
+      }
+    },
+    {
+      "operation": "get_ransomware_intel_org_watchlist",
+      "title": "Get Ransomware Intelligence orgs watchlist to monitor",
+      "annotation": "get_ransomware_intel_org_watchlist",
+      "description": "Retrieves the orgs added for ransomware intelligence monitoring.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "parameters": [
+        {
+          "name": "type",
+          "title": "Added Type",
+          "type": "select",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the org added by type to get the organizations added for ransomware intelligence monitoring, you can select between ALL, EASM, MANUAL.",
+          "description": "Specify the org added by type to get the organizations added for ransomware intelligence monitoring, you can select between ALL, EASM, MANUAL.",
+          "options": [
+            "ALL",
+            "EASM",
+            "MANUAL"
+          ]
+        },
+        {
+          "name": "page",
+          "title": "Page",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
+          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+        },
+        {
+          "name": "size",
+          "title": "Size",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": 10,
+          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
+          "description": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
+        }
+      ],
+      "output_schema": {
+        "hits": [
+          {
+            "id": "",
+            "domain": "",
+            "org_name": "",
+            "type": "",
+            "added_ts": "",
+            "updated_ts": ""
+          }
+        ],
+        "page": "",
+        "size": "",
+        "total": ""
+      }
+    },
+    {
+      "operation": "get_ransomware_intel_org_watchlist_matched",
+      "title": "Get The Matched Organizations For Ransomware Intelligence Monitoring",
+      "annotation": "get_ransomware_intel_org_watchlist_matched",
+      "description": "Retrieves the matched organizations which are added for ransomware intelligence monitoring.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "parameters": [
+        {
+          "name": "page",
+          "title": "Page",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
+          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+        },
+        {
+          "name": "size",
+          "title": "Size",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": 10,
+          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
+          "description": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
+        }
+      ],
+      "output_schema": {
+        "hits": [
+          {
+            "domains": [],
+            "name": "",
+            "type": "",
+            "collection_ts": ""
+          }
+        ],
+        "page": "",
+        "size": "",
+        "total": ""
+      }
+    },
+    {
+      "operation": "get_technical_indicators_for_given_ransomware_group",
+      "title": "Get The Matched Organizations For Ransomware Intelligence Monitoring",
+      "annotation": "get_technical_indicators_for_given_ransomware_group",
+      "description": "Retrieves the technical indicators for the given ransomware group.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "parameters": [
+        {
+          "name": "group_name",
+          "title": "Ransomware Group Name",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Specify the ransomware Group Name to fetch its technical indicators.",
+          "description": "Specify the ransomware Group Name to fetch its technical indicators."
+        },
+        {
+          "name": "page",
+          "title": "Page",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
+          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+        },
+        {
+          "name": "size",
+          "title": "Size",
+          "type": "integer",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "value": 10,
+          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
+          "description": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page."
+        }
+      ],
+      "output_schema": {
+        "hits": [
+          {
+            "ioc": "",
+            "ioc_type": "",
+            "report_id": ""
+          }
+        ],
+        "page": "",
+        "size": "",
+        "total": ""
+      }
+    },
+    {
+      "operation": "get_ransomware_group_info",
+      "title": "Get Ransomware Group Information.",
+      "annotation": "get_ransomware_group_info",
+      "description": "Retrieves the ransomware group information for the given ransomware group.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "parameters": [
+        {
+          "name": "group_name",
+          "title": "Ransomware Group Name",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "tooltip": "Specify the ransomware Group Name to fetch its technical indicators.",
+          "description": "Specify the ransomware Group Name to fetch its technical indicators."
+        }
+      ],
+      "output_schema": {
+        "first_seen": "",
+        "total_victims": "",
+        "victim_countries": [
+            {
+                "count": "",
+                "country": ""
+            }
+        ],
+        "victim_sectors": [
+            {
+                "count": "",
+                "sector": ""
+            }
+        ]
+      }
     }
   ]
 }

@@ -5,15 +5,20 @@ Copyright (c) 2024 Fortinet Inc
 Copyright end
 """
 
-from .make_rest_api_call import MakeRestApiCall
+from ..make_rest_api_call import MakeRestApiCall
 
 
-def get_icl_saved_searches(config: dict, params: dict) -> dict:
+def get_leaked_cards(config: dict, params: dict) -> dict:
+
     MK = MakeRestApiCall(config=config)
-    endpoint = '/aci/{org_id}/icl_saved_searches'
+    if params.get('bin'):
+        params["bin"] = str(params.get('bin')).strip('[]')
+    endpoint = "/aci/{org_id}/leaked_cards"
+    method = "GET"
     if params.get("start_date"):
         params["start_date"] = MK.handle_date(params.get("start_date"))
     if params.get("end_date"):
         params["end_date"] = MK.handle_date(params.get("end_date"))
-    response = MK.make_request(endpoint=endpoint, method="GET", params=params)
+
+    response = MK.make_request(endpoint=endpoint, method=method, params=params)
     return response
