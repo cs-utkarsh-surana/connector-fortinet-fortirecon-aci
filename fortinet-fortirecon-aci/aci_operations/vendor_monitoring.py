@@ -15,8 +15,29 @@ URL = {
 }
 
 
+APPROVAL_STATUS_MAPPING = {
+    "Pending": "pending",
+    "Approved": "approved",
+    "Rejected": "rejected"
+}
+
+
+STATUS_MAPPING = {
+    "Pending": "pending",
+    "Started": "started",
+    "Failed": "failed",
+    "Completed": "completed"
+}
+
+
 def get_vendor_watchlist(config: dict, params: dict) -> dict:
     MK = MakeRestApiCall(config=config)
+    status = params.get("status")
+    if status:
+        params["status"] = STATUS_MAPPING.get(status)
+    approval_status = params.get("approval_status")
+    if approval_status:
+        params["approval_status"] = APPROVAL_STATUS_MAPPING.get(approval_status)
     endpoint = '/aci/{org_id}/vendors_watchlist'
     response = MK.make_request(endpoint=endpoint, method="GET", params=params)
     return response

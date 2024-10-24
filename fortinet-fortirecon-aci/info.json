@@ -3,7 +3,7 @@
   "label": "Fortinet FortiRecon ACI",
   "version": "2.0.0",
   "description": "FortiRecon is a Digital Risk Protection Service (DRPS) product that provides an outside-the-network view to the risks posed to your enterprise.The Adversary Centric Intelligence (ACI) module leverages FortiGuard Threat Analysts to provide comprehensive coverage of dark web, open source, and technical threat intelligence, including threat actor insights. This information enables administrators to proactively assess risks, respond faster to incidents, better understand their attackers, and protect assets. This connector facilitates the automated operations related to ACI. <br/><br/>This connector has a dependency on the <a href=\"/content-hub/all-content/?contentType=solutionpack&amp;tag=ThreatIntelManagement\" target=\"_blank\" rel=\"noopener\">Threat Intel Management Solution Pack</a>. Install the Solution Pack before enabling ingestion of Threat Feeds from this source.",
-  "publisher": "Fortinet FortiRecon",
+  "publisher": "Fortinet",
   "contributor": "Ramkrushna Pathade",
   "cs_approved": true,
   "cs_compatible": true,
@@ -1407,9 +1407,9 @@
           "tooltip": "Specify the approval status of the vendor, you can select between pending, approved, rejected.",
           "description": "Specify the status of the vendor, you can select between pending, approved, rejected.",
           "options": [
-            "pending",
-            "approved",
-            "rejected"
+            "Pending",
+            "Approved",
+            "Rejected"
           ]
         },
         {
@@ -1422,10 +1422,10 @@
           "tooltip": "Specify the monitoring status of the vendor, you can select between pending, started, failed, completed.",
           "description": "Specify the monitoring status of the vendor, you can select between pending, started, failed, completed.",
           "options": [
-            "pending",
-            "started",
-            "failed",
-            "completed"
+            "Pending",
+            "Started",
+            "Failed",
+            "Completed"
           ]
         },
         {
@@ -1524,8 +1524,8 @@
           "tooltip": "Select the input source type based on which you want to filter the result. You can select between client and aci.",
           "description": "Select the input source type based on which you want to filter the result. You can select between client and aci.",
           "options": [
-            "client",
-            "aci"
+            "CLIENT",
+            "ACI"
           ]
         },
         {
@@ -1743,8 +1743,8 @@
           "tooltip": "Select the input source type based on which you want to filter the result. You can select between client and aci.",
           "description": "Select the input source type based on which you want to filter the result. You can select between client and aci.",
           "options": [
-            "client",
-            "aci"
+            "CLIENT",
+            "ACI"
           ]
         },
         {
@@ -1757,8 +1757,8 @@
           "tooltip": "Select the sort by type based on which you want to sort the result. You can select between count:desc and count:asc.",
           "description": "Select the sort by type based on which you want to sort the result. You can select between count:desc and count:asc.",
           "options": [
-            "count:desc",
-            "count:asc"
+            "Sort By Product Count Descending Order",
+            "Sort By Product Count Ascending Order"
           ]
         },
         {
@@ -1819,8 +1819,8 @@
           "tooltip": "Select the input source type based on which you want to filter the result. You can select between client and aci.",
           "description": "Select the input source type based on which you want to filter the result. You can select between client and aci.",
           "options": [
-            "client",
-            "aci"
+            "CLIENT",
+            "ACI"
           ]
         },
         {
@@ -1833,8 +1833,8 @@
           "tooltip": "Select the sort by type based on which you want to sort the result. You can select between count:desc and count:asc.",
           "description": "Select the sort by type based on which you want to sort the result. You can select between count:desc and count:asc.",
           "options": [
-            "count:desc",
-            "count:asc"
+            "Sort By Vendor Count Descending Order",
+            "Sort By Vendor Count Ascending Order"
           ]
         },
         {
@@ -2732,13 +2732,13 @@
           "tooltip": "Specify the range type to get the ransomware intelligence stats for the time range, you can select between all, last90days, last30days, last15days, last7days, current_month, previous_month.",
           "description": "Specify the range type to get the ransomware intelligence stats for the time range, you can select between all, last90days, last30days, last15days, last7days, current_month, previous_month.",
           "options": [
-            "all",
-            "last90days",
-            "last30days",
-            "last15days",
-            "last7days",
-            "current_month",
-            "previous_month"
+              "All Time",
+              "Last 90 Days",
+              "Last 30 Days",
+              "Last 15 Days",
+              "Last 7 Days",
+              "Current Month",
+              "Previous Month"
           ]
         },
         {

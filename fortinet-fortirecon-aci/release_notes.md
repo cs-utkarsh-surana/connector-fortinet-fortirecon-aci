@@ -22,8 +22,6 @@
     - Get Ransomware Intelligence technical indicators for given ransomware group
     - Get Ransomware Intelligence ransomware group information
 
-### What's Improved
-- Re-factored connector code
 
 ### What's remove
 

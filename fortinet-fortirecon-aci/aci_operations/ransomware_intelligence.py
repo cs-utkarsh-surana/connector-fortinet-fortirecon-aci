@@ -17,6 +17,17 @@ URL = {
     "Latest Active Ransomware Groups": "latest_active_ransomware_groups"
 }
 
+
+TIME_RANGE_MAPPING = {
+    "All Time": "all",
+    "Last 90 Days": "last90days",
+    "Last 30 Days": "last30days",
+    "Last 15 Days": "last15days",
+    "Last 7 Days": "last7days",
+    "Current Month": "current_month",
+    "Previous Month": "previous_month"
+}
+
 def get_ransomware_victims(config: dict, params: dict) -> dict:
     MK = MakeRestApiCall(config=config)
     endpoint = '/aci/{org_id}/ransomware_intelligence/victims'
@@ -43,6 +54,9 @@ def get_ransomware_intel_vendors_watchlist_matched(config: dict, params: dict) -
 
 def get_ransomware_intelligence_statistics(config: dict, params: dict) -> dict:
     MK = MakeRestApiCall(config=config)
+    time_range_type = params.get("time_range_type")
+    if time_range_type:
+        params["time_range_type"] = TIME_RANGE_MAPPING.get(time_range_type)
     endpoint = '/aci/{org_id}/ransomware_intelligence/stats'+'/{url}'.format(url=URL.get(params.get('type_of_info'))) if params.get('type_of_info') else ""
     response = MK.make_request(endpoint=endpoint, method="GET", params=params)
     return response
