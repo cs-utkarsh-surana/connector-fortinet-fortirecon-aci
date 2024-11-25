@@ -7,7 +7,9 @@ Copyright end
 from .aci_operations.osint import get_widgets, get_osint_feeds
 from .aci_operations.iocs import get_iocs
 from .aci_operations.leaked_cards import get_leaked_cards
-from .aci_operations.stealers_leaked import get_stealers_infections_leaked_count, get_leaked_stealers_infections
+from .aci_operations.stealers_leaked import (get_stealers_infections_leaked_count,
+                                             get_leaked_stealers_infections,
+                                             update_stealers_leaked_status)
 from .aci_operations.reports import get_reports, get_reports_with_iocs
 from .aci_operations.vulnerability_intelligence import (get_vulnerability_intelligence_cves,
                                                         get_vulnerability_intelligence_cves_by_id,
@@ -16,7 +18,8 @@ from .aci_operations.vulnerability_intelligence import (get_vulnerability_intell
                                                         get_vulnerability_intelligence_hits_by_cve_id,
                                                         get_vulnerability_intelligence_stats_for_cve_id)
 from .aci_operations.stealers_on_sale import (get_stealers_infections_on_sale_count,
-                                              get_stealers_infections_on_sale)
+                                              get_stealers_infections_on_sale,
+                                              update_stealers_on_sale_status)
 from .aci_operations.icl import get_icl_saved_searches, get_icl_saved_searches_by_id
 from .aci_operations.vendor_monitoring import (get_vendor_watchlist,
                                                get_vendor_details_by_id,
@@ -67,5 +70,7 @@ operations = {
     "get_ransomware_intel_org_watchlist": get_ransomware_intel_org_watchlist,
     "get_ransomware_intel_org_watchlist_matched": get_ransomware_intel_org_watchlist_matched,
     "get_technical_indicators_for_given_ransomware_group": get_technical_indicators_for_given_ransomware_group,
-    "get_ransomware_group_info": get_ransomware_group_info
+    "get_ransomware_group_info": get_ransomware_group_info,
+    "update_stealers_on_sale_status": update_stealers_on_sale_status,
+    "update_stealers_leaked_status": update_stealers_leaked_status
 }

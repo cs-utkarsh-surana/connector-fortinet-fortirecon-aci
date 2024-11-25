@@ -1463,7 +1463,10 @@
             "approval_status": "",
             "last_refreshed_on": ""
           }
-        ]
+        ],
+        "page": "",
+        "size": "",
+        "total": ""
       }
     },
     {
@@ -1529,7 +1532,7 @@
           ]
         },
         {
-          "name": "fortirecon_severity",
+          "name": "recon_severity",
           "title": "Fortirecon Severity",
           "type": "select",
           "editable": true,
@@ -1545,7 +1548,23 @@
           ]
         },
         {
-          "name": "cve_year",
+          "name": "nvd_severity",
+          "title": "NVD Severity",
+          "type": "select",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Select the severity based on which you want to filter the result. You can select between CRITICAL, HIGH, MEDIUM and LOW.",
+          "description": "Select the severity based on which you want to filter the result. You can select between CRITICAL, HIGH, MEDIUM and LOW.",
+          "options": [
+            "CRITICAL",
+            "HIGH",
+            "MEDIUM",
+            "LOW"
+          ]
+        },
+        {
+          "name": "years",
           "title": "CVE Year",
           "type": "text",
           "editable": true,
@@ -1555,7 +1574,7 @@
           "description": "Filter the results by specific CVE year. Multiple CVE years should be comma separated and will work as OR filter, example: 2018,2019."
         },
         {
-          "name": "addition",
+          "name": "input_src_subtype",
           "title": "Addition",
           "type": "select",
           "editable": true,
@@ -1565,7 +1584,23 @@
           "description": "Select the addition type based on which you want to filter the result. You can select between EASM and MANUAL.",
           "options": [
             "EASM",
-            "MANUAL"
+            "MANUAL",
+            "IASM"
+          ]
+        },
+        {
+          "name": "vuln_exploitation",
+          "title": "Vulnerability Exploitation",
+          "type": "select",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Select the Vulnerability Exploitation type based on which you want to filter the result. You can select between APT_GROUP, RANSOMWARE and UNKNOWN.",
+          "description": "Select the Vulnerability Exploitation type based on which you want to filter the result. You can select between APT_GROUP, RANSOMWARE and UNKNOWN.",
+          "options": [
+            "APT_GROUP",
+            "RANSOMWARE",
+            "UNKNOWN"
           ]
         },
         {
@@ -1589,6 +1624,16 @@
           "description": "Filter the results by specific product. Multiple products should be comma separated and will work as OR filter, example: debian_linux,ubuntu_linux,openssl."
         },
         {
+          "name": "tags",
+          "title": "Tag IDs",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Filter the results by specific tag ID. Multiple tag IDs should be comma separated and will work as OR filter, example: 65dd1123aa1d5e9ab668ac56,56dd1768aa1d5o9ab668ac56..",
+          "description": "Filter the results by specific tag ID. Multiple tag IDs should be comma separated and will work as OR filter, example: 65dd1123aa1d5e9ab668ac56,56dd1768aa1d5o9ab668ac56.."
+        },
+        {
           "name": "keyword",
           "title": "Keyword",
           "type": "text",
@@ -1599,7 +1644,7 @@
           "description": "Filter the results by specific keyword. Provided keyword will be partially searched in these fields: cve id, . Example: CVE-2018."
         },
         {
-          "name": "elevated",
+          "name": "is_elevated",
           "title": "Elevated",
           "type": "select",
           "editable": true,
@@ -1611,6 +1656,40 @@
           ],
           "tooltip": "Select 'True' to fetch elevated CVEs.",
           "description": "Select 'True' to fetch elevated CVEs."
+        },
+        {
+          "name": "sort",
+          "title": "Sort By Recon Score",
+          "type": "select",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Select the sort by type based on which you want to sort the result. You can select between recon_score:desc or recon_score:asc.",
+          "description": "Select the sort by type based on which you want to sort the result. You can select between recon_score:desc or recon_score:asc.",
+          "options": [
+            "Sort By Recon Score Descending Order",
+            "Sort By Recon Score Ascending Order"
+          ]
+        },
+        {
+          "name": "data_sources",
+          "title": "Data Sources",
+          "type": "select",
+          "editable": true,
+          "visible": true,
+          "required": false,
+          "tooltip": "Filter the results by specific data source.",
+          "description": "Filter the results by specific data source.",
+          "options": [
+            "ACI Reporting",
+            "Darknet Chatter",
+            "Working Exploits",
+            "POC Exploits",
+            "Security Blogs",
+            "Hacktivist Chatter",
+            "Social Media",
+            "Fortiguard Outbreak Alert"
+          ]
         },
         {
           "name": "start_date",
@@ -1657,19 +1736,23 @@
       "output_schema": {
         "hits": [
           {
-            "addition": "",
-            "created_at": "",
             "cve_id": "",
-            "description": "",
-            "fortirecon_score": "",
-            "fortirecon_severity": "",
+            "is_active": "",
             "nvd_score": "",
+            "status": "",
             "nvd_severity": "",
-            "nvd_v2_score": "",
-            "nvd_v2_severity": "",
+            "recon_score": "",
+            "recon_severity": "",
+            "year": "",
+            "tags": "",
+            "description": "",
             "products": [],
-            "report_id": "",
-            "vendors": []
+            "vendors": [],
+            "iasm_affected_hosts": [],
+            "easm_affected_hosts": [],
+            "last_refreshed_ts": "",
+            "created_ts": "",
+            "published_ts": ""
           }
         ],
         "page": "",
@@ -1699,28 +1782,25 @@
         }
       ],
       "output_schema": {
-        "affected_hosts": [],
         "cve_id": "",
-        "darknet": [],
-        "darknet_hits": "",
-        "exploit_hits": "",
-        "exploits": [],
-        "fortirecon_score": "",
-        "fortirecon_severity": "",
-        "github": [],
-        "github_hits": "",
-        "intel": [],
-        "intel_hits": "",
+        "is_active": "",
+        "status": "",
         "nvd_score": "",
         "nvd_severity": "",
-        "nvd_v2_score": "",
-        "nvd_v2_severity": "",
-        "osint": [],
-        "osint_hits": "",
+        "recon_score": "",
+        "recon_severity": "",
+        "year": "",
+        "vendors": [],
+        "tags": [],
         "products": [],
-        "social": [],
-        "social_hits": "",
-        "vendors": []
+        "description": "",
+        "easm_affected_hosts": [],
+        "iasm_affected_hosts": [],
+        "last_refreshed_ts": "",
+        "published_ts": "",
+        "created_ts": "",
+        "lookup_priority": "",
+        "nvd_metadata": ""
       }
     },
     {
@@ -1784,19 +1864,26 @@
         }
       ],
       "output_schema": {
-          "product": "",
-          "count": "",
-          "recon_severity": {
-              "low": "",
-              "medium": "",
-              "critical": ""
-          },
-          "nvd_severity": {
-              "medium": "",
-              "high": "",
-              "critical": "",
-              "low": ""
-          }
+        "hits": [
+          {
+            "product": "",
+            "count": "",
+            "recon_severity": {
+                "low": "",
+                "medium": "",
+                "critical": ""
+            },
+            "nvd_severity": {
+                "medium": "",
+                "high": "",
+                "critical": "",
+                "low": ""
+            }
+        }
+        ],
+        "page": "",
+        "size": "",
+        "total": ""
       }
     },
     {
@@ -1860,19 +1947,26 @@
         }
       ],
       "output_schema": {
-          "vendor": "",
-          "count": "",
-          "recon_severity": {
-              "low": "",
-              "medium": "",
-              "critical": ""
-          },
-          "nvd_severity": {
-              "medium": "",
-              "high": "",
-              "critical": "",
-              "low": ""
-          }
+        "hits": [
+          {
+            "vendor": "",
+            "count": "",
+            "recon_severity": {
+                "low": "",
+                "medium": "",
+                "critical": ""
+            },
+            "nvd_severity": {
+                "medium": "",
+                "high": "",
+                "critical": "",
+                "low": ""
+            }
+        }
+        ],
+        "page": "",
+        "size": "",
+        "total": ""
       }
     },
     {
@@ -3208,6 +3302,84 @@
             }
         ]
       }
+    },
+    {
+      "operation": "update_stealers_leaked_status",
+      "title": "Update Stealers Leaked Status",
+      "annotation": "update_stealers_leaked_status",
+      "description": "Updates the status of the stealer leaked record.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "output_schema": {
+        "message": ""
+      },
+      "parameters": [
+        {
+          "name": "stealers_leaked_id",
+          "title": "Stealers Leaked Record ID",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "description": "Specify the Stealers Leaked Record ID to update the status.",
+          "tooltip": "Specify the Stealers Leaked Record ID to update the status."
+        },
+        {
+          "title": "Status",
+          "name": "status",
+          "type": "select",
+          "visible": true,
+          "editable": true,
+          "required": true,
+          "tooltip": "Specify the status to update the Stealers Leaked Record.",
+          "description": "Specify the status to update the Stealers Leaked Record. You can choose from ACTIVE, RESOLVED.",
+          "options": [
+            "ACTIVE",
+            "RESOLVED"
+          ]
+        }
+      ]
+    },
+    {
+      "operation": "update_stealers_on_sale_status",
+      "title": "Update Stealers On Sale(Marketplaces) Status",
+      "annotation": "update_stealers_on_sale_status",
+      "description": "Updates the status of the Stealers On Sale(Marketplaces) record.",
+      "category": "investigation",
+      "is_config_required": true,
+      "visible": true,
+      "enabled": true,
+      "output_schema": {
+        "message": ""
+      },
+      "parameters": [
+        {
+          "name": "stealers_on_sale_id",
+          "title": "Stealers On Sale(Marketplaces) Record ID",
+          "type": "text",
+          "editable": true,
+          "visible": true,
+          "required": true,
+          "description": "Specify the Stealers On Sale(Marketplaces) Record ID to update the status.",
+          "tooltip": "Specify the Stealers On Sale(Marketplaces) Record ID to update the status."
+        },
+        {
+          "title": "Status",
+          "name": "status",
+          "type": "select",
+          "visible": true,
+          "editable": true,
+          "required": true,
+          "tooltip": "Specify the status to update the Stealers On Sale(Marketplaces) Record.",
+          "description": "Specify the status to update the Stealers On Sale(Marketplaces) Record. You can choose from ACTIVE, RESOLVED.",
+          "options": [
+            "ACTIVE",
+            "RESOLVED"
+          ]
+        }
+      ]
     }
   ]
 }

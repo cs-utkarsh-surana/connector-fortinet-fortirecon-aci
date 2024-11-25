@@ -21,6 +21,8 @@
     - Get Ransomware Intelligence Statistics
     - Get Ransomware Intelligence technical indicators for given ransomware group
     - Get Ransomware Intelligence ransomware group information
+    - Update Stealers Logs Leaked Status
+    - Update Stealers On Sale(Marketplaces) Status 
 
 
 ### What's remove
