@@ -1,0 +1,264 @@
+{
+    "config": [
+        {
+            "server_url": "server_url",
+            "api_key": "api_key",
+            "org_id": "org_id",
+            "verify_ssl": false
+        }
+    ],
+    "get_iocs": [
+        {
+            "report_id": null,
+            "ioc_type": null,
+            "start_date": "2024-11-19T06:41:14.166Z",
+            "end_date": "2024-11-19T06:41:14.166Z",
+            "page": null,
+            "size": 10
+        }
+    ],
+    "get_leaked_cards": [
+        {
+            "type": null,
+            "bin": null,
+            "start_date": "2024-11-19T06:41:14.166Z",
+            "end_date": "2024-11-19T06:41:14.166Z",
+            "page": null,
+            "size": 10
+        }
+    ],
+    "get_widgets": [
+        {
+            "page": null,
+            "size": 10
+        }
+    ],
+    "get_osint_feeds": [
+        {
+            "widget_id": null,
+            "keyword": null,
+            "page": null,
+            "size": 10
+        }
+    ],
+    "get_reports": [
+        {
+            "relevance_rating": null,
+            "tags": null,
+            "adversary": null,
+            "source_category": null,
+            "report_type": null,
+            "industry": null,
+            "geography": null,
+            "keyword": null,
+            "source_reliability": null,
+            "information_reliability": null,
+            "start_date": "2024-11-19T06:41:14.166Z",
+            "end_date": "2024-11-19T06:41:14.166Z",
+            "page": null,
+            "size": 10
+        }
+    ],
+    "get_reports_with_iocs": [
+        {
+            "id": "2024112519757"
+        }
+    ],
+    "get_icl_saved_searches": [
+        {
+            "q": null,
+            "alert": "True",
+            "query_type": "SYSTEM",
+            "start_date": "2024-11-19T06:41:14.166Z",
+            "end_date": "2024-11-19T06:41:14.166Z",
+            "page": null,
+            "size": 10
+        }
+    ],
+    "get_icl_saved_searches_by_id": [
+        {
+            "based_on": "Archived Forums",
+            "id": "1eece4280ef34d0ed0f88573e0393a86"
+        }
+    ],
+    "get_stealers_infections_leaked_count": [
+        {
+            "based_on": "Affiliated Domain",
+            "page": null,
+            "size": 10
+        }
+    ],
+    "get_leaked_stealers_infections": [
+        {
+            "q": null,
+            "stealer_name": null,
+            "affiliated_domain": null,
+            "status": "ACTIVE",
+            "user_type": "EMPLOYEE",
+            "start_date": "2024-11-19T06:41:14.166Z",
+            "end_date": "2024-11-19T06:41:14.166Z",
+            "page": null,
+            "size": 10
+        }
+    ],
+    "get_vendor_exposures_by_id": [
+        {
+            "type_of_info": "Attack Surface Exposure",
+            "id": "a2173e9a-f439-4fdd-a911-0f4f15699062"
+        }
+    ],
+    "get_vendor_watchlist": [
+        {
+            "domain": null,
+            "name": null,
+            "approval_status": "Pending",
+            "status": "Pending",
+            "page": null,
+            "size": 10
+        }
+    ],
+    "get_vendor_details_by_id": [
+        {
+            "id": "a2173e9a-f439-4fdd-a911-0f4f15699062"
+        }
+    ],
+    "get_vulnerability_intelligence_cves": [
+        {
+            "input_src_type": "CLIENT",
+            "recon_severity": "CRITICAL",
+            "input_src_subtype": "EASM",
+            "is_elevated": "True"
+        }
+    ],
+    "get_vulnerability_intelligence_cves_by_id": [
+        {
+            "id": "CVE-2020-27648"
+        }
+    ],
+    "get_vulnerability_intelligence_vulnerable_products": [
+        {
+            "input_src_type": "CLIENT",
+            "sort": "Sort By Product Count Descending Order",
+            "page": null,
+            "size": 10
+        }
+    ],
+    "get_vulnerability_intelligence_vulnerable_vendors": [
+        {
+            "input_src_type": "CLIENT",
+            "sort": "Sort By Vendor Count Descending Order",
+            "page": null,
+            "size": 10
+        }
+    ],
+    "get_vulnerability_intelligence_hits_by_cve_id": [
+        {
+            "based_on": "ACI Reporting",
+            "id": "CVE-2022-3602",
+            "page": null,
+            "size": 10
+        }
+    ],
+    "get_vulnerability_intelligence_stats_for_cve_id": [
+        {
+            "based_on": "Data Source Trend",
+            "id": "CVE-2022-3602",
+            "page": null,
+            "size": 10
+        }
+    ],
+    "get_stealers_infections_on_sale_count": [
+        {
+            "based_on": "Matched Domain",
+            "page": null,
+            "size": 10
+        }
+    ],
+    "get_stealers_infections_on_sale": [
+        {
+            "status": "ACTIVE",
+            "page": 1,
+            "size": 10
+        }
+    ],
+    "get_ransomware_victims": [
+        {
+
+            "page": 1,
+            "size": 10
+        }
+    ],
+    "get_ransomware_victims_details_by_id": [
+        {
+            "id": "e6cbd8dd839befdbd9d7694fcfce044e"
+        }
+    ],
+    "get_ransomware_intel_vendors_watchlist": [
+        {
+            "page": null,
+            "size": 10
+        }
+    ],
+    "get_ransomware_intel_vendors_watchlist_matched": [
+        {
+            "page": null,
+            "size": 10
+        }
+    ],
+    "get_ransomware_intelligence_statistics": [
+        {
+            "type_of_info": "Top Ransomware Victims By Sector",
+            "time_range_type": "All Time"
+        }
+    ],
+    "get_ransomware_threat_campaigns": [
+        {
+            "page": null,
+            "size": 10
+        }
+    ],
+    "get_ransomware_potential_victims": [
+        {
+           
+            "page": 1,
+            "size": 10
+        }
+    ],
+    "get_ransomware_intel_org_watchlist": [
+        {
+            "type": "ALL",
+            "page": null,
+            "size": 10
+        }
+    ],
+    "get_ransomware_intel_org_watchlist_matched": [
+        {
+            "page": null,
+            "size": 10
+        }
+    ],
+    "get_technical_indicators_for_given_ransomware_group": [
+        {
+            "group_name": "ransomhub",
+            "page": null,
+            "size": 10
+        }
+    ],
+    "get_ransomware_group_info": [
+        {
+            "group_name": "ransomhub"
+        }
+    ],
+    "update_stealers_leaked_status": [
+        {
+            "stealers_leaked_id": "Required_stealers_leaked_id(text)",
+            "status": "ACTIVE"
+        }
+    ],
+    "update_stealers_on_sale_status": [
+        {
+            "stealers_on_sale_id": "Required_stealers_on_sale_id(text)",
+            "status": "ACTIVE"
+        }
+    ]
+}
