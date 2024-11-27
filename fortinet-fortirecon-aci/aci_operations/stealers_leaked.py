@@ -34,3 +34,12 @@ def get_leaked_stealers_infections(config: dict, params: dict) -> dict:
         params["end_date"] = MK.handle_date(params.get("end_date"))
     response = MK.make_request(endpoint=endpoint, method="GET", params=params)
     return response
+
+
+def update_stealers_leaked_status(config: dict, params: dict) -> dict:
+    MK = MakeRestApiCall(config=config)
+    status = params.pop("status")
+    payload = {"status": status}
+    endpoint = '/aci/{org_id}/stealers_infections/leaked'+'/{id}'.format(id=params.pop('stealers_leaked_id'))
+    response = MK.make_request(endpoint=endpoint, method="PATCH", params=params, json_data=payload)
+    return response
