@@ -1216,7 +1216,7 @@
     },
     {
       "operation": "get_vendor_exposures_by_id",
-      "title": "Get Vendor Details By ID",
+      "title": "Get Vendor Exposures By Vendor ID",
       "annotation": "get_vendor_exposures_by_id",
       "description": "Retrieves vendor exposures by its ID for the given organization ID and other input parameters specified.",
       "category": "investigation",
@@ -1833,7 +1833,7 @@
           "type": "select",
           "editable": true,
           "visible": true,
-          "required": true,
+          "required": false,
           "tooltip": "Select the sort by type based on which you want to sort the result. You can select between count:desc and count:asc.",
           "description": "Select the sort by type based on which you want to sort the result. You can select between count:desc and count:asc.",
           "options": [
@@ -1916,7 +1916,7 @@
           "type": "select",
           "editable": true,
           "visible": true,
-          "required": true,
+          "required": false,
           "tooltip": "Select the sort by type based on which you want to sort the result. You can select between count:desc and count:asc.",
           "description": "Select the sort by type based on which you want to sort the result. You can select between count:desc and count:asc.",
           "options": [
@@ -2000,8 +2000,8 @@
         },
         {
           "name": "id",
-          "title": "ID",
-          "type": "integer",
+          "title": "CVE ID",
+          "type": "text",
           "editable": true,
           "visible": true,
           "required": true,
@@ -2194,8 +2194,8 @@
         },
         {
           "name": "id",
-          "title": "ID",
-          "type": "integer",
+          "title": "CVE ID",
+          "type": "text",
           "editable": true,
           "visible": true,
           "required": true,
@@ -2658,7 +2658,7 @@
     },
     {
       "operation": "get_ransomware_victims_details_by_id",
-      "title": "Get Vendor Details By ID",
+      "title": "Get Ransomware Victim Details By ID",
       "annotation": "get_ransomware_victims_details_by_id",
       "description": "Retrieves a ransomware victim details by ID.",
       "category": "investigation",
@@ -2697,7 +2697,7 @@
     },
     {
       "operation": "get_ransomware_intel_vendors_watchlist",
-      "title": "Get Ransomware Victims",
+      "title": "Get Ransomware Vendors Added For Ransomware Intelligence Monitoring",
       "annotation": "get_ransomware_intel_vendors_watchlist",
       "description": "Retrieves the vendors added for ransomware intelligence monitoring.",
       "category": "investigation",
@@ -2744,7 +2744,7 @@
     },
     {
       "operation": "get_ransomware_intel_vendors_watchlist_matched",
-      "title": "Get Ransomware Victims Matched",
+      "title": "Get Ransomware Vendors Matched",
       "annotation": "get_ransomware_intel_vendors_watchlist_matched",
       "description": "Retrieves the matched vendors which are added for ransomware intelligence monitoring.",
       "category": "investigation",
@@ -2951,9 +2951,9 @@
     },
     {
       "operation": "get_ransomware_threat_campaigns",
-      "title": "Get Ransomware Victims Matched",
+      "title": "Get Ransomware Threat Campaign",
       "annotation": "get_ransomware_threat_campaigns",
-      "description": "Retrieves the the ransomware threat campaign.",
+      "description": "Retrieves the ransomware threat campaign.",
       "category": "investigation",
       "is_config_required": true,
       "visible": true,
@@ -3103,7 +3103,7 @@
     },
     {
       "operation": "get_ransomware_intel_org_watchlist",
-      "title": "Get Ransomware Intelligence orgs watchlist to monitor",
+      "title": "Get Ransomware Intelligence Orgs Watchlist To Monitor",
       "annotation": "get_ransomware_intel_org_watchlist",
       "description": "Retrieves the orgs added for ransomware intelligence monitoring.",
       "category": "investigation",
@@ -3212,7 +3212,7 @@
     },
     {
       "operation": "get_technical_indicators_for_given_ransomware_group",
-      "title": "Get The Matched Organizations For Ransomware Intelligence Monitoring",
+      "title": "Get The Technical Indicators For The Given Ransomware Group",
       "annotation": "get_technical_indicators_for_given_ransomware_group",
       "description": "Retrieves the technical indicators for the given ransomware group.",
       "category": "investigation",
@@ -3267,7 +3267,7 @@
     },
     {
       "operation": "get_ransomware_group_info",
-      "title": "Get Ransomware Group Information.",
+      "title": "Get Ransomware Group Information",
       "annotation": "get_ransomware_group_info",
       "description": "Retrieves the ransomware group information for the given ransomware group.",
       "category": "investigation",
