@@ -26,7 +26,7 @@ class MakeRestApiCall:
 
         return datetime.strptime(str_date, "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d")
 
-    def make_request(self, endpoint='', params=None, data=None, method='GET', headers=None, url=None, json_data=None):
+    def make_request(self, endpoint='', params={}, data=None, method='GET', headers=None, url=None, json_data=None):
         try:
             params = {key: value for key, value in params.items() if value not in (None, "", [], {})}
             if url is None:
