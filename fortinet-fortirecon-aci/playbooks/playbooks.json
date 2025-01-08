@@ -4164,8 +4164,8 @@
           "uuid": "212efa16-dad6-4fd0-ac28-e5ef3a3919d9",
           "collection": "/api/3/workflow_collections/8f69ba78-7e82-4b2c-bd70-7043d14b0152",
           "triggerLimit": null,
-          "description": "Updates the status of the Stealers On Sale(Marketplaces) record.",
-          "name": "Update Stealers On Sale(Marketplaces) Status",
+          "description": "Updates the status of the Stealers On Sale Marketplaces record.",
+          "name": "Update Stealers On Sale Marketplaces Status",
           "tag": "#Fortinet FortiRecon ACI",
           "recordTags": [
             "Fortinet",
@@ -4186,7 +4186,7 @@
               "status": null,
               "arguments": {
                 "route": "5f59a04b-8aeb-46a8-a32a-9c640645d8f1",
-                "title": "Fortinet FortiRecon ACI: Update Stealers On Sale(Marketplaces) Status",
+                "title": "Fortinet FortiRecon ACI: Update Stealers On Sale Marketplaces Status",
                 "resources": [
                   "alerts"
                 ],
@@ -4207,7 +4207,7 @@
             {
               "uuid": "0f37d878-b510-423f-9de8-865a872e8a77",
               "@type": "WorkflowStep",
-              "name": "Update Stealers On Sale(Marketplaces) Status",
+              "name": "Update Stealers On Sale Marketplaces Status",
               "description": null,
               "status": null,
               "arguments": {
@@ -4217,7 +4217,7 @@
                 "version": "2.0.0",
                 "connector": "fortinet-fortirecon-aci",
                 "operation": "update_stealers_on_sale_status",
-                "operationTitle": "Update Stealers On Sale(Marketplaces) Status"
+                "operationTitle": "Update Stealers On Sale Marketplaces Status"
               },
               "left": "188",
               "top": "120",
@@ -4230,7 +4230,7 @@
               "uuid": "12f809ea-c4cd-4cad-a9d0-706bedb054b7",
               "label": null,
               "isExecuted": false,
-              "name": "Start-> Update Stealers On Sale(Marketplaces) Status",
+              "name": "Start-> Update Stealers On Sale Marketplaces Status",
               "sourceStep": "/api/3/workflow_steps/392d9d76-6a23-406d-8b7e-61e25a8d4570",
               "targetStep": "/api/3/workflow_steps/0f37d878-b510-423f-9de8-865a872e8a77"
             }

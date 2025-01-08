@@ -18,7 +18,7 @@ CONNECTOR_CATEGORY = ['Analytics and SIEM', 'Authentication', 'Case Management',
                       'Cloud Security', 'Email Server', 'Email Security',
                       'DevOps and Digital Operations and Digital Operations', 'Ticket Management', 'Other']
 OPERATION_CATEGORY = ["investigation", "containment", "remediation", "miscellaneous"]
-PARAMETER_CATEGORY = ["text", "textarea", "integer", "datetime", "select", "multiselect", "checkbox", "password",
+PARAMETER_CATEGORY = ["text", "date", "textarea", "integer", "datetime", "select", "multiselect", "checkbox", "password",
                       "json", "apiOperation"]
 
 

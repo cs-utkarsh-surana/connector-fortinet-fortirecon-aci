@@ -7,7 +7,7 @@
   "contributor": "Ramkrushna Pathade",
   "cs_approved": true,
   "cs_compatible": true,
-  "category": "Attack Surface Management",
+  "category": "Attack surface management",
   "icon_small_name": "small_icon.png",
   "icon_large_name": "large_icon.png",
   "ingestion_supported": true,
@@ -2859,7 +2859,7 @@
       "conditional_output_schema": [
         {
           "condition": "{{type_of_info === 'Top Ransomware Victims By Sector'}}",
-          "output_schema": 
+          "output_schema":
               {
                 "items": [
                     {
