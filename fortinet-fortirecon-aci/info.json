@@ -100,7 +100,7 @@
         {
           "name": "start_date",
           "title": "Start Date",
-          "type": "datetime",
+          "type": "date",
           "editable": true,
           "visible": true,
           "required": false,
@@ -110,7 +110,7 @@
         {
           "name": "end_date",
           "title": "End Date",
-          "type": "datetime",
+          "type": "date",
           "editable": true,
           "visible": true,
           "required": false,
@@ -193,7 +193,7 @@
         {
           "name": "start_date",
           "title": "Start Date",
-          "type": "datetime",
+          "type": "date",
           "editable": true,
           "visible": true,
           "required": false,
@@ -203,7 +203,7 @@
         {
           "name": "end_date",
           "title": "End Date",
-          "type": "datetime",
+          "type": "date",
           "editable": true,
           "visible": true,
           "required": false,
@@ -778,7 +778,7 @@
         {
           "name": "id",
           "title": "ID",
-          "type": "integer",
+          "type": "text",
           "editable": true,
           "visible": true,
           "required": true,
@@ -788,7 +788,7 @@
         {
           "name": "start_date",
           "title": "Start Date",
-          "type": "datetime",
+          "type": "date",
           "editable": true,
           "visible": true,
           "required": false,
@@ -798,7 +798,7 @@
         {
           "name": "end_date",
           "title": "End Date",
-          "type": "datetime",
+          "type": "date",
           "editable": true,
           "visible": true,
           "required": false,
@@ -1486,7 +1486,7 @@
           "editable": true,
           "visible": true,
           "required": true,
-          "tooltip": "Specify the vendor ID to fetch its details.",
+          "tooltip": "Specify the vendor ID to fetch its details. Get the vendor ID from the action: Get Vendor Watchlist",
           "description": "Specify the vendor ID to fetch its details."
         }
       ],
@@ -2593,7 +2593,7 @@
         {
           "name": "start_date",
           "title": "Start Date",
-          "type": "datetime",
+          "type": "date",
           "editable": true,
           "visible": true,
           "required": false,
@@ -2603,7 +2603,7 @@
         {
           "name": "end_date",
           "title": "End Date",
-          "type": "datetime",
+          "type": "date",
           "editable": true,
           "visible": true,
           "required": false,
@@ -2804,7 +2804,7 @@
           "type": "select",
           "editable": true,
           "visible": true,
-          "required": false,
+          "required": true,
           "tooltip": "Select the type of stats you want to fetch for ransomware intelligence.",
           "description": "Select the type of stats you want to fetch for ransomware intelligence.",
           "options": [
@@ -2838,7 +2838,7 @@
         {
           "name": "start_date",
           "title": "Start Date",
-          "type": "datetime",
+          "type": "date",
           "editable": true,
           "visible": true,
           "required": false,
@@ -2848,7 +2848,7 @@
         {
           "name": "end_date",
           "title": "End Date",
-          "type": "datetime",
+          "type": "date",
           "editable": true,
           "visible": true,
           "required": false,
@@ -3040,7 +3040,7 @@
         {
           "name": "start_date",
           "title": "Start Date",
-          "type": "datetime",
+          "type": "date",
           "editable": true,
           "visible": true,
           "required": false,
@@ -3050,7 +3050,7 @@
         {
           "name": "end_date",
           "title": "End Date",
-          "type": "datetime",
+          "type": "date",
           "editable": true,
           "visible": true,
           "required": false,
