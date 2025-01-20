@@ -58,6 +58,10 @@ def get_ransomware_intelligence_statistics(config: dict, params: dict) -> dict:
     if time_range_type:
         params["time_range_type"] = TIME_RANGE_MAPPING.get(time_range_type)
     endpoint = '/aci/{org_id}/ransomware_intelligence/stats'+'/{url}'.format(url=URL.get(params.get('type_of_info'))) if params.get('type_of_info') else ""
+    if params.get("start_date"):
+        params["start_date"] = MK.handle_date(params.get("start_date"))
+    if params.get("end_date"):
+        params["end_date"] = MK.handle_date(params.get("end_date"))
     response = MK.make_request(endpoint=endpoint, method="GET", params=params)
     return response
 
@@ -70,6 +74,10 @@ def get_ransomware_threat_campaigns(config: dict, params: dict) -> dict:
 def get_ransomware_potential_victims(config: dict, params: dict) -> dict:
     MK = MakeRestApiCall(config=config)
     endpoint = '/aci/{org_id}/ransomware_intelligence/potential_victims'
+    if params.get("start_date"):
+        params["start_date"] = MK.handle_date(params.get("start_date"))
+    if params.get("end_date"):
+        params["end_date"] = MK.handle_date(params.get("end_date"))
     response = MK.make_request(endpoint=endpoint, method="GET", params=params)
     return response
 

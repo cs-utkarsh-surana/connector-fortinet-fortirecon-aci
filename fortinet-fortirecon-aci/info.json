@@ -82,7 +82,7 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Should be comma separated string or single string.",
+          "tooltip": "Filter by specific ACI report ID(s). Multiple IDs should be comma separated and will work as OR filter, example: 2019091459522,2019090116811.",
           "placeholder": "example: 2019091459522,2019090116811",
           "description": "Specify a comma-separated list of report IDs from which you want to fetch the IOCs."
         },
@@ -93,7 +93,7 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Should be comma separated string or single string.",
+          "tooltip": "Filter by specific Indicator of Compromise (IOC) type(s). Acceptable values are: URL, HASH, DOMAIN, IP, adversary, cve, file_name, email, file_path, registry_key. Multiple types should be comma separated and will work as OR filter, example:cve,IP.",
           "placeholder": "example: cve,IP-REPUTATION",
           "description": "Specify a comma-separated string or single string of the type of IOCs you want to retrieve from Fortinet FortiRecon ACI. For example, cve,IP-REPUTATION"
         },
@@ -104,8 +104,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Should be Date or Default is Now - 6 months (YYYY-MM-DD)",
-          "description": "Specify the date from when you want to retrieve IOCs from Fortinet FortiRecon ACI. By default, this is set to Now - 6 months (YYYY-MM-DD)."
+          "tooltip": "Filter by report published date, default is last 6 months.",
+          "description": "Specify the date from when you want to retrieve IOCs from Fortinet FortiRecon ACI. By default, this is set to Now - 6 months."
         },
         {
           "name": "end_date",
@@ -114,8 +114,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Should be Date or Default is Current Date (YYYY-MM-DD)",
-          "description": "Specify the date till when you want to retrieve IOCs from Fortinet FortiRecon ACI. By default, this is set to Current Date (YYYY-MM-DD)."
+          "tooltip": "Filter by report published date, default is today's date.",
+          "description": "Specify the date till when you want to retrieve IOCs from Fortinet FortiRecon ACI. By default, this is set to Current Date."
         },
         {
           "name": "page",
@@ -124,7 +124,7 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Page number from which you want to retrieve records.",
+          "tooltip": "Navigate between pages. Defaults to 1.",
           "description": "Specify the page number from which to retrieve results."
         },
         {
@@ -136,8 +136,8 @@
           "required": false,
           "value": 10,
           "placeholder": "Must be greater 0 and less than or equal to 500.",
-          "tooltip": "Specify the maximum number of records that this operation should return for the specified page. By default, it retrieves 10 records.",
-          "description": "Specify the maximum number of records that this operation should return for the specified page. By default, it retrieves 10 records. Must be greater 0 and less than or equal to 500."
+          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
+          "description": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page. Must be greater 0 and less than or equal to 500."
         }
       ],
       "output_schema": {
@@ -177,6 +177,7 @@
           "editable": true,
           "visible": true,
           "required": false,
+          "tooltip": "Filter by card type(s). Acceptable values are: DEBIT, CREDIT. Multiple types should be comma separated and will work as OR filter, example: DEBIT,CREDIT.",
           "placeholder": "example: DEBIT,CREDIT",
           "description": "Specify the type of leaked card you want to retrieve from Fortinet FortiRecon ACI."
         },
@@ -187,6 +188,7 @@
           "editable": true,
           "visible": true,
           "required": false,
+          "tooltip": "Filter by Bank Identification Number (BIN). Multiple BIN(s) should be comma separated and will work as OR filter, example: 123456,234567.",
           "placeholder": "example: 123456,654321",
           "description": "Specify the bin associated with the leaked card you want to retrieve from Fortinet FortiRecon ACI. For example, 123456,654321"
         },
@@ -197,8 +199,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Should be Date or Default is Now - 6 months (YYYY-MM-DD)",
-          "description": "Specify the date from when you want to retrieve leaked cards from Fortinet FortiRecon ACI. By default, this is set to Now - 6 months (YYYY-MM-DD)."
+          "tooltip": "Filter by leaked card's discovery date, default is last 6 months.",
+          "description": "Specify the date from when you want to retrieve leaked cards from Fortinet FortiRecon ACI. By default, this is set to Now - 6 months."
         },
         {
           "name": "end_date",
@@ -207,8 +209,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Should be Date or Default is Current Date (YYYY-MM-DD)",
-          "description": "Specify the date till when you want to retrieve leaked cards from Fortinet FortiRecon ACI. By default, this is set to Current Date (YYYY-MM-DD)."
+          "tooltip": "Filter by leaked card's discovery date, default is today's date.",
+          "description": "Specify the date till when you want to retrieve leaked cards from Fortinet FortiRecon ACI. By default, this is set to Current Date."
         },
         {
           "name": "page",
@@ -217,7 +219,7 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Page number from which you want to retrieve records.",
+          "tooltip": "Navigate between pages. Defaults to 1.",
           "description": "Specify the page number from which to retrieve results."
         },
         {
@@ -228,8 +230,8 @@
           "visible": true,
           "value": 10,
           "placeholder": "Must be greater 0 and less than or equal to 500.",
-          "tooltip": "Specify the maximum number of records that this operation should return for the specified page. By default, it retrieves 10 records.",
-          "description": "Specify the maximum number of records that this operation should return for the specified page. By default, it retrieves 10 records. Must be greater 0 and less than or equal to 500."
+          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
+          "description": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page. Must be greater 0 and less than or equal to 500."
         }
       ],
       "output_schema": {
@@ -277,7 +279,7 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Page number from which you want to retrieve records.",
+          "tooltip": "Navigate between pages. Defaults to 1.",
           "description": "Specify the page number from which to retrieve results."
         },
         {
@@ -289,8 +291,8 @@
           "value": 10,
           "required": false,
           "placeholder": "Must be greater 0 and less than or equal to 500.",
-          "tooltip": "Specify the maximum number of records that this operation should return for the specified page. By default, it retrieves 10 records.",
-          "description": "Specify the maximum number of records that this operation should return for the specified page. By default, it retrieves 10 records. Must be greater 0 and less than or equal to 500."
+          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
+          "description": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page. Must be greater 0 and less than or equal to 500."
         }
       ],
       "output_schema": {
@@ -330,6 +332,7 @@
           "editable": true,
           "visible": true,
           "required": false,
+          "tooltip": "Specify the Widget ID using which you want to filter the OSINT feeds retrieved from Fortinet FortiRecon ACI.",
           "placeholder": "example:cae33d66-66yi-4fda-vc55-678c1ee23f88",
           "description": "Specify the Widget ID using which you want to filter the OSINT feeds retrieved from Fortinet FortiRecon ACI."
         },
@@ -340,8 +343,9 @@
           "editable": true,
           "visible": true,
           "required": false,
+          "tooltip": "Specify the keyword using which you want to filter the OSINT feeds retrieved from Fortinet FortiRecon ACI.",
           "placeholder": "example:breach",
-          "description": "Specify the keyword using which you want to filter the OSINT feeds retrieved from Fortinet FortiRecon ACI. "
+          "description": "Specify the keyword using which you want to filter the OSINT feeds retrieved from Fortinet FortiRecon ACI."
         },
         {
           "name": "page",
@@ -350,7 +354,7 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Page number from which you want to retrieve records.",
+          "tooltip": "Navigate between pages. Defaults to 1.",
           "description": "Specify the page number from which to retrieve results."
         },
         {
@@ -362,8 +366,8 @@
           "visible": true,
           "required": false,
           "placeholder": "Must be greater 0 and less than or equal to 500.",
-          "tooltip": "Specify the maximum number of records that this operation should return for the specified page. By default, it retrieves 10 records.",
-          "description": "Specify the maximum number of records that this operation should return for the specified page. By default, it retrieves 10 records. Must be greater 0 and less than or equal to 500."
+          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
+          "description": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page. Must be greater 0 and less than or equal to 500."
         }
       ],
       "output_schema": {
@@ -404,7 +408,7 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Should be comma separated string or single string.",
+          "tooltip": "Filter by specific relevance rating. This is the relevance of the report for the given organisation. Available values are: Low, Medium, High. Multiple relevance ratings should be comma separated and will work as OR filter, example: Medium,High.",
           "placeholder": "example:Medium,High,Low",
           "description": "Specify a comma-separated string or single string of the relevance ratings of the reports you want to retrieve from Fortinet FortiRecon ACI. For example, Medium,High,Low"
         },
@@ -415,7 +419,7 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Should be comma separated string or single string.",
+          "tooltip": "Filter by specific tag(s). Multiple tags should be comma separated and will work as OR filter, example: phishing,malware,exploited.",
           "placeholder": "example:Data Breach,Cyber Crime",
           "description": "Specify a comma-separated string or single string of the tags associated with the reports you want to retrieve from Fortinet FortiRecon ACI. For example, Data Breach,Cyber Crime"
         },
@@ -426,7 +430,7 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Should be comma separated string or single string.",
+          "tooltip": "Filter by specific adversary (actor names, APT groups). Multiple adversary should be comma separated and will work as OR filter, example: apt35,foo,bar.",
           "placeholder": "example:Databases,APT 34",
           "description": "Specify a comma-separated string or single string of the adversary associated with the reports you want to retrieve from Fortinet FortiRecon ACI. For example, Databases,APT 34"
         },
@@ -437,7 +441,7 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Should be comma separated string or single string.",
+          "tooltip": "Filter by specific source category. Acceptable values are: Media Trends, Darknet, Humint, OSINT, Fraudulent Domains, Technical Intelligence, Executive Summary. Multiple source categories should be comma separated and will work as OR filter, example: Darknet,OSINT.",
           "placeholder": "example: OSINT,Darknet",
           "description": "Specify a comma-separated string or single string of the source category associated with the reports you want to retrieve from Fortinet FortiRecon ACI. For example, OSINT,Darknet"
         },
@@ -448,7 +452,7 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Should be comma separated string or single string.",
+          "tooltip": "Filter by specific report type(s). Acceptable values are: Flash Report, Flash Alert, Threat alert, Threat report. Multiple report types should be comma separated and will work as OR filter, example: Flash Report,Flash Alert.",
           "placeholder": "example: Flash Report,Flash Alert",
           "description": "Specify a comma-separated string or single string of the type of reports you want to retrieve from Fortinet FortiRecon ACI. For example, Flash Report,Flash Alert"
         },
@@ -459,7 +463,7 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Should be comma separated string or single string.",
+          "tooltip": "Filter reports by specific industry. Multiple industries should be comma separated and will work as OR filter, example: manufacturing,government,hospitality.",
           "placeholder": "example: All Sectors,Technology",
           "description": "Specify a comma-separated string or single string of the industry associated with the reports you want to retrieve from Fortinet FortiRecon ACI. For example, All Sectors,Technology"
         },
@@ -470,7 +474,7 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Should be comma separated string or single string.",
+          "tooltip": "Filter reports by geography. Multiple geographies should be comma separated and will work as OR filter, example: south america,western europe, east asia,africa.",
           "placeholder": "example: Western Europe,South East Asia",
           "description": "Specify a comma-separated string or single string of the geography of the reports you want to retrieve from Fortinet FortiRecon ACI. For example, Western Europe,South East Asia"
         },
@@ -481,6 +485,7 @@
           "editable": true,
           "visible": true,
           "required": false,
+          "tooltip": "Filter by specific keyword. Provided keyword will be searched in these fields: Report ID, Report Title, Report Summary, Report Content, Source Category, Actors, Motivation, Threats, Industry Tags.",
           "placeholder": "keyword",
           "description": "Specify the keyword using which you want to filter the reports retrieved from Fortinet FortiRecon ACI. "
         },
@@ -491,6 +496,7 @@
           "editable": true,
           "visible": true,
           "required": false,
+          "tooltip": "Filter by specific source reliability. Acceptable values are: A-Reliable, B-Usually reliable, C-Fairly reliable, D-Not usually reliable, E-Unreliable, F-Cannot be judged. Multiple source reliabilities should be comma separated and will work as OR filter, example: F-Cannot be judged,A-Reliable.",
           "placeholder": "source_reliability",
           "description": "Specify the source reliability of the reports you want to retrieve from Fortinet FortiRecon ACI."
         },
@@ -501,6 +507,7 @@
           "editable": true,
           "visible": true,
           "required": false,
+          "tooltip": "Filter by specific information reliability. Acceptable values are:1-Confirmed, 2-Probably true, 3-Possibly true, 4-Doubtfully true, 5-Improbable, 6-Cannot be judged. Multiple information reliabilities should be comma separated and will work as OR filter, example: 1-Confirmed,2-Probably true.",
           "placeholder": "information_reliability",
           "description": "Specify the information reliability of the reports you want to retrieve from Fortinet FortiRecon ACI."
         },
@@ -511,8 +518,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Should be Date or Default is Now - 6 months (YYYY-MM-DD)",
-          "description": "Specify the date from when you want to retrieve reports from Fortinet FortiRecon ACI. By default, this is set to Now - 6 months (YYYY-MM-DD)."
+          "tooltip": "Filter by report published date, default is last 6 months.",
+          "description": "Specify the date from when you want to retrieve reports from Fortinet FortiRecon ACI. By default, this is set to Now - 6 months."
         },
         {
           "name": "end_date",
@@ -521,8 +528,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Should be Date or Default is Current Date (YYYY-MM-DD)",
-          "description": "Specify the date till when you want to retrieve reports from Fortinet FortiRecon ACI. By default, this is set to Current Date (YYYY-MM-DD)."
+          "tooltip": "Filter by report published date, default is today's date.",
+          "description": "Specify the date till when you want to retrieve reports from Fortinet FortiRecon ACI. By default, this is set to Current Date."
         },
         {
           "name": "page",
@@ -531,7 +538,7 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Page number from which you want to retrieve records.",
+          "tooltip": "Navigate between pages. Defaults to 1.",
           "description": "Specify the page number from which to retrieve results."
         },
         {
@@ -543,8 +550,8 @@
           "value": 10,
           "required": false,
           "placeholder": "Must be greater 0 and less than or equal to 500.",
-          "tooltip": "Specify the maximum number of records that this operation should return for the specified page. By default, it retrieves 10 records.",
-          "description": "Specify the maximum number of records that this operation should return for the specified page. By default, it retrieves 10 records. Must be greater 0 and less than or equal to 500."
+          "tooltip": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page.",
+          "description": "Specify the number of records to fetch per page. Default value is 10 and you can specify a maximum value of 500 per page. Must be greater 0 and less than or equal to 500."
         }
       ],
       "output_schema": {
@@ -602,7 +609,7 @@
           "visible": true,
           "required": true,
           "placeholder": " specify id",
-          "tooltip": "Specify the Report ID",
+          "tooltip": "Specify the ID of the report whose details, including IOCs, you want to retrieve from Fortinet FortiRecon ACI.",
           "description": "Specify the ID of the report whose details, including IOCs, you want to retrieve from Fortinet FortiRecon ACI."
         }
       ],
@@ -635,7 +642,9 @@
           ""
         ],
         "tlp": "",
-        "type": ""
+        "report_type": "",
+        "source_category": "",
+        "threat": ""
       }
     },
     {
@@ -713,8 +722,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+          "tooltip": "Navigate between pages. Defaults to 1.",
+          "description": "Navigate between pages. Defaults to 1."
         },
         {
           "name": "size",
@@ -812,8 +821,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+          "tooltip": "Navigate between pages. Defaults to 1.",
+          "description": "Navigate between pages. Defaults to 1."
         },
         {
           "name": "size",
@@ -999,8 +1008,8 @@
                 "editable": true,
                 "visible": true,
                 "required": false,
-                "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-                "description": "Specify the page number from which to retrieve the results. Default value is 1."
+                "tooltip": "Navigate between pages. Defaults to 1.",
+                "description": "Navigate between pages. Defaults to 1."
               },
               {
                 "name": "size",
@@ -1022,8 +1031,8 @@
                 "editable": true,
                 "visible": true,
                 "required": false,
-                "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-                "description": "Specify the page number from which to retrieve the results. Default value is 1."
+                "tooltip": "Navigate between pages. Defaults to 1.",
+                "description": "Navigate between pages. Defaults to 1."
               },
               {
                 "name": "size",
@@ -1180,8 +1189,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+          "tooltip": "Navigate between pages. Defaults to 1.",
+          "description": "Navigate between pages. Defaults to 1."
         },
         {
           "name": "size",
@@ -1206,7 +1215,9 @@
             "status": "",
             "stealer_name": "",
             "url": "",
-            "user_name": ""
+            "username": "",
+            "user_type": "",
+            "affiliated_domain": ""
           }
         ],
         "page": "",
@@ -1230,7 +1241,7 @@
           "type": "select",
           "editable": true,
           "visible": true,
-          "required": false,
+          "required": true,
           "tooltip": "Select the type of information you want to fetch for vendor.",
           "description": "Select the type of information you want to fetch for vendor.",
           "options": [
@@ -1435,8 +1446,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+          "tooltip": "Navigate between pages. Defaults to 1.",
+          "description": "Navigate between pages. Defaults to 1."
         },
         {
           "name": "size",
@@ -1718,8 +1729,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+          "tooltip": "Navigate between pages. Defaults to 1.",
+          "description": "Navigate between pages. Defaults to 1."
         },
         {
           "name": "size",
@@ -1848,8 +1859,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+          "tooltip": "Navigate between pages. Defaults to 1.",
+          "description": "Navigate between pages. Defaults to 1."
         },
         {
           "name": "size",
@@ -1931,8 +1942,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+          "tooltip": "Navigate between pages. Defaults to 1.",
+          "description": "Navigate between pages. Defaults to 1."
         },
         {
           "name": "size",
@@ -2015,8 +2026,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+          "tooltip": "Navigate between pages. Defaults to 1.",
+          "description": "Navigate between pages. Defaults to 1."
         },
         {
           "name": "size",
@@ -2209,8 +2220,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+          "tooltip": "Navigate between pages. Defaults to 1.",
+          "description": "Navigate between pages. Defaults to 1."
         },
         {
           "name": "size",
@@ -2308,8 +2319,8 @@
                 "editable": true,
                 "visible": true,
                 "required": false,
-                "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-                "description": "Specify the page number from which to retrieve the results. Default value is 1."
+                "tooltip": "Navigate between pages. Defaults to 1.",
+                "description": "Navigate between pages. Defaults to 1."
               },
               {
                 "name": "size",
@@ -2331,8 +2342,8 @@
                 "editable": true,
                 "visible": true,
                 "required": false,
-                "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-                "description": "Specify the page number from which to retrieve the results. Default value is 1."
+                "tooltip": "Navigate between pages. Defaults to 1.",
+                "description": "Navigate between pages. Defaults to 1."
               },
               {
                 "name": "size",
@@ -2501,8 +2512,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+          "tooltip": "Navigate between pages. Defaults to 1.",
+          "description": "Navigate between pages. Defaults to 1."
         },
         {
           "name": "size",
@@ -2597,8 +2608,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Date must be in this format (YYYY-MM-DD)",
-          "description": "Specify the date from when you want to retrieve ransomware victims. Supported Date format: (YYYY-MM-DD)."
+          "tooltip": "Specify the date from when you want to retrieve ransomware victims.",
+          "description": "Specify the date from when you want to retrieve ransomware victims."
         },
         {
           "name": "end_date",
@@ -2607,8 +2618,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Date must be in this format (YYYY-MM-DD)",
-          "description": "Specify the date till when you want to retrieve ransomware victims. Supported Date format: (YYYY-MM-DD)."
+          "tooltip": "Specify the date till when you want to retrieve ransomware victims.",
+          "description": "Specify the date till when you want to retrieve ransomware victims."
         },
         {
           "name": "page",
@@ -2617,8 +2628,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+          "tooltip": "Navigate between pages. Defaults to 1.",
+          "description": "Navigate between pages. Defaults to 1."
         },
         {
           "name": "size",
@@ -2712,8 +2723,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+          "tooltip": "Navigate between pages. Defaults to 1.",
+          "description": "Navigate between pages. Defaults to 1."
         },
         {
           "name": "size",
@@ -2759,8 +2770,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+          "tooltip": "Navigate between pages. Defaults to 1.",
+          "description": "Navigate between pages. Defaults to 1."
         },
         {
           "name": "size",
@@ -2842,8 +2853,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Date must be in this format (YYYY-MM-DD)",
-          "description": "Specify the date from when you want to retrieve ransomware intelligence stats. Supported Date format: (YYYY-MM-DD)."
+          "tooltip": "Specify the date from when you want to retrieve ransomware intelligence stats.",
+          "description": "Specify the date from when you want to retrieve ransomware intelligence stats."
         },
         {
           "name": "end_date",
@@ -2852,8 +2863,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Date must be in this format (YYYY-MM-DD)",
-          "description": "Specify the date till when you want to retrieve ransomware intelligence stats. Supported Date format: (YYYY-MM-DD)."
+          "tooltip": "Specify the date till when you want to retrieve ransomware intelligence stats.",
+          "description": "Specify the date till when you want to retrieve ransomware intelligence stats."
         }
       ],
       "conditional_output_schema": [
@@ -2966,8 +2977,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+          "tooltip": "Navigate between pages. Defaults to 1.",
+          "description": "Navigate between pages. Defaults to 1."
         },
         {
           "name": "size",
@@ -3044,8 +3055,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Date must be in this format (YYYY-MM-DD)",
-          "description": "Specify the date from when you want to retrieve potential ransomware victims. Supported Date format: (YYYY-MM-DD)."
+          "tooltip": "Specify the date from when you want to retrieve potential ransomware victims",
+          "description": "Specify the date from when you want to retrieve potential ransomware victims."
         },
         {
           "name": "end_date",
@@ -3054,8 +3065,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Date must be in this format (YYYY-MM-DD)",
-          "description": "Specify the date till when you want to retrieve potential ransomware victims. Supported Date format: (YYYY-MM-DD)."
+          "tooltip": "Specify the date till when you want to retrieve potential ransomware victims.",
+          "description": "Specify the date till when you want to retrieve potential ransomware victims."
         },
         {
           "name": "page",
@@ -3064,8 +3075,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+          "tooltip": "Navigate between pages. Defaults to 1.",
+          "description": "Navigate between pages. Defaults to 1."
         },
         {
           "name": "size",
@@ -3133,8 +3144,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+          "tooltip": "Navigate between pages. Defaults to 1.",
+          "description": "Navigate between pages. Defaults to 1."
         },
         {
           "name": "size",
@@ -3181,8 +3192,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+          "tooltip": "Navigate between pages. Defaults to 1.",
+          "description": "Navigate between pages. Defaults to 1."
         },
         {
           "name": "size",
@@ -3237,8 +3248,8 @@
           "editable": true,
           "visible": true,
           "required": false,
-          "tooltip": "Specify the page number from which to retrieve the results. Default value is 1.",
-          "description": "Specify the page number from which to retrieve the results. Default value is 1."
+          "tooltip": "Navigate between pages. Defaults to 1.",
+          "description": "Navigate between pages. Defaults to 1."
         },
         {
           "name": "size",
@@ -3372,7 +3383,7 @@
           "visible": true,
           "editable": true,
           "required": true,
-          "tooltip": "Specify the status to update the Stealers On Sale(Marketplaces) Record.",
+          "tooltip": "Specify the status to update the Stealers On Sale(Marketplaces) Record. You can choose from ACTIVE, RESOLVED.",
           "description": "Specify the status to update the Stealers On Sale(Marketplaces) Record. You can choose from ACTIVE, RESOLVED.",
           "options": [
             "ACTIVE",
